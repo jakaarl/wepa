@@ -10,3 +10,4 @@ Saitti "happypuppy.org" (työnimi), jolle käyttäjät lataavat söpöjä eläin
 
 Jne jne TODO!
 
+[![Coverage Status](https://img.shields.io/coveralls/jakaarl/wepa.svg)](https://coveralls.io/r/jakaarl/wepa)
