@@ -53,5 +53,21 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<!-- <version>Parent POM seems to define a compatible version?</version> -->
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 </project>
