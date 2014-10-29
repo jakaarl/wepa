@@ -10,6 +10,10 @@ Saitti "happypuppy.org" (työnimi), jolle käyttäjät lataavat söpöjä eläin
 
 Jne jne TODO!
 
+Continuous Integration
+======================
+
+[![Build Status](https://travis-ci.org/jakaarl/wepa.svg?branch=master)](https://travis-ci.org/jakaarl/wepa)
 
 Coveralls
 =========
