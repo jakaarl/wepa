@@ -8,8 +8,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>Happy Puppy</name>
-	<description>Social sharing of puppy pics</description>
+	<name>Cutenimals</name>
+	<description>Social sharing of animal pictures</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
