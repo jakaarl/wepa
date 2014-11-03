@@ -10,9 +10,10 @@ Saitti "cutenimals.net" (työnimi), jolle käyttäjät lataavat söpöjä eläin
 
 Jne jne TODO!
 
-Travis
+Heroku
 ======
-https://travis-ci.org/jakaarl/wepa
+
+https://serene-ridge-9061.herokuapp.com/
 
 Continuous Integration & Test Coverage
 ======================================
