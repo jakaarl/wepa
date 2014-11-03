@@ -10,6 +10,10 @@ Saitti "cutenimals.net" (työnimi), jolle käyttäjät lataavat söpöjä eläin
 
 Jne jne TODO!
 
+Travis
+======
+https://travis-ci.org/jakaarl/wepa
+
 Continuous Integration & Test Coverage
 ======================================
 [![Build Status](https://travis-ci.org/jakaarl/wepa.svg?branch=master)](https://travis-ci.org/jakaarl/wepa)
