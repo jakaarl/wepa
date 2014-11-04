@@ -6,5 +6,21 @@
   </head>
   <body>
     <p>Awww, hello world! Watch this space for super-adorable cutesy animal pics!!!1111</p>
+    <h3 th:if="${message != null}" th:text="${message}">bla</h3>
+
+    <div th:if="${id != null}">
+        <img th:attr="src=@{${id}}, title=#{background}, alt=#{background}" style="width: 150px; height: 150px;"/>
+        <p>Name: <span th:if="${name != null}" th:text="${name}">unknown</span></p>
+        <p>Description: <span th:if="${description != null}" th:text="${description}">unknown</span></p>
+   </div>
+
+    <hr/>
+    <p>Add new image:</p>
+    <form method="POST" th:action="@{/}" enctype="multipart/form-data">
+        <label for="file">File</label><input type="file" name="file" id="file"/>
+        <span th:if="${errorMessage != null}" th:text="${errorMessage}">bla</span><br/>
+        <label for="name">Description</label><input type="text" name="description" id="description"/><br/>
+        <input type="submit" value="Add!"/>
+    </form>
   </body>
 </html>

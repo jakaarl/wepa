@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class AnimalPicture extends AbstractPersistable<Long> {
     private String name;
     private String description;
+    private String contentType;
     private int likes;
     @Temporal(TemporalType.DATE)
     private Date added;
@@ -63,4 +64,13 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     public void setImage(byte[] image) {
         this.image = image;
     }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+    
 }
