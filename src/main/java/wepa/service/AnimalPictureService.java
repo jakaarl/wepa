@@ -32,16 +32,17 @@ public class AnimalPictureService {
         return null;
     }
 
+    // Validator for image file
     private boolean isValid(MultipartFile file) throws InvalidObjectException{
         if (!file.getContentType().contains("image")){
             throw new InvalidObjectException("You can upload only an image file");
         }
-        if (file.isEmpty() || file.getSize()>2000000){
-            throw new InvalidObjectException("File size must be greather than 0B and less than 2MB");
+        if (file.isEmpty() || file.getSize()>(5*1024*1024)){
+            throw new InvalidObjectException("File size must be less than 5MB");
         }
         return true;
     }
-    
+
     public ResponseEntity<byte[]> createResponseEntity(String id) {
         AnimalPicture pic = pictureRepo.findOne(Long.parseLong(id));
         final HttpHeaders headers = new HttpHeaders();
