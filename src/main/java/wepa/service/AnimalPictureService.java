@@ -32,7 +32,7 @@ public class AnimalPictureService {
     }
     
     private void validate(MultipartFile file) throws IllegalArgumentException {
-        if (!file.getContentType().contains("image")){
+        if (!file.getContentType().startsWith("image/")){
             throw new IllegalArgumentException("Only image files allowed");
         }
         if (file.isEmpty()) {
