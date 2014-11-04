@@ -1,57 +1,45 @@
 package wepa.service;
 
 import java.io.IOException;
-import java.io.InvalidObjectException;
 import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import wepa.domain.AnimalPicture;
 import wepa.repository.AnimalPictureRepository;
 
 @Service
 public class AnimalPictureService {
+    
     @Autowired
     private AnimalPictureRepository pictureRepo;
     
-    public AnimalPicture add(MultipartFile file, String description) throws IOException{
-        if (isValid(file)){
-            AnimalPicture pic = new AnimalPicture();
-            pic.setAdded(new Date());
-            pic.setDescription(description);
-            pic.setContentType(file.getContentType());
-            pic.setName(file.getOriginalFilename());
-            pic.setImage(file.getBytes());
-            
-            return pictureRepo.save(pic);
-        }
-        return null;
+    public AnimalPicture getById(Long id) {
+        return pictureRepo.findOne(id);
     }
-
-    // Validator for image file
-    private boolean isValid(MultipartFile file) throws InvalidObjectException{
+    
+    public AnimalPicture add(MultipartFile file, String description) throws IllegalArgumentException, IOException {
+        validate(file);
+        AnimalPicture pic = new AnimalPicture();
+        pic.setAdded(new Date());
+        pic.setDescription(description);
+        pic.setContentType(file.getContentType());
+        pic.setName(file.getOriginalFilename());
+        pic.setImage(file.getBytes());
+        return pictureRepo.save(pic);
+    }
+    
+    private void validate(MultipartFile file) throws IllegalArgumentException {
         if (!file.getContentType().contains("image")){
-            throw new InvalidObjectException("You can upload only an image file");
+            throw new IllegalArgumentException("Only image files allowed");
         }
-        if (file.isEmpty() || file.getSize()>(5*1024*1024)){
-            throw new InvalidObjectException("File size must be less than 5MB");
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("File cannot be empty");
+        } else if (file.getSize() > (5*1024*1024)) {
+            throw new IllegalArgumentException("File size must be less than 5MB");
         }
-        return true;
-    }
-
-    public ResponseEntity<byte[]> createResponseEntity(String id) {
-        AnimalPicture pic = pictureRepo.findOne(Long.parseLong(id));
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType(pic.getContentType()));
-        headers.setContentLength(pic.getImage().length);
-        headers.setCacheControl("public");
-        headers.setExpires(Long.MAX_VALUE);
-
-        return new ResponseEntity<>(pic.getImage(), headers, HttpStatus.CREATED);
     }
     
 }
