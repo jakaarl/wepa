@@ -2,7 +2,9 @@ package wepa.domain;
 
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -17,9 +19,9 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     private Date added;
     @Lob
     private byte[] image;
-    // TODO: OneToMany edits - Image edits by other users
-    // TODO: Author
-    //private User author;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User author;
     
     public AnimalPicture(){
         this.added = new Date();
@@ -71,6 +73,14 @@ public class AnimalPicture extends AbstractPersistable<Long> {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
     
 }
