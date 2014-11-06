@@ -48,13 +48,13 @@ public class AnimalPictureService {
     }
     
     private void validate(MultipartFile file) throws IllegalArgumentException {
-        if (!file.getContentType().startsWith("image/")){
-            throw new IllegalArgumentException("Only image files allowed");
-        }
         if (file.isEmpty()) {
             throw new IllegalArgumentException("File cannot be empty");
         } else if (file.getSize() > (5*1024*1024)) {
             throw new IllegalArgumentException("File size must be less than 5MB");
+        }
+        if (!file.getContentType().startsWith("image/")){
+            throw new IllegalArgumentException("Only image files allowed");
         }
     }
     
