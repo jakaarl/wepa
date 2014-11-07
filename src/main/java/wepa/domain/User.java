@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Entity
 public class User extends AbstractPersistable<Long> {
@@ -13,6 +14,7 @@ public class User extends AbstractPersistable<Long> {
     private String lastName;
     @Column(unique = true)
     private String email;
+    private String salt;
     private String password;
     
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
@@ -47,7 +49,8 @@ public class User extends AbstractPersistable<Long> {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.salt = BCrypt.gensalt();
+        this.password = BCrypt.hashpw(password, this.salt);
     }
 
     public List<AnimalPicture> getAnimalPictures() {
