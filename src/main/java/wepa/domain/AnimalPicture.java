@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 public class AnimalPicture extends AbstractPersistable<Long> {
-    private String name;
+    private String title;
     private String description;
     private String contentType;
     private int likes;
@@ -27,12 +27,12 @@ public class AnimalPicture extends AbstractPersistable<Long> {
         this.added = new Date();
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
