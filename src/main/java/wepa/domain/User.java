@@ -1,15 +1,20 @@
 package wepa.domain;
 
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Entity
-public class User extends AbstractPersistable<Long> {
+public class User extends AbstractPersistable<Long> implements UserDetails {
+    // TODO Roles and different authorities(?)
+    
     private String firstName;
     private String lastName;
     @Column(unique = true)
@@ -59,6 +64,40 @@ public class User extends AbstractPersistable<Long> {
 
     public void setAnimalPictures(List<AnimalPicture> animalPictures) {
         this.animalPictures = animalPictures;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    // Return true for now
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    
+    // Return true for now
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    // Return true for now
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    // Return true for now
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
     
     

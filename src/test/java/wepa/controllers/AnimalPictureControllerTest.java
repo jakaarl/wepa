@@ -83,7 +83,7 @@ public class AnimalPictureControllerTest {
                 .andReturn();
 
         AnimalPicture picture = pictureService.getById(new Long(1));
-        assertEquals(picture.getName(), imageName);
+        assertEquals(picture.getTitle(), imageName);
         assertEquals(picture.getDescription(), description);
         MvcResult res = mockMvc.perform(get("/1"))          
                  .andExpect(status().is2xxSuccessful())            

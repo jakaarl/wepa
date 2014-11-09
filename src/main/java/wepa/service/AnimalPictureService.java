@@ -42,7 +42,7 @@ public class AnimalPictureService {
         pic.setAdded(new Date());
         pic.setDescription(description);
         pic.setContentType(file.getContentType());
-        pic.setName(file.getOriginalFilename());
+        pic.setTitle(file.getOriginalFilename());
         pic.setImage(file.getBytes());
         return pictureRepo.save(pic);
     }

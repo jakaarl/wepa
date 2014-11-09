@@ -41,7 +41,7 @@ public class AnimalPictureController {
             redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
             redirectAttributes.addFlashAttribute("id", picture.getId());
             redirectAttributes.addFlashAttribute("description", picture.getDescription());
-            redirectAttributes.addFlashAttribute("name", picture.getName());
+            redirectAttributes.addFlashAttribute("name", picture.getTitle());
             return INDEX_REDIRECT;
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
