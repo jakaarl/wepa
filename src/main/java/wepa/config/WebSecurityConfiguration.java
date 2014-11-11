@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import wepa.service.UserAuthService;
+import wepa.auth.UserAuthService;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -19,8 +19,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity security) throws Exception {
         // allow everything, except post for a new picture
         security.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/").authenticated()
-                .anyRequest().permitAll();
+            //    .antMatchers(HttpMethod.POST, "/").authenticated()
+            //    .anyRequest().permitAll();
+                .antMatchers("/*", "/albums/*", "/albums/*/images/*").permitAll()
+                .anyRequest().authenticated();
+
     }
     
     

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cutenimals!!!</title>
+  </head>
+  <body>
+    <a th:href="@{/}" >Home page</a><br/>
+    <p th:if="${message != null}" th:text="${message}">bla</p>
+    
+    <h3>This is your <span  th:if="${album.albumName != null}" th:text="${album.albumName}"></span> album page</h3>
+    <div th:if="!${#lists.isEmpty(album.animalPictures)}">
+        <h3>Album pictures:</h3>
+        <ol>
+                 <li th:each="image : ${album.animalPictures}" style="display: inline-block">
+                    <img th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" style="width: 200px; height: 200px;"/>
+                    <p>Title: <span th:if="${image.title != null}" th:text="${image.title}">unknown</span></p>
+                    <p>Description: <span th:if="${image.description != null}" th:text="${image.description}">unknown</span></p>
+                 </li>
+        </ol>
+   </div>
+    <div th:if="${#lists.isEmpty(album.animalPictures)}">
+        No picture added!
+    </div>
+
+    <hr/>
+    <h4>Add new picture to album</h4>
+    <form method="POST" th:action="@{/albums/} + ${album.id}" enctype="multipart/form-data">
+        <label for="file">Picture</label><input type="file" name="file" id="file"/>
+        <span th:if="${errorMessage != null}" th:text="${errorMessage}">bla</span><br/>
+        <label for="name">Description</label><input type="text" name="description" id="description"/><br/>
+        <input type="submit" value="Add picture!"/>
+    </form>
+  </body>
+</html>

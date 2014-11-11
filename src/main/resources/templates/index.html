@@ -5,22 +5,38 @@
     <title>Cutenimals!!!</title>
   </head>
   <body>
-    <p>Awww, hello world! Watch this space for super-adorable cutesy animal pics!!!1111</p>
-    <h3 th:if="${message != null}" th:text="${message}">bla</h3>
+    <p th:if="${message != null}" th:text="${message}">bla</p>
 
-    <div th:if="${id != null}">
-        <img th:attr="src=@{${id}}" style="width: 200px; height: 200px;"/>
-        <p>Name: <span th:if="${name != null}" th:text="${name}">unknown</span></p>
-        <p>Description: <span th:if="${description != null}" th:text="${description}">unknown</span></p>
-   </div>
+    <div th:if="!${#lists.isEmpty(images)}">    
+        <h3>Last added super-adorable cutesy animal pics!!!</h3>
+        <ol>
+            <li th:each="image : ${images}" style="display: inline-block">
+                       <img th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" style="width: 200px; height: 200px;"/>
+                       <p>Title: <span th:if="${image.title != null}" th:text="${image.title}">unknown</span></p>
+            </li>
+        </ol>
+    </div>
+    <div th:if="${#lists.isEmpty(images)}">
+            You don't have any picture
+    </div>
+   
+    <div th:if="${albums != null}"> 
+        <h3>Albums created </h3>     
+        <ol>
+            <li th:each="album : ${albums}">
+                <a th:href="@{/albums/}+ ${album.id}" th:text="${album.albumName}"></a> (<span th:text="${#lists.size(album.animalPictures)}"/>)
+            </li>
+        </ol>
+    </div>
 
     <hr/>
-    <p>Add new image:</p>
+    <h3>Create new album:</h3>
     <form method="POST" th:action="@{/}" enctype="multipart/form-data">
-        <label for="file">File</label><input type="file" name="file" id="file"/>
+        <label for="file">Album name</label><input type="text" name="albumName" id="albumName"/>
         <span th:if="${errorMessage != null}" th:text="${errorMessage}">bla</span><br/>
         <label for="name">Description</label><input type="text" name="description" id="description"/><br/>
-        <input type="submit" value="Add!"/>
+        <input type="submit" value="Create!"/>
     </form>
+    
   </body>
 </html>
