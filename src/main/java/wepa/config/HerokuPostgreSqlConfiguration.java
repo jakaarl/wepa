@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("herokuPostgres")
+@Profile("heroku")
 public class HerokuPostgreSqlConfiguration {
 	
 	private static final String HEROKU_DATABASE_URL_KEY = "DATABASE_URL";
