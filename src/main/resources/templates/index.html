@@ -6,28 +6,34 @@
     <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
-      <nav th:replace="nav">
-          
-      </nav>
-      <div th:replace="messages">message</div>
-    <p>Awww, hello world! Watch this space for super-adorable cutesy animal pics!!!1111</p>
+    <nav th:replace="nav"></nav>
+    <div th:replace="messages">message</div>
     
-    <div th:replace="modals">modals</div>
-    <script th:replace="scripts">scripts</script>
-    
-    <!--<p th:if="${message != null}" th:text="${message}">bla</p>-->
-
-    <div th:if="!${#lists.isEmpty(images)}">    
-        <h3>Last added super-adorable cutesy animal pics!!!</h3>
-        <ol>
-            <li th:each="image : ${images}" style="display: inline-block">
-                       <img th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" style="width: 200px; height: 200px;"/>
-                       <p>Title: <span th:if="${image.title != null}" th:text="${image.title}">unknown</span></p>
-            </li>
-        </ol>
+    <div th:if="!${#lists.isEmpty(images)}" class="container-fluid">
+        <div id="animalpicture-container">
+            <!--<h3>Last added super-adorable cutesy animal pics!!!</h3>
+            <ol>
+                <li th:each="image : ${images}" style="display: inline-block">
+                           <img th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" style="width: 200px; height: 200px;"/>
+                           <p>Title: <span th:if="${image.title != null}" th:text="${image.title}">unknown</span></p>
+                </li>
+            </ol>-->
+            <div class="picture border-pastel-blue">
+                    <img th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" />
+                    <div class="title-box" th:if="${image.title != null}" th:text="${image.title}">
+                            Title :)
+                    </div>
+                    <div class="controls">
+                            <div class="description-box" th:if="${image.description != null}" th:text="${image.description}">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            </div>
+                            <a href="#" class="like-box"><i class="fa fa-heart-o"></i></a>
+                    </div>
+            </div>
+        </div>
     </div>
     <div th:if="${#lists.isEmpty(images)}">
-            You don't have any picture
+            You don't have any pictures
     </div>
    
     <div th:if="${albums != null}"> 
@@ -38,14 +44,8 @@
             </li>
         </ol>
     </div>
-
-    <hr/>
-    <h3>Create new album:</h3>
-    <form method="POST" th:action="@{/}" enctype="multipart/form-data">
-        <label for="file">Album name</label><input type="text" name="albumName" id="albumName"/>
-        <span th:if="${errorMessage != null}" th:text="${errorMessage}">bla</span><br/>
-        <label for="name">Description</label><input type="text" name="description" id="description"/><br/>
-        <input type="submit" value="Create!"/>
-    </form>
+    
+    <div th:replace="modals">modals</div>
+    <script th:replace="scripts">scripts</script>
   </body>
 </html>
