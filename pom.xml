@@ -98,15 +98,6 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		<profile>
-		    <id>heroku</id>
-		    <activation>
-		        <property>
-		            <name>env.DYNO</name>
-		        </property>
-		    </activation>
-		    <!--  disables the default profile, dropping H2 dependency -->
-		</profile>
 	</profiles>
 
 </project>
