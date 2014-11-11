@@ -20,8 +20,8 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     @Lob
     private byte[] image;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User author;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Album album;
     
     public AnimalPicture(){
         this.added = new Date();
@@ -75,12 +75,14 @@ public class AnimalPicture extends AbstractPersistable<Long> {
         this.contentType = contentType;
     }
 
-    public User getAuthor() {
-        return author;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
+
+ 
     
 }

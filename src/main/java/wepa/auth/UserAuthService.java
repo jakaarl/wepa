@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package wepa.service;
+package wepa.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import wepa.domain.User;
 import wepa.repository.UserRepository;
+import wepa.service.UserService;
 
 public class UserAuthService implements UserDetailsService {
     

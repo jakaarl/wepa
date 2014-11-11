@@ -21,9 +21,10 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     private String email;
     private String salt;
     private String password;
+    private String username;
     
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<AnimalPicture> animalPictures;
+//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+//    private List<AnimalPicture> animalPictures;
 
     public String getFirstName() {
         return firstName;
@@ -58,22 +59,17 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
         this.password = BCrypt.hashpw(password, this.salt);
     }
 
-    public List<AnimalPicture> getAnimalPictures() {
-        return animalPictures;
-    }
-
-    public void setAnimalPictures(List<AnimalPicture> animalPictures) {
-        this.animalPictures = animalPictures;
-    }
+//    public List<AnimalPicture> getAnimalPictures() {
+//        return animalPictures;
+//    }
+//
+//    public void setAnimalPictures(List<AnimalPicture> animalPictures) {
+//        this.animalPictures = animalPictures;
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
     }
 
     // Return true for now
@@ -98,6 +94,14 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
     
     
