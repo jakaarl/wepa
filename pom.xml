@@ -41,6 +41,17 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- <dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.3-1102-jdbc41</version>
+			<scope>provided</scope>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -90,6 +101,15 @@
 					<!-- <version>Parent POM seems to define a compatible version?</version> -->
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+		    <id>heroku</id>
+		    <activation>
+		        <property>
+		            <name>env.DYNO</name>
+		        </property>
+		    </activation>
+		    <!--  disables the default profile, dropping H2 dependency -->
 		</profile>
 	</profiles>
 
