@@ -6,7 +6,6 @@
     <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
-<<<<<<< HEAD
       <nav th:replace="nav">
           
       </nav>
@@ -15,8 +14,8 @@
     
     <div th:replace="modals">modals</div>
     <script th:replace="scripts">scripts</script>
-=======
-    <p th:if="${message != null}" th:text="${message}">bla</p>
+    
+    <!--<p th:if="${message != null}" th:text="${message}">bla</p>-->
 
     <div th:if="!${#lists.isEmpty(images)}">    
         <h3>Last added super-adorable cutesy animal pics!!!</h3>
@@ -48,7 +47,5 @@
         <label for="name">Description</label><input type="text" name="description" id="description"/><br/>
         <input type="submit" value="Create!"/>
     </form>
-    
->>>>>>> origin/master
   </body>
 </html>
