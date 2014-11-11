@@ -28,7 +28,8 @@
     <form method="POST" th:action="@{/albums/} + ${album.id}" enctype="multipart/form-data">
         <label for="file">Picture</label><input type="file" name="file" id="file"/>
         <span th:if="${errorMessage != null}" th:text="${errorMessage}">bla</span><br/>
-        <label for="name">Description</label><input type="text" name="description" id="description"/><br/>
+        <label for="title">Title</label> <input type="text" name="title" id="title"/><br/>
+        <label for="name">Description</label> <input type="text" name="description" id="description"/><br/>
         <input type="submit" value="Add picture!"/>
     </form>
   </body>

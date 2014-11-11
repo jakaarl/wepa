@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
 import wepa.repository.AnimalPictureRepository;
 
@@ -34,13 +35,18 @@ public class AnimalPictureService {
         return pictureRepo.findAll(limit).getContent();
     }
     
-    public AnimalPicture add(MultipartFile file, String description) throws IllegalArgumentException, IOException {
+    public AnimalPicture add(MultipartFile file, String title, String description, Album album) throws IllegalArgumentException, IOException {
         validate(file);
         AnimalPicture pic = new AnimalPicture();
         pic.setAdded(new Date());
+        if(title.isEmpty()){
+            pic.setTitle(file.getOriginalFilename());
+        } else {
+            pic.setTitle(title);
+        }
         pic.setDescription(description);
+        pic.setAlbum(album);
         pic.setContentType(file.getContentType());
-        pic.setTitle(file.getOriginalFilename());
         pic.setImage(file.getBytes());
         return pictureRepo.save(pic);
     }
