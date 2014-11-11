@@ -30,7 +30,7 @@ import wepa.service.AnimalPictureService;
 @WebAppConfiguration
 @ActiveProfiles("test")
 public class AnimalPictureControllerTest {
-    private final String POST_ADDRESS = "/";
+    private final String POST_ADDRESS = "/albums/1/";
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -85,7 +85,7 @@ public class AnimalPictureControllerTest {
         AnimalPicture picture = pictureService.getById(new Long(1));
         assertEquals(picture.getTitle(), imageName);
         assertEquals(picture.getDescription(), description);
-        MvcResult res = mockMvc.perform(get("/1"))          
+        MvcResult res = mockMvc.perform(get("/albums/1/images/1"))          
                  .andExpect(status().is2xxSuccessful())            
                  .andReturn();
         
