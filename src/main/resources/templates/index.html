@@ -18,8 +18,9 @@
                            <p>Title: <span th:if="${image.title != null}" th:text="${image.title}">unknown</span></p>
                 </li>
             </ol>-->
-            <div class="picture border-pastel-blue">
-                    <img th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" />
+            <div  th:each="image : ${images}" class="picture border-pastel-blue">
+                    <!--<img th:if="image.album != null" th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" />-->
+                    <img th:attr="src=@{/} + ${image.id}" />
                     <div class="title-box" th:if="${image.title != null}" th:text="${image.title}">
                             Title :)
                     </div>
