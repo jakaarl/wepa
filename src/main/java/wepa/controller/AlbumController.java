@@ -42,6 +42,7 @@ public class AlbumController {
     public String addNewALbum(@ModelAttribute Album album, Model model, 
                             RedirectAttributes redirectAttributes) throws Exception {
         try {
+            System.out.println(album.getAlbumName() + "\n\n\n\n\n");
             albumService.save(album);
             redirectAttributes.addFlashAttribute("message", "New album has been created!");
             return INDEX_REDIRECT; 

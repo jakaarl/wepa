@@ -60,7 +60,7 @@ public class AnimalPictureControllerTest {
 
         MvcResult res = mockMvc.perform(fileUpload("/").file(multipartFile)
                 .param("description", description)
-                .param("title", "title"))
+                .param("title", title))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
 
