@@ -24,7 +24,7 @@ import wepa.service.AnimalPictureService;
 @RequestMapping("/")
 public class AnimalPictureController {
     
-    static final String ALBUM_TEMPLATE = "album";
+   // static final String ALBUM_TEMPLATE = "album";
     static final String INDEX_REDIRECT = "redirect:/";
 
     @Autowired
@@ -66,7 +66,7 @@ public class AnimalPictureController {
             return INDEX_REDIRECT;
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return ALBUM_TEMPLATE;
+            return INDEX_TEMPLATE;
         }
     }
 }
