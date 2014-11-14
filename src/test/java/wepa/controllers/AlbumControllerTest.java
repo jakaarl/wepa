@@ -98,7 +98,7 @@ public class AlbumControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        AnimalPicture picture = pictureRepo.findOne(new Long(1));
+        AnimalPicture picture = pictureRepo.findOne(pictureRepo.count());
         assertEquals(picture.getTitle(), title);
         assertEquals(picture.getDescription(), description);
         res = mockMvc.perform(get("/1"))          
