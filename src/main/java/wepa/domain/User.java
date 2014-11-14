@@ -1,17 +1,18 @@
 package wepa.domain;
 
 import java.util.Collection;
-import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Entity
+@Table(name = "registered_user")
 public class User extends AbstractPersistable<Long> implements UserDetails {
     // TODO Roles and different authorities(?)
     
