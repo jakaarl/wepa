@@ -1,7 +1,6 @@
 package wepa.controllers;
 
 import java.util.UUID;
-import javax.tools.FileObject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -30,7 +28,7 @@ import wepa.service.AnimalPictureService;
 @WebAppConfiguration
 @ActiveProfiles("test")
 public class AnimalPictureControllerTest {
-    private final String POST_ADDRESS = "/albums/1/";
+    private final String POST_ADDRESS = "/";
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -54,12 +52,15 @@ public class AnimalPictureControllerTest {
     public void addingNonPictureFileReturnsSamePageAndNiceErrorMessage() throws Exception {
         Long sizeBefore = pictureRepo.count();
         String description = UUID.randomUUID().toString().substring(0, 6);
-        String imageName = "pdfdocname";
+        String fileName = "pdfdocname";
+        String title = "title";
         String content = UUID.randomUUID().toString().substring(0, 6);
         String messageExpected = "Only image files allowed";
-        MockMultipartFile multipartFile = new MockMultipartFile("file", imageName, "pdf", content.getBytes());
+        MockMultipartFile multipartFile = new MockMultipartFile("file", fileName, "pdf", content.getBytes());
 
-        MvcResult res = mockMvc.perform(fileUpload(POST_ADDRESS).file(multipartFile).param("description", description))
+        MvcResult res = mockMvc.perform(fileUpload("/").file(multipartFile)
+                .param("description", description)
+                .param("title", title))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
 
@@ -74,18 +75,21 @@ public class AnimalPictureControllerTest {
     public void addingPictureFileSavesPictureCorrectlyAndRedirectsToSamePage() throws Exception {
         Long sizeBefore = pictureRepo.count();
         String description = UUID.randomUUID().toString().substring(0, 6);
-        String imageName = UUID.randomUUID().toString().substring(0, 6);
+        String fileName = UUID.randomUUID().toString().substring(0, 6);
+        String title = "title";
         String content = UUID.randomUUID().toString().substring(0, 6);
-        MockMultipartFile multipartFile = new MockMultipartFile("file", imageName, "image/png", content.getBytes());
+        MockMultipartFile multipartFile = new MockMultipartFile("file", fileName, "image/png", content.getBytes());
 
-        mockMvc.perform(fileUpload(POST_ADDRESS).file(multipartFile).param("description", description))
+        MvcResult res = mockMvc.perform(fileUpload("/").file(multipartFile)
+                .param("description", description)
+                .param("title", title))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
-
+        
         AnimalPicture picture = pictureService.getById(new Long(1));
-        assertEquals(picture.getTitle(), imageName);
+        assertEquals(picture.getTitle(), title);
         assertEquals(picture.getDescription(), description);
-        MvcResult res = mockMvc.perform(get("/albums/1/images/1"))          
+        res = mockMvc.perform(get("/1"))          
                  .andExpect(status().is2xxSuccessful())            
                  .andReturn();
         

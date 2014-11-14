@@ -6,5 +6,5 @@ import wepa.domain.Album;
 
 
 public interface AlbumRepository extends JpaRepository<Album, Long> {
-    
+
 }

@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head th:replace="head">
     <meta charset="utf-8" />
     <title>Cutenimals!!!</title>
+    <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
   </head>
-  <body>
-    <a th:href="@{/}" >Home page</a><br/>
-    <p th:if="${message != null}" th:text="${message}">bla</p>
+  <body>   
+    <nav th:replace="nav"></nav>
+    <div th:replace="messages">message</div>  
     
     <h3>This is your <span  th:if="${album.albumName != null}" th:text="${album.albumName}"></span> album page</h3>
-    <div th:if="!${#lists.isEmpty(album.animalPictures)}">
+    <div th:if="!${#lists.isEmpty(album.animalPictures)}"  class="container-fluid">
+        <div id="animalpicture-container">
         <h3>Album pictures:</h3>
-        <ol>
-                 <li th:each="image : ${album.animalPictures}" style="display: inline-block">
-                    <img th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" style="width: 200px; height: 200px;"/>
-                    <p>Title: <span th:if="${image.title != null}" th:text="${image.title}">unknown</span></p>
-                    <p>Description: <span th:if="${image.description != null}" th:text="${image.description}">unknown</span></p>
-                 </li>
-        </ol>
+            <div th:each="image : ${album.animalPictures}" class="picture border-pastel-blue">
+               <img th:attr="src=@{/} + ${image.id}" />
+               <div class="title-box" th:if="${image.title != null}" th:text="${image.title}">
+                       Title :)
+               </div>
+               <div class="controls">
+                       <div class="description-box" th:if="${image.description != null}" th:text="${image.description}">
+                               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                       </div>
+                       <a href="#" class="like-box"><i class="fa fa-heart-o"></i></a>
+               </div>
+            </div>
+        </div>
    </div>
-    <div th:if="${#lists.isEmpty(album.animalPictures)}">
-        No picture added!
-    </div>
+    
+    <div th:if="${#lists.isEmpty(album.animalPictures)}"> No picture added!</div>
 
     <hr/>
     <h4>Add new picture to album</h4>
