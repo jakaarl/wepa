@@ -39,18 +39,15 @@ public class AlbumController {
     
     // Post a new Album
     @RequestMapping(method = RequestMethod.POST)
-    public String addNewALbum(@ModelAttribute Album album, Model model, 
+    public String addNewALbum(@ModelAttribute Album album, 
                             RedirectAttributes redirectAttributes) throws Exception {
         try {
-            System.out.println(album.getAlbumName() + "\n\n\n\n\n");
             albumService.save(album);
             redirectAttributes.addFlashAttribute("message", "New album has been created!");
             return INDEX_REDIRECT; 
         } catch (IllegalArgumentException e){
-            model.addAttribute("albums", albumService.getAll());
-            model.addAttribute("images", animalPictureService.getLatest(5));
-            model.addAttribute("errorMessage", e.getMessage());
-            return INDEX_TEMPLATE;
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return INDEX_REDIRECT;
         }
     }
     
@@ -59,7 +56,7 @@ public class AlbumController {
     public String getAlbum(@PathVariable Long id, Model model) {
         Album album= albumService.find(id);
         model.addAttribute("album", album);
-        model.addAttribute("animalPictures", album.getAnimalPictures());
+       // model.addAttribute("animalPictures", album.getAnimalPictures());
         return ALBUM_TEMPLATE;
     }
     
@@ -67,22 +64,18 @@ public class AlbumController {
     @Transactional
     @RequestMapping(value="/{albumId}", method = RequestMethod.POST)
     public String addNewAnimalPicture(@RequestParam MultipartFile file, @PathVariable Long albumId, @RequestParam String title, @RequestParam String description,
-            RedirectAttributes redirectAttributes, Model model) throws Exception {
-        Album album = albumService.find(albumId);
-        
+            RedirectAttributes redirectAttributes, Model model) throws Exception {      
         try {
-            AnimalPicture picture = animalPictureService.add(file, title, description, album);
-            picture.setAlbum(album);
-            album.getAnimalPictures().add(picture);
-            albumService.save(album);
+            AnimalPicture picture = albumService.addPictureToAlbum(file, title, description, albumId);
+            
             redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
-            redirectAttributes.addFlashAttribute("albumId", album.getId());
+            redirectAttributes.addFlashAttribute("albumId", albumId);
             redirectAttributes.addFlashAttribute("id", picture.getId());
             redirectAttributes.addFlashAttribute("description", picture.getDescription());
             return INDEX_REDIRECT;
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("album", album);
+            model.addAttribute("album", albumService.find(albumId));
             return ALBUM_TEMPLATE;
         }
     }

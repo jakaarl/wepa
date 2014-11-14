@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -19,7 +20,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import wepa.Application;
 import wepa.domain.Album;
+import wepa.domain.AnimalPicture;
 import wepa.repository.AlbumRepository;
+import wepa.repository.AnimalPictureRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -34,8 +37,8 @@ public class AlbumControllerTest {
     @Autowired
     private AlbumRepository albumRepo;
     
-//    @Autowired
-//    private AnimalPictureRepository pictureRepo;
+    @Autowired
+    private AnimalPictureRepository pictureRepo;
 
     private MockMvc mockMvc;
 
@@ -51,23 +54,22 @@ public class AlbumControllerTest {
         MvcResult res = mockMvc.perform(post(POST_ADDRESS)
                 .param("albumName", "")
                 .param("albumDescription",""))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        String messageParam = (String) res.getModelAndView().getModel().get("errorMessage");
-        
+
         assertTrue(sizeBefore==albumRepo.count());
-        assertEquals(messageExpected, messageParam);
+       // assertEquals(messageExpected, messageParam);
     }
     
     
     @Test
-    public void addingNamedAlbumRedirectsToSamePageandSavesAlbumCorrectly() throws Exception{
+    public void addingNamedAlbumRedirectsToSamePageAndSavesAlbumCorrectly() throws Exception{
         String albumName = UUID.randomUUID().toString().substring(0, 6);
         String albumDescription = UUID.randomUUID().toString().substring(0, 6);
 
         Long sizeBefore = albumRepo.count();
-        String messageExpected = "Album name must ndot be empty!";
+        String messageExpected = "Album name must not be empty!";
         MvcResult res = mockMvc.perform(post(POST_ADDRESS)
                 .param("albumName", albumName)
                 .param("albumDescription",albumDescription))
@@ -80,7 +82,57 @@ public class AlbumControllerTest {
         assertEquals(albumDescription, album.getAlbumDescription());
     }
     
+    @Test
+    public void addingPictureFileSavesItCorrectly() throws Exception {
+        Album album = albumRepo.save(new Album("as"));
+        Long sizeBefore = pictureRepo.count();
+        String description = UUID.randomUUID().toString().substring(0, 6);
+        String fileName = UUID.randomUUID().toString().substring(0, 6);
+        String title = "title";
+        String content = UUID.randomUUID().toString().substring(0, 6);
+        MockMultipartFile multipartFile = new MockMultipartFile("file", fileName, "image/png", content.getBytes());
+
+        MvcResult res = mockMvc.perform(fileUpload(POST_ADDRESS + album.getId()).file(multipartFile)
+                .param("description", description)
+                .param("title", title))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        
+        AnimalPicture picture = pictureRepo.findOne(new Long(1));
+        assertEquals(picture.getTitle(), title);
+        assertEquals(picture.getDescription(), description);
+        res = mockMvc.perform(get("/1"))          
+                 .andExpect(status().is2xxSuccessful())            
+                 .andReturn();
+        
+         assertEquals(content, res.getResponse().getContentAsString());
+         assertEquals( "image/png", res.getResponse().getContentType());
+         assertEquals(sizeBefore + 1, pictureRepo.count());
+        
+    }
     
-  
+    @Test
+    public void addingNonPictureFileReturnsSamePageAndNiceErrorMessage() throws Exception {
+        Album album = albumRepo.save(new Album("as"));
+        Long sizeBefore = pictureRepo.count();
+        String description = UUID.randomUUID().toString().substring(0, 6);
+        String fileName = "pdfdocname";
+        String title = "title";
+        String content = UUID.randomUUID().toString().substring(0, 6);
+        String messageExpected = "Only image files allowed";
+        MockMultipartFile multipartFile = new MockMultipartFile("file", fileName, "pdf", content.getBytes());
+
+        MvcResult res = mockMvc.perform(fileUpload(POST_ADDRESS + album.getId()).file(multipartFile)
+                .param("description", description)
+                .param("title", title))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+
+       String messageParam = (String) res.getModelAndView().getModel().get("errorMessage");
+        
+        assertTrue(sizeBefore==pictureRepo.count());
+        assertEquals(messageExpected, messageParam);
+        
+    }
 
 }

@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 public class Album extends AbstractPersistable<Long> {
     
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", fetch= FetchType.EAGER)
     private List<AnimalPicture> animalPictures;
     @NotBlank
     private String albumName;

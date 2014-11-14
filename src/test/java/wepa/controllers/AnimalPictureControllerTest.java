@@ -58,7 +58,7 @@ public class AnimalPictureControllerTest {
         String messageExpected = "Only image files allowed";
         MockMultipartFile multipartFile = new MockMultipartFile("file", fileName, "pdf", content.getBytes());
 
-        MvcResult res = mockMvc.perform(fileUpload("/").file(multipartFile)
+        MvcResult res = mockMvc.perform(fileUpload(POST_ADDRESS).file(multipartFile)
                 .param("description", description)
                 .param("title", title))
                 .andExpect(status().is2xxSuccessful())
@@ -80,16 +80,16 @@ public class AnimalPictureControllerTest {
         String content = UUID.randomUUID().toString().substring(0, 6);
         MockMultipartFile multipartFile = new MockMultipartFile("file", fileName, "image/png", content.getBytes());
 
-        MvcResult res = mockMvc.perform(fileUpload("/").file(multipartFile)
+        MvcResult res = mockMvc.perform(fileUpload(POST_ADDRESS).file(multipartFile)
                 .param("description", description)
                 .param("title", title))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        AnimalPicture picture = pictureService.getById(new Long(1));
+        AnimalPicture picture = pictureService.getById(pictureRepo.count());
         assertEquals(picture.getTitle(), title);
         assertEquals(picture.getDescription(), description);
-        res = mockMvc.perform(get("/1"))          
+        res = mockMvc.perform(get(POST_ADDRESS + picture.getId()))          
                  .andExpect(status().is2xxSuccessful())            
                  .andReturn();
         

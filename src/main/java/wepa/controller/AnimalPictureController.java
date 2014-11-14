@@ -55,7 +55,6 @@ public class AnimalPictureController {
     }
     
     // Add new AnimalPicture
-    @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public String addNewAnimalPicture(@RequestParam MultipartFile file, @RequestParam String title, @RequestParam String description,
             RedirectAttributes redirectAttributes, Model model) throws Exception {
@@ -66,6 +65,8 @@ public class AnimalPictureController {
             return INDEX_REDIRECT;
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("albums", albumService.getAll());
+            model.addAttribute("images", animalPictureService.getLatest(5));
             return INDEX_TEMPLATE;
         }
     }
