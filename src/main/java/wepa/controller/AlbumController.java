@@ -48,7 +48,7 @@ public class AlbumController {
     
     // Post a new Album
     @RequestMapping(method = RequestMethod.POST)
-    public String addNewALbum(@ModelAttribute Album album, 
+    public String addNewAlbum(@ModelAttribute Album album, 
                             RedirectAttributes redirectAttributes) throws Exception {
         try {
             albumService.save(album);
