@@ -7,9 +7,9 @@
   </head>
   <body>
     <nav th:replace="nav"></nav>
-    <div th:replace="messages">message</div>
     
     TODO: Error page
+    <h1 th:text="${message}"></h1>
     
     <div th:replace="modals">modals</div>
     <script th:replace="scripts">scripts</script>

@@ -21,10 +21,11 @@
                     </ul>
                     <form class="navbar-form navbar-right" role="login" sec:authorize="isAnonymous()">
                             <div class="form-group">
-                                    <input name="email" type="email" placeholder="Sähköpostiosoite" class="form-control" required="required" />
-                                    <input name="password" type="password" placeholder="Salasana" class="form-control" required="required" />
+                                    <input name="email" type="email" placeholder="Email" class="form-control" required="required" />
+                                    <input name="password" type="password" placeholder="Password" class="form-control" required="required" />
                             </div>
-                            <button class="btn btn-primary">Kirjaudu sisään</button>
+                            <button class="btn btn-primary">Login</button>
+                            <a href="/register" class="btn btn-default">Register</a>
                     </form>
                     <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
                             <li class="dropdown">

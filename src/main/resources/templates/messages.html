@@ -8,3 +8,13 @@
                 }, 2500 /* Time to wait in milliseconds */);
         </script>
 </div>
+<div class="container-fluid" id="error-messages" th:if="${errorMessage != null}">
+        <div class="alert alert-danger">
+                <strong th:text="${errorMessage}">Kuva lisätty!</strong>
+        </div>
+        <script>
+                setTimeout(function () {
+                        $("#error-messages").fadeOut(500, function() { $(this).remove(); });
+                }, 2500 /* Time to wait in milliseconds */);
+        </script>
+</div>
