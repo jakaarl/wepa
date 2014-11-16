@@ -23,8 +23,10 @@ import wepa.service.AnimalPictureService;
 public class AlbumController {
 
     static final String INDEX_TEMPLATE = "index";
+    static final String ALBUMS_TEMPLATE = "albums";
     static final String ALBUM_TEMPLATE = "album";
     static final String INDEX_REDIRECT = "redirect:/";
+    static final String ALBUMS_REDIRECT = "redirect:/albums/";
 
     @Autowired
     private AlbumService albumService;
@@ -37,6 +39,13 @@ public class AlbumController {
         albumService.save(new Album("Default album_007"));
     }
     
+    // Get albums
+    @RequestMapping(method = RequestMethod.GET)
+    public String index(Model model) {
+        model.addAttribute("albums", albumService.getAll());
+        return ALBUMS_TEMPLATE;
+    }
+    
     // Post a new Album
     @RequestMapping(method = RequestMethod.POST)
     public String addNewALbum(@ModelAttribute Album album, 
@@ -44,10 +53,10 @@ public class AlbumController {
         try {
             albumService.save(album);
             redirectAttributes.addFlashAttribute("message", "New album has been created!");
-            return INDEX_REDIRECT; 
+            return ALBUMS_REDIRECT; 
         } catch (IllegalArgumentException e){
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-            return INDEX_REDIRECT;
+            return ALBUMS_REDIRECT;
         }
     }
     
@@ -72,7 +81,7 @@ public class AlbumController {
             redirectAttributes.addFlashAttribute("albumId", albumId);
             redirectAttributes.addFlashAttribute("id", picture.getId());
             redirectAttributes.addFlashAttribute("description", picture.getDescription());
-            return INDEX_REDIRECT;
+            return ALBUMS_REDIRECT;
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("album", albumService.find(albumId));

@@ -36,15 +36,6 @@
     <div th:if="${#lists.isEmpty(images)}">
             You don't have any pictures
     </div>
-   
-    <div th:if="${albums != null}"> 
-        <h3>Albums created </h3>     
-        <ol>
-            <li th:each="album : ${albums}">
-                <a th:href="@{/albums/}+ ${album.id}" th:text="${album.albumName}"></a> (<span th:text="${#lists.size(album.animalPictures)}"/>)
-            </li>
-        </ol>
-    </div>
     
     <div th:replace="modals">modals</div>
     <script th:replace="scripts">scripts</script>

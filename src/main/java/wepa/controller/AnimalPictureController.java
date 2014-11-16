@@ -36,7 +36,6 @@ public class AnimalPictureController {
     // Index
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
-        model.addAttribute("albums", albumService.getAll());
         model.addAttribute("images", animalPictureService.getLatest(5));
         return INDEX_TEMPLATE;
     }
