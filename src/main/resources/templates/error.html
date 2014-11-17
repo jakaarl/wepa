@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head th:replace="head">
+  <head th:replace="fragments/head">
     <meta charset="utf-8" />
     <title>Cutenimals!!!</title>
     <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <nav th:replace="nav"></nav>
+    <nav th:replace="fragments/nav"></nav>
     
     TODO: Error page
     <h1 th:text="${message}"></h1>
     
-    <div th:replace="modals">modals</div>
-    <script th:replace="scripts">scripts</script>
+    <div th:replace="fragments/modals">modals</div>
+    <script th:replace="fragments/scripts">scripts</script>
   </body>
 </html>

@@ -1,6 +1,8 @@
 package wepa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import wepa.domain.User;
 import wepa.repository.UserRepository;
@@ -21,5 +23,10 @@ public class UserService {
             throw new IllegalArgumentException("User email, first- or lastname must not be empty!");
         }
         return userRepository.save(user);
+    }
+    
+    public User getAuthenticatedPerson() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userRepository.findByEmail(authentication.getName());
     }
 }

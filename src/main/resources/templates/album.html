@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head th:replace="head">
+  <head th:replace="fragments/head">
     <meta charset="utf-8" />
     <title>Cutenimals!!!</title>
     <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>   
-    <nav th:replace="nav"></nav>
-    <div th:replace="messages">message</div>  
+    <nav th:replace="fragments/nav"></nav>
+    <div th:replace="fragments/messages">message</div>  
     
     <h3>This is your <span  th:if="${album.albumName != null}" th:text="${album.albumName}"></span> album page</h3>
     <div th:if="!${#lists.isEmpty(album.animalPictures)}"  class="container-fluid">

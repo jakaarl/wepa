@@ -21,6 +21,11 @@ public class SessionController {
     @Autowired
     UserService userService;
     
+    @RequestMapping(value = "/login")
+    public String getLogin(){
+        return "login";
+    }
+    
     @RequestMapping(value = "/register")
     public String getRegister(){
         return "register";
@@ -37,6 +42,6 @@ public class SessionController {
         }
         
         redirectAttributes.addFlashAttribute("message", "User created");
-        return "redirect:/";
+        return "redirect:/login";
     }
 }

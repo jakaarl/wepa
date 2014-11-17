@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head th:replace="head">
+  <head th:replace="fragments/head">
     <meta charset="utf-8" />
     <title>Cutenimals!!!</title>
     <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div th:replace="messages">message</div>
+    <nav th:replace="fragments/nav"></nav>
+    <div th:replace="fragments/messages">message</div>
     
     <div class="container">
         <div class="row centered-form">
@@ -52,7 +53,6 @@
                             </div>
 
                             <input type="submit" value="Register" class="btn btn-info btn-block" />
-                            <a href="/" class="btn btn-danger btn-block">Cancel</a>
 
                         </form>
                     </div>
@@ -61,7 +61,7 @@
         </div>
     </div>
     
-    <div th:replace="modals">modals</div>
-    <script th:replace="scripts">scripts</script>
+    <div th:replace="fragments/modals">modals</div>
+    <script th:replace="fragments/scripts">scripts</script>
   </body>
 </html>

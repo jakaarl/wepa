@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import wepa.auth.UserAuthService;
+import wepa.auth.JpaAuthenticationProvider;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -23,19 +23,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             //    .anyRequest().permitAll();
                 .antMatchers("/fonts/*", "/css/*", "/js/*", "/*", "/albums/*", "/albums/*/picture/*").permitAll()
                 .anyRequest().authenticated();
+        
+        security.formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .loginProcessingUrl("/authenticate")
+                .and()
+                .logout()
+                .logoutUrl("/logout");
 
     }
     
     
     @Configuration
     protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+        @Autowired
+        private JpaAuthenticationProvider jpaAuthenticationProvider;
+
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(userDetailsService());
-        }
-        
-        public UserDetailsService userDetailsService(){
-            return new UserAuthService();
+            auth.authenticationProvider(jpaAuthenticationProvider);
         }
     }
 }

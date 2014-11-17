@@ -50,6 +50,14 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public String getSalt(){
+        return salt;
+    }
+    
+    public void setSalt(String salt){
+        this.salt = salt;
+    }
 
     public String getPassword() {
         return password;
