@@ -1,10 +1,14 @@
 package wepa.domain;
 
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -14,14 +18,22 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     private String title;
     private String description;
     private String contentType;
-    private int likes;
     @Temporal(TemporalType.DATE)
     private Date added;
     @Lob
     private byte[] image;
     
     @ManyToOne(fetch = FetchType.EAGER)
+    private User author;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
     private Album album;
+    
+    @OneToMany(mappedBy = "picture", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+    
+    @ManyToMany(mappedBy = "likedPictures", fetch = FetchType.LAZY)
+    private List<User> likes;
     
     public AnimalPicture(){
         this.added = new Date();
@@ -41,14 +53,6 @@ public class AnimalPicture extends AbstractPersistable<Long> {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
     }
 
     public Date getAdded() {
@@ -83,6 +87,29 @@ public class AnimalPicture extends AbstractPersistable<Long> {
         this.album = album;
     }
 
- 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public List<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<User> likes) {
+        this.likes = likes;
+    }
+    
     
 }

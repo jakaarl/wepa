@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import static wepa.controller.AlbumController.INDEX_TEMPLATE;
 import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
+import wepa.domain.User;
 import wepa.service.AlbumService;
 import wepa.service.AnimalPictureService;
+import wepa.service.UserService;
 
 @Controller
 @RequestMapping("/")
@@ -32,6 +35,9 @@ public class AnimalPictureController {
     
     @Autowired 
     private AlbumService albumService;
+    
+    @Autowired
+    private UserService userService;
     
     // Index
     @RequestMapping(method = RequestMethod.GET)
@@ -51,6 +57,19 @@ public class AnimalPictureController {
         headers.setExpires(Long.MAX_VALUE);
 
         return new ResponseEntity<>(pic.getImage(), headers, HttpStatus.CREATED);
+    }
+    
+    // Like a picture
+    @RequestMapping(value = "/{id}/like", method = RequestMethod.POST)
+    @ResponseBody
+    public int likeImage(@PathVariable Long id) {
+        return animalPictureService.likeAnimalPicture(id);
+    }
+    // Dislike a picture
+    @RequestMapping(value = "/{id}/dislike", method = RequestMethod.POST)
+    @ResponseBody
+    public int dislikeImage(@PathVariable Long id) {
+        return animalPictureService.dislikeAnimalPicture(id);
     }
     
     // Add new AnimalPicture

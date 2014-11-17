@@ -16,8 +16,8 @@
                     <ul class="nav navbar-nav">
                             <li th:class="${reqUri == '/' ? 'active' : ''}"><a href="/">Home</a></li>
                             <li th:class="${#strings.startsWith(reqUri, '/albums/') ? 'active' : ''}"><a href="/albums/">Albums</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#submitAlbumModal"><i class="fa fa-plus"></i> Add a new album</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#submitAnimalPicModal"><i class="fa fa-plus"></i> Add a new animal picture</a></li>
+                            <li sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAlbumModal"><i class="fa fa-plus"></i> Add a new album</a></li>
+                            <li sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAnimalPicModal"><i class="fa fa-plus"></i> Add a new animal picture</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                         <li th:class="${#strings.startsWith(reqUri, '/login') ? 'active' : ''}"><a href="/login">Login</a></li>
@@ -25,12 +25,12 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
                             <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Matti Meikäläinen <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                             <li><a href="#">Muokkaa tietojasi</a></li>
                                             <li><a href="#">Katso sinun kuvasi</a></li>
                                             <li class="divider"></li>
-                                            <li><a href="#">Kirjaudu ulos</a></li>
+                                            <li><a href="/logout">Kirjaudu ulos</a></li>
                                     </ul>
                             </li>
                     </ul>

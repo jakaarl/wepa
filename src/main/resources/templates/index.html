@@ -25,10 +25,19 @@
                             Title :)
                     </div>
                     <div class="controls">
-                            <div class="description-box" th:if="${image.description != null}" th:text="${image.description}">
+                        <div class="row">
+                            <div class="span8" th:if="${image.description != null}" th:text="${image.description}">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            </div>
+                            <div class="span1"><a href="#"><i class="fa fa-heart-o"></i></a></div>
+                            <div class="span1"><span th:text="${#lists.size(image.likes)}"></span></div>
+                            <div class="span1"><a href="#"><i class="fa fa-heart-o"></i></a></div>
+                            <div class="span1"><span th:text="${#lists.size(image.comments)}"></span></div>
+                        </div>
+                            <!--<div class="description-box" th:if="${image.description != null}" th:text="${image.description}">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             </div>
-                            <a href="#" class="like-box"><i class="fa fa-heart-o"></i></a>
+                        <a href="#" class="like-box"><i class="fa fa-heart-o"></i> <span th:text="${image.likes}"></span></a>-->
                     </div>
             </div>
         </div>

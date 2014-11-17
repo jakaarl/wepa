@@ -1,9 +1,13 @@
 package wepa.domain;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -24,8 +28,14 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     private String password;
     private String username;
     
-//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-//    private List<AnimalPicture> animalPictures;
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+    
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<AnimalPicture> animalPictures;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<AnimalPicture> likedPictures;
 
     public String getFirstName() {
         return firstName;
@@ -68,14 +78,6 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
         this.password = BCrypt.hashpw(password, this.salt);
     }
 
-//    public List<AnimalPicture> getAnimalPictures() {
-//        return animalPictures;
-//    }
-//
-//    public void setAnimalPictures(List<AnimalPicture> animalPictures) {
-//        this.animalPictures = animalPictures;
-//    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -112,6 +114,28 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-    
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<AnimalPicture> getAnimalPictures() {
+        return animalPictures;
+    }
+
+    public void setAnimalPictures(List<AnimalPicture> animalPictures) {
+        this.animalPictures = animalPictures;
+    }
+
+    public List<AnimalPicture> getLikedPictures() {
+        return likedPictures;
+    }
+
+    public void setLikedPictures(List<AnimalPicture> likedPictures) {
+        this.likedPictures = likedPictures;
+    }
 }

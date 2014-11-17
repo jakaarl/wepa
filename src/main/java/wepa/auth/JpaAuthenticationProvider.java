@@ -39,7 +39,7 @@ public class JpaAuthenticationProvider implements AuthenticationProvider {
 
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority("USER"));
-
+        
         return new UsernamePasswordAuthenticationToken(user.getEmail(), password, grantedAuths);
     }
 
