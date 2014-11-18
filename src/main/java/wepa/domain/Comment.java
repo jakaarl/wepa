@@ -51,4 +51,5 @@ public class Comment extends AbstractPersistable<Long> {
     public void setPicture(AnimalPicture picture) {
         this.picture = picture;
     }
+    
 }
