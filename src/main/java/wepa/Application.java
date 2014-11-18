@@ -10,6 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import wepa.helpers.UserIdProvider;
+
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
@@ -36,5 +38,10 @@ public class Application {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(encodingFilter);
         return registrationBean;
+    }
+    
+    @Bean
+    UserIdProvider userIdProvider() {
+        return new UserIdProvider();
     }
 }
