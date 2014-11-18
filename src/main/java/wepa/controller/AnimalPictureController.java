@@ -68,6 +68,7 @@ public class AnimalPictureController {
         }
         
         model.addAttribute("picture", animalPicture);
+        model.addAttribute("comments", commentService.getLatestComments(animalPicture, 5));
         return Routes.PICTURE_TEMPLATE;
     }
     
@@ -106,7 +107,7 @@ public class AnimalPictureController {
             redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
             return Routes.INDEX_REDIRECT;
         } catch (IllegalArgumentException e) {
-            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("error", e.getMessage());
             model.addAttribute("albums", albumService.getAll());
             model.addAttribute("images", animalPictureService.getLatest(5));
             return Routes.INDEX_TEMPLATE;

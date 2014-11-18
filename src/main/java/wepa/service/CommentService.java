@@ -27,8 +27,8 @@ public class CommentService {
         
     
     public List<Comment> getLatestComments(AnimalPicture picture, int maxCount) {
-       // Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "added");
-        return commentRepository.findByPicture(picture);
+        Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "timestamp");
+        return commentRepository.findByPicture(picture, limit).getContent();
     }
     
     public Comment addComment(Long pictureId, String comment){

@@ -27,8 +27,8 @@
                         <span th:text="${comment.author.username}"></span>: <span th:text="${comment.comment}"></span><br/>
                     </div>
                 </div> -->
-                <div th:if="!${#lists.isEmpty(picture.comments)}" class="list-group">
-                    <div th:each="comment : ${picture.comments}">
+                <div th:if="!${#lists.isEmpty(comments)}" class="list-group">
+                    <div th:each="comment : ${comments}">
                         <h4 class="list-group-item-heading" th:text="${comment.author.username} + @{:}"></h4>
                         <p class="list-group-item-text" th:text="${comment.comment}"></p>
                     </div>
