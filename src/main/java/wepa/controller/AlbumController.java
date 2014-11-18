@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
+import wepa.helpers.Routes;
 import wepa.service.AlbumService;
 import wepa.service.AnimalPictureService;
 
@@ -21,13 +22,6 @@ import wepa.service.AnimalPictureService;
 @Controller
 @RequestMapping("/albums/")
 public class AlbumController {
-
-    static final String INDEX_TEMPLATE = "index";
-    static final String ALBUMS_TEMPLATE = "albums";
-    static final String ALBUM_TEMPLATE = "album";
-    static final String INDEX_REDIRECT = "redirect:/";
-    static final String ALBUMS_REDIRECT = "redirect:/albums/";
-
     @Autowired
     private AlbumService albumService;
     
@@ -43,7 +37,7 @@ public class AlbumController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("albums", albumService.getAll());
-        return ALBUMS_TEMPLATE;
+        return Routes.ALBUMS_TEMPLATE;
     }
     
     // Post a new Album
@@ -53,10 +47,10 @@ public class AlbumController {
         try {
             albumService.save(album);
             redirectAttributes.addFlashAttribute("message", "New album has been created!");
-            return ALBUMS_REDIRECT; 
+            return Routes.ALBUMS_REDIRECT; 
         } catch (IllegalArgumentException e){
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-            return ALBUMS_REDIRECT;
+            return Routes.ALBUMS_REDIRECT;
         }
     }
     
@@ -66,7 +60,7 @@ public class AlbumController {
         Album album= albumService.find(id);
         model.addAttribute("album", album);
        // model.addAttribute("animalPictures", album.getAnimalPictures());
-        return ALBUM_TEMPLATE;
+        return Routes.ALBUM_TEMPLATE;
     }
     
     // Add image to album
@@ -81,11 +75,11 @@ public class AlbumController {
             redirectAttributes.addFlashAttribute("albumId", albumId);
             redirectAttributes.addFlashAttribute("id", picture.getId());
             redirectAttributes.addFlashAttribute("description", picture.getDescription());
-            return ALBUMS_REDIRECT;
+            return Routes.ALBUMS_REDIRECT;
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("album", albumService.find(albumId));
-            return ALBUM_TEMPLATE;
+            return Routes.ALBUM_TEMPLATE;
         }
     }
 }

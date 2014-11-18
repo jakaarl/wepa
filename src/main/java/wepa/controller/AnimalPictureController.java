@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import static wepa.controller.AlbumController.INDEX_TEMPLATE;
 import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
 import wepa.domain.User;
+import wepa.helpers.Routes;
 import wepa.service.AlbumService;
 import wepa.service.AnimalPictureService;
 import wepa.service.UserService;
@@ -26,9 +26,6 @@ import wepa.service.UserService;
 @Controller
 @RequestMapping("/")
 public class AnimalPictureController {
-    
-   // static final String ALBUM_TEMPLATE = "album";
-    static final String INDEX_REDIRECT = "redirect:/";
 
     @Autowired
     private AnimalPictureService animalPictureService;
@@ -43,7 +40,7 @@ public class AnimalPictureController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("images", animalPictureService.getLatest(5));
-        return INDEX_TEMPLATE;
+        return Routes.INDEX_TEMPLATE;
     }
     
     // Get AnimalPicture by id
@@ -80,12 +77,12 @@ public class AnimalPictureController {
         try {
             AnimalPicture picture = animalPictureService.add(file, title, description, null);
             redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
-            return INDEX_REDIRECT;
+            return Routes.INDEX_REDIRECT;
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             model.addAttribute("albums", albumService.getAll());
             model.addAttribute("images", animalPictureService.getLatest(5));
-            return INDEX_TEMPLATE;
+            return Routes.INDEX_TEMPLATE;
         }
     }
 }
