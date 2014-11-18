@@ -21,7 +21,7 @@ public class UserController {
         User user = userService.findUser(id);
         
         if(user == null){
-            redirectAttributes.addFlashAttribute("error", "User not found");
+            redirectAttributes.addFlashAttribute("error", "User not found, id: " + id);
             return Routes.INDEX_REDIRECT;
         }
         

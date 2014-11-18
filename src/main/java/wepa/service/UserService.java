@@ -17,11 +17,6 @@ public class UserService {
     }
     
     public User save(User user) {
-        if (user.getEmail()==null || 
-                user.getFirstName()==null || 
-                user.getLastName()==null){
-            throw new IllegalArgumentException("User email, first- or lastname must not be empty!");
-        }
         return userRepository.save(user);
     }
     

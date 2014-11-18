@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,12 +21,16 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 public class User extends AbstractPersistable<Long> implements UserDetails {
     // TODO Roles and different authorities(?)
     
-    private String firstName;
+    @NotBlank
+	private String firstName;
+    @NotBlank
     private String lastName;
-    @Column(unique = true)
+    @Column(unique = true) @NotBlank
     private String email;
     private String salt;
+    @NotBlank
     private String password;
+    @NotBlank
     private String username;
     
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
