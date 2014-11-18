@@ -4,20 +4,24 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 public class Comment extends AbstractPersistable<Long> {
+    
+    @NotBlank
     private String comment;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date timestamp;
+    private Date created;
     @ManyToOne
     private User author;
     @ManyToOne
     private AnimalPicture picture;
     
     public Comment(){
-        timestamp = new Date();
+        created = new Date();
     }
 
     public String getComment() {
@@ -28,12 +32,12 @@ public class Comment extends AbstractPersistable<Long> {
         this.comment = comment;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public User getAuthor() {
