@@ -19,10 +19,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity security) throws Exception {
         // allow everything, except post for a new picture
         security.authorizeRequests()
-            //    .antMatchers(HttpMethod.POST, "/").authenticated()
-            //    .anyRequest().permitAll();
-                .antMatchers("/fonts/*", "/css/*", "/js/*", "/*", "/albums/*", "/albums/*/picture/*", "/*/*").permitAll()
-                .anyRequest().authenticated();
+                // All posts
+                .antMatchers(HttpMethod.POST).authenticated()
+                // Like and dislike AJAX
+                .antMatchers("/picture/*/like").authenticated()
+                .antMatchers("/picture/*/dislike").authenticated()
+                //.antMatchers("/fonts/*", "/css/*", "/js/*", "/*", "/albums/*", "/albums/*/picture/*", "/*/*").authenticated()
+                .anyRequest().permitAll();
         
         security.formLogin()
                 .loginPage("/login")

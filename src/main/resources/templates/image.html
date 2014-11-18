@@ -19,21 +19,19 @@
                 <p th:text="${picture.description}">Image description</p>
             </div>
         </div>
-        <br/>
         <div class="row">
-            <div class="col-sm-12">
-              <!--  <div th:if="!${#lists.isEmpty(picture.comments)}" class="container-fluid">
-                    <div  th:each="comment : ${picture.comments}">
-                        <span th:text="${comment.author.username}"></span>: <span th:text="${comment.comment}"></span><br/>
-                    </div>
-                </div> -->
-                <div th:if="!${#lists.isEmpty(comments)}" class="list-group">
-                    <div th:each="comment : ${comments}">
-                        <h4 class="list-group-item-heading" th:text="${comment.author.username} + @{:}"></h4>
-                        <p class="list-group-item-text" th:text="${comment.comment}"></p>
+            <div class="col-sm-12">  
+                <div th:if="!${#lists.isEmpty(picture.comments)}" class="container-fluid">
+                    <div  th:each="comment : ${comments}" class="row clearfix">
+                        <div class="col-md-12 column">
+                                <h2 th:text="${comment.author.firstName} + ' ' + ${comment.author.lastName}"></h2>
+                                <p th:text="${comment.comment}"></p>
+                                <p>
+                                        <span class="pull-right" th:text="${comment.timestamp}">View details »</span>
+                                </p>
+                        </div>
                     </div>
                 </div>
-                
                 <form role="form" method="POST" th:action="@{/picture/} + ${picture.id} + @{/comment}">
                     <div class="form-group">
                        <!-- <label for="comment">Comment this picture</label>-->
