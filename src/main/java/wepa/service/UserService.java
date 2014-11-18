@@ -27,7 +27,7 @@ public class UserService {
     
     public User getAuthenticatedPerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findByEmail(authentication.getName());
+        return userRepository.findByEmail(((User) authentication.getPrincipal()).getEmail());
     }
     
     public User findUser(Long id){

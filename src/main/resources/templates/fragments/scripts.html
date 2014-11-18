@@ -20,14 +20,6 @@
                 resizeDelay: 50
             });
         });
-
-        $(".picture").mouseenter(function() {
-            $(this).find(".title-box").show("slide", { direction: "up" }, 300);
-            $(this).find(".controls").show("slide", { direction: "down" }, 300);
-        }).mouseleave(function() {
-            $(this).find(".title-box").hide("slide", { direction: "up" }, 300);
-            $(this).find(".controls").hide("slide", { direction: "down" }, 300);
-        });
         
         $('.like a').on('click', function(event) {
             event.preventDefault();

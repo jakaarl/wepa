@@ -20,11 +20,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12">  
                 <div th:if="!${#lists.isEmpty(picture.comments)}" class="container-fluid">
-                    <ul  th:each="comment : ${picture.comments}">
-                        <li th:text="${comment.comment}"></li>
-                    </ul>
+                    <div class="row clearfix">
+                        <div class="col-md-12 column">
+                                <h2 th:text="${comment.author.firstName} + ' ' + ${comment.author.lastName}"></h2>
+                                <p th:text="${comment.comment}"></p>
+                                <p>
+                                        <span class="pull-right" th:text="${comment.timestamp}">View details »</span>
+                                </p>
+                        </div>
+                    </div>
                 </div>
                 <form role="form" method="POST" th:action="@{/picture/} + ${picture.id} + @{/comment}">
                     <div class="form-group">
