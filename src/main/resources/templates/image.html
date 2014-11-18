@@ -25,7 +25,7 @@
                 <div class="container-fluid">
                     <div th:if="!${#lists.isEmpty(picture.comments)}" th:each="comment : ${comments}" class="row clearfix comment">
                         <div class="col-md-12 column">
-                            <h2 class="comment-title" th:text="${comment.author.firstName} + ' ' + ${comment.author.lastName}">Bob</h2>
+                            <h2 class="comment-title" th:text="${comment.author.username}">Username</h2>
                             <p th:text="${comment.comment}"></p>
                             <p>
                                 <span class="pull-right timestamp" th:text="${comment.timestamp}">24.4.2014</span>

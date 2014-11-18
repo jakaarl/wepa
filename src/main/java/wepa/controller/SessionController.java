@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wepa.domain.User;
+import wepa.helpers.Routes;
 import wepa.service.UserService;
 
 @Controller
@@ -24,6 +25,11 @@ public class SessionController {
     @RequestMapping(value = "/login")
     public String getLogin(){
         return "login";
+    }
+    
+    @RequestMapping(value = "/logout")
+    public String getLogout(){
+        return Routes.INDEX_REDIRECT;
     }
     
     @RequestMapping(value = "/register")
