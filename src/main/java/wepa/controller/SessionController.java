@@ -30,7 +30,7 @@ public class SessionController {
     public String getRegister(){
         return "register";
     }
-    
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String postRegister(@Valid @ModelAttribute User user, 
                             RedirectAttributes redirectAttributes){
