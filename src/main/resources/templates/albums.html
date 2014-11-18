@@ -9,13 +9,15 @@
     <nav th:replace="fragments/nav"></nav>
     <div th:replace="fragments/messages">message</div>
     
-    <div th:if="${albums != null}"> 
-        <h3>Albums created </h3>     
-        <ol>
-            <li th:each="album : ${albums}">
-                <a th:href="@{/albums/}+ ${album.id}" th:text="${album.albumName}"></a> (<span th:text="${#lists.size(album.animalPictures)}"/>)
-            </li>
-        </ol>
+    <div class="container-fluid">
+        <div th:if="${albums != null}"> 
+            <h3>Albums created </h3>     
+            <ol>
+                <li th:each="album : ${albums}">
+                    <a th:href="@{/albums/}+ ${album.id}" th:text="${album.albumName}"></a> (<span th:text="${#lists.size(album.animalPictures)}"/>)
+                </li>
+            </ol>
+        </div>
     </div>
     
     <div th:replace="fragments/modals">modals</div>

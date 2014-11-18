@@ -16,10 +16,16 @@ body {
 }
 
 /* line 36, ../sass/style.scss */
+.no-animal-pictures {
+  font-family: Kaushan Script;
+  margin-top: 85px;
+}
+
+/* line 41, ../sass/style.scss */
 #animalpicture-container {
   position: relative;
 }
-/* line 40, ../sass/style.scss */
+/* line 45, ../sass/style.scss */
 #animalpicture-container .picture {
   position: relative;
   overflow: hidden;
@@ -33,7 +39,7 @@ body {
   text-align: center;
   vertical-align: middle;
 }
-/* line 55, ../sass/style.scss */
+/* line 60, ../sass/style.scss */
 #animalpicture-container .picture img {
   /*max-width: 100%;*/
   max-height: 480px;
@@ -42,11 +48,11 @@ body {
   margin: 0px auto;
   text-align: center;
 }
-/* line 63, ../sass/style.scss */
+/* line 68, ../sass/style.scss */
 #animalpicture-container .picture.large {
   width: 50%;
 }
-/* line 67, ../sass/style.scss */
+/* line 72, ../sass/style.scss */
 #animalpicture-container .picture .title-box {
   background-color: #000;
   display: block;
@@ -58,14 +64,14 @@ body {
   font-size: 18pt;
   overflow: hidden;
 }
-/* line 82, ../sass/style.scss */
+/* line 87, ../sass/style.scss */
 #animalpicture-container .picture .info-box {
   background-color: #0333;
   display: block;
   height: 80px;
   overflow: hidden;
 }
-/* line 89, ../sass/style.scss */
+/* line 94, ../sass/style.scss */
 #animalpicture-container .picture .info-box .description-box {
   display: inline-block;
   width: 80%;
@@ -73,143 +79,143 @@ body {
   overflow: visible;
   padding: 8px 5px 8px 5px;
 }
-/* line 97, ../sass/style.scss */
+/* line 102, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box {
   display: inline-block;
   width: 15%;
   padding-top: 13px;
 }
-/* line 103, ../sass/style.scss */
+/* line 108, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box a {
   text-align: center;
   width: 100%;
   color: #fff;
 }
-/* line 109, ../sass/style.scss */
+/* line 114, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box a:hover {
   text-decoration: none;
 }
-/* line 114, ../sass/style.scss */
+/* line 119, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box .comment-box {
   font-size: 15pt;
 }
-/* line 117, ../sass/style.scss */
+/* line 122, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box .comment-box i:hover:before {
   content: "\f075";
 }
-/* line 124, ../sass/style.scss */
+/* line 129, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box a.comment-box:hover i:before {
   content: "\f075";
 }
-/* line 130, ../sass/style.scss */
+/* line 135, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box .like-box {
   font-size: 15pt;
 }
-/* line 134, ../sass/style.scss */
+/* line 139, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box .like-box i:hover:before {
   content: "\f004";
 }
-/* line 138, ../sass/style.scss */
+/* line 143, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box .like-box.liked {
   color: #f23460;
 }
-/* line 145, ../sass/style.scss */
+/* line 150, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box a.like-box:hover i:before {
   content: "\f004";
 }
-/* line 151, ../sass/style.scss */
+/* line 156, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box a.like-box.liked i:before {
   content: "\f004";
 }
-/* line 155, ../sass/style.scss */
+/* line 160, ../sass/style.scss */
 #animalpicture-container .picture .info-box .tools-box a.like-box.liked i:hover:before {
   content: "\f08a";
 }
-/* line 163, ../sass/style.scss */
+/* line 168, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-green {
   border: #BFD8AD 2px solid;
 }
-/* line 166, ../sass/style.scss */
+/* line 171, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-green .title-box {
   background-color: #BFD8AD;
 }
-/* line 170, ../sass/style.scss */
+/* line 175, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-green .info-box {
   background-color: #BFD8AD;
 }
-/* line 175, ../sass/style.scss */
+/* line 180, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-red {
   border: #F06D61 2px solid;
 }
-/* line 178, ../sass/style.scss */
+/* line 183, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-red .title-box {
   background-color: #F06D61;
 }
-/* line 182, ../sass/style.scss */
+/* line 187, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-red .info-box {
   background-color: #F06D61;
 }
-/* line 187, ../sass/style.scss */
+/* line 192, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-yellow {
   border: #F7AF63 2px solid;
 }
-/* line 190, ../sass/style.scss */
+/* line 195, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-yellow .title-box {
   background-color: #F7AF63;
 }
-/* line 194, ../sass/style.scss */
+/* line 199, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-yellow .info-box {
   background-color: #F7AF63;
 }
-/* line 199, ../sass/style.scss */
+/* line 204, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-blue {
   border: #9CDDC8 2px solid;
 }
-/* line 202, ../sass/style.scss */
+/* line 207, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-blue .title-box {
   background-color: #9CDDC8;
 }
-/* line 206, ../sass/style.scss */
+/* line 211, ../sass/style.scss */
 #animalpicture-container .picture.border-pastel-blue .info-box {
   background-color: #9CDDC8;
 }
 
-/* line 214, ../sass/style.scss */
+/* line 219, ../sass/style.scss */
 .image-container .image {
   width: 100%;
 }
-/* line 218, ../sass/style.scss */
+/* line 223, ../sass/style.scss */
 .image-container .image-title {
   color: #f23460;
   font-family: Kaushan Script;
 }
 
-/* line 225, ../sass/style.scss */
+/* line 230, ../sass/style.scss */
 .comments-container .comments-title {
   font-family: Kaushan Script;
   font-size: 20pt;
 }
 
-/* line 231, ../sass/style.scss */
+/* line 236, ../sass/style.scss */
 .comment {
   border-bottom: 1px solid rgba(242, 52, 96, 0.7);
 }
-/* line 234, ../sass/style.scss */
+/* line 239, ../sass/style.scss */
 .comment:last-child {
   border-bottom: 0px;
 }
-/* line 238, ../sass/style.scss */
+/* line 243, ../sass/style.scss */
 .comment .comment-title {
   font-size: 20pt;
   color: #29221F;
   margin-left: -5px;
 }
-/* line 245, ../sass/style.scss */
+/* line 250, ../sass/style.scss */
 .comment .timestamp {
   font-style: italic;
 }
 
-/* line 250, ../sass/style.scss */
+/* line 255, ../sass/style.scss */
 .comment-form {
   margin: 25px;
 }

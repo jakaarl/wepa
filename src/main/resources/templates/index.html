@@ -38,7 +38,9 @@
        
     </div>
     <div th:if="${#lists.isEmpty(images)}">
-            You don't have any pictures
+        <center>
+            <h1 class="no-animal-pictures">No pictures found</h1>
+        </center>
     </div>
     
     <div th:replace="fragments/modals">modals</div>
