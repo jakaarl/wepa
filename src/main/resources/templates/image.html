@@ -9,33 +9,37 @@
     <nav th:replace="fragments/nav"></nav>
     <div th:replace="fragments/messages">message</div>
     
-    <div class="container">
+    <div class="container image-container">
         <div class="row">
             <div class="col-sm-7">
-                <img th:attr="src=@{/} + ${picture.id}" /> 
+                <img th:attr="src=@{/} + ${picture.id}" class="image" /> 
             </div>
             <div class="col-sm-5">
-                <h1 th:text="${picture.title}">Image title</h1>
+                <h1 class="image-title" th:text="${picture.title}">Image title</h1>
                 <p th:text="${picture.description}">Image description</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12">  
-                <div th:if="!${#lists.isEmpty(picture.comments)}" class="container-fluid">
-                    <div  th:each="comment : ${comments}" class="row clearfix">
+            <div class="container-fluid comments-container">
+                <h1 class="comments-title">Comments</h1>
+                <div class="container-fluid">
+                    <div th:if="!${#lists.isEmpty(picture.comments)}" th:each="comment : ${comments}" class="row clearfix comment">
                         <div class="col-md-12 column">
-                                <h2 th:text="${comment.author.firstName} + ' ' + ${comment.author.lastName}"></h2>
-                                <p th:text="${comment.comment}"></p>
-                                <p>
-                                        <span class="pull-right" th:text="${comment.timestamp}">View details »</span>
-                                </p>
+                            <h2 class="comment-title" th:text="${comment.author.firstName} + ' ' + ${comment.author.lastName}">Bob</h2>
+                            <p th:text="${comment.comment}"></p>
+                            <p>
+                                <span class="pull-right timestamp" th:text="${comment.timestamp}">24.4.2014</span>
+                            </p>
                         </div>
                     </div>
+                    <div th:if="${#lists.isEmpty(picture.comments)}" class="container-fluid comments-container">
+                        <center>No comments yet!</center>
+                    </div>
                 </div>
-                <form role="form" method="POST" th:action="@{/picture/} + ${picture.id} + @{/comment}">
+                <form class="comment-form" role="form" method="POST" th:action="@{/picture/} + ${picture.id} + @{/comment}">
                     <div class="form-group">
-                       <!-- <label for="comment">Comment this picture</label>-->
-                        <input type="textarea" id="comment" name="comment" placeholder="Add your comment..." class="form-control" />
+                        <!-- <label for="comment">Comment this picture</label>-->
+                        <textarea id="comment" name="comment" placeholder="Add your comment..." class="form-control" rows="3"></textarea>
                     </div>
                     <input type="submit" value="Add comment" class="btn btn-primary input-block" />
                 </form>
