@@ -21,7 +21,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         security.authorizeRequests()
             //    .antMatchers(HttpMethod.POST, "/").authenticated()
             //    .anyRequest().permitAll();
-                .antMatchers("/fonts/*", "/css/*", "/js/*", "/*", "/albums/*", "/albums/*/picture/*").permitAll()
+                .antMatchers("/fonts/*", "/css/*", "/js/*", "/*", "/albums/*", "/albums/*/picture/*", "/*/*").permitAll()
                 .anyRequest().authenticated();
         
         security.formLogin()
@@ -30,7 +30,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/authenticate")
                 .and()
                 .logout()
-                .logoutUrl("/logout");
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
 
     }
     

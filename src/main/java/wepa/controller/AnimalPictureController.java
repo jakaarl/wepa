@@ -60,13 +60,13 @@ public class AnimalPictureController {
     }
     
     // Like a picture
-    @RequestMapping(value = "/{id}/like", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/like", method = RequestMethod.GET)
     @ResponseBody
     public int likeImage(@PathVariable Long id) {
         return animalPictureService.likeAnimalPicture(id);
     }
     // Dislike a picture
-    @RequestMapping(value = "/{id}/dislike", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/dislike", method = RequestMethod.GET)
     @ResponseBody
     public int dislikeImage(@PathVariable Long id) {
         return animalPictureService.dislikeAnimalPicture(id);

@@ -28,5 +28,16 @@
             $(this).find(".title-box").hide("slide", { direction: "up" }, 300);
             $(this).find(".controls").hide("slide", { direction: "down" }, 300);
         });
+        
+        $('.like a').on('click', function(event) {
+            event.preventDefault();
+            
+            jQuery.ajax($(this).attr('href'), {type: 'GET'})
+                    .done(function(data){
+                        $(this).addClass("liked");;
+                        $(this).attr('href', $(this).attr('href').split('like')[0] + 'dislike')
+                    });
+            return false;
+        });
     });
 </script>
