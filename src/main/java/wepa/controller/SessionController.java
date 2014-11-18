@@ -7,12 +7,15 @@
 package wepa.controller;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import wepa.domain.User;
 import wepa.helpers.Routes;
 import wepa.service.UserService;
@@ -24,7 +27,7 @@ public class SessionController {
     
     @RequestMapping(value = "/login")
     public String getLogin(){
-        return "login";
+        return Routes.LOGIN_TEMPLATE;
     }
     
     @RequestMapping(value = "/logout")
@@ -33,21 +36,24 @@ public class SessionController {
     }
     
     @RequestMapping(value = "/register")
-    public String getRegister(){
-        return "register";
+    public String getRegister(@ModelAttribute("user") User user) {
+        return Routes.REGISTER_TEMPLATE;
     }
-
+    
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String postRegister(@Valid @ModelAttribute User user, 
-                            RedirectAttributes redirectAttributes){
+    public String postRegister(@Valid @ModelAttribute User user,  BindingResult bindingResult,
+    		RedirectAttributes redirectAttributes) {
+    	if (bindingResult.hasErrors()) {
+    		return Routes.REGISTER_TEMPLATE;
+    	}
         User created = userService.save(user);
         
         if(created == null){
             redirectAttributes.addFlashAttribute("errorMessage", "User was not created");
-            return "redirect:/register";
+            return Routes.REGISTER_REDIRECT; // Hmm? Should we return to the template instead?
         }
         
-        redirectAttributes.addFlashAttribute("message", "User created");
-        return "redirect:/login";
+        redirectAttributes.addFlashAttribute("message", "User created: " + user.getUsername());
+        return Routes.LOGIN_REDIRECT;
     }
 }
