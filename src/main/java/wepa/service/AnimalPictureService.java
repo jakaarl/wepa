@@ -105,6 +105,10 @@ public class AnimalPictureService {
         return pictureRepo.findAll(limit).getContent();
     }
     
+    // TODO: Get all pictures for user
+    
+    // TODO: Get latest pictures for user
+    
     public AnimalPicture add(MultipartFile file, String title, String description, Album album) throws IllegalArgumentException, IOException {
         validate(file);
         AnimalPicture pic = new AnimalPicture();

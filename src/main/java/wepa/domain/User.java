@@ -22,7 +22,7 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     // TODO Roles and different authorities(?)
     
     @NotBlank
-	private String firstName;
+    private String firstName;
     @NotBlank
     private String lastName;
     @Column(unique = true) @NotBlank
@@ -30,7 +30,7 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     private String salt;
     @NotBlank
     private String password;
-    @NotBlank
+    @Column(unique = true) @NotBlank
     private String username;
     
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)

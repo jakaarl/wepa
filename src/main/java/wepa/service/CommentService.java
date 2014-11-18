@@ -31,6 +31,8 @@ public class CommentService {
         return commentRepository.findByPicture(picture, limit).getContent();
     }
     
+    // TODO: getLatestCommentsByUser
+    
     public Comment addComment(Long pictureId, String comment){
         if (comment.isEmpty()){
             throw new IllegalArgumentException("Comment can not be empty!");   

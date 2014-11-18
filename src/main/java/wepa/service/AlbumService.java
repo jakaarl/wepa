@@ -27,6 +27,10 @@ public class AlbumService {
     public List<Album> getAll() {
         return albumRepository.findAll();
     }
+    
+    // TODO: Get all albums for user
+    
+    // TODO: Get latest albums for user
 
     public Album save(Album album) {
         if (album.getAlbumName()==null || album.getAlbumName().isEmpty()){

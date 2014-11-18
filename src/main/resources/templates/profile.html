@@ -12,7 +12,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-2">Profile Image</div>
-            <div class="col-sm-6">Profile Info</div>
+            <div class="col-sm-6">
+                <h1 th:text="${user.username}"></h1>
+                <h4 th:text="${user.firstName} + ' ' + ${user.lastName}"></h4>
+            </div>
             <div class="col-sm-4">5 Recent comments</div>
         </div>
         <div class="row">
