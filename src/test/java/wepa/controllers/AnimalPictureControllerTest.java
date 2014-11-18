@@ -64,7 +64,7 @@ public class AnimalPictureControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
 
-       String messageParam = (String) res.getModelAndView().getModel().get("errorMessage");
+       String messageParam = (String) res.getModelAndView().getModel().get("error");
         
         assertTrue(sizeBefore==pictureRepo.count());
         assertEquals(messageExpected, messageParam);
