@@ -45,7 +45,7 @@ public class AnimalPictureController {
     
     // Get AnimalPicture by id
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
+    public ResponseEntity<byte[]> getPicture(@PathVariable Long id) {
         AnimalPicture pic = animalPictureService.getById(id);
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(pic.getContentType()));
@@ -54,6 +54,36 @@ public class AnimalPictureController {
         headers.setExpires(Long.MAX_VALUE);
 
         return new ResponseEntity<>(pic.getImage(), headers, HttpStatus.CREATED);
+    }
+    
+    // Get AnimalPicture page
+    @RequestMapping(value = "/picture/{id}", method = RequestMethod.GET)
+    public String getPicturePage(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
+        AnimalPicture animalPicture = animalPictureService.getById(id);
+        
+        if(animalPicture == null){
+            redirectAttributes.addFlashAttribute("error", "Animal picture was not found!");
+            return Routes.INDEX_REDIRECT;
+        }
+        
+        model.addAttribute("picture", animalPicture);
+        return Routes.PICTURE_TEMPLATE;
+    }
+    
+    // TODO: Comment AnimalPicture
+    @RequestMapping(value = "/picture/{id}/comment", method = RequestMethod.POST)
+    public String postComment(@PathVariable Long id, RedirectAttributes redirectAttributes){
+        AnimalPicture animalPicture = animalPictureService.getById(id);
+        
+        if(animalPicture == null){
+            redirectAttributes.addFlashAttribute("error", "Animal picture was not found!");
+            return Routes.INDEX_REDIRECT;
+        }
+        
+        // TODO: Comment AnimalPicture
+        
+        redirectAttributes.addFlashAttribute("message", "Comment added!");
+        return "redirect:/picture/" + id;
     }
     
     // Like a picture

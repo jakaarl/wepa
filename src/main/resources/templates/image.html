@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head th:replace="fragments/head">
+    <meta charset="utf-8" />
+    <title>Cutenimals!!!</title>
+    <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <nav th:replace="fragments/nav"></nav>
+    <div th:replace="fragments/messages">message</div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">Image</div>
+            <div class="col-sm-5">
+                <h1 th:text="${image.title}">Image title</h1>
+                <p th:text="${image.description}">Image description</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div th:if="!${#lists.isEmpty(image.comments)}" class="container-fluid">
+                    <ul  th:each="comment : ${image.comments}">
+                        <li th:text="comment.comment"></li>
+                    </ul>
+                </div>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="comment">Comment this picture</label>
+                        <input type="textarea" id="comment" name="comment" placeholder="Add your comment..." class="form-control" />
+                    </div>
+                    <input type="submit" value="Comment" class="btn btn-primary input-block" />
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div th:replace="fragments/modals">modals</div>
+    <script th:replace="fragments/scripts">scripts</script>
+  </body>
+</html>

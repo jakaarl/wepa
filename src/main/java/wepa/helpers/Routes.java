@@ -16,4 +16,5 @@ public class Routes {
     public static final String ALBUMS_TEMPLATE = "albums";
     public static final String ALBUM_TEMPLATE = "album";
     public static final String PROFILE_TEMPLATE = "profile";
+    public static final String PICTURE_TEMPLATE = "image";
 }
