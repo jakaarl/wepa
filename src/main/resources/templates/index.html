@@ -10,6 +10,7 @@
     <div th:replace="fragments/messages">message</div>
     
     <div th:if="!${#lists.isEmpty(images)}" class="container-fluid">
+
         <div id="animalpicture-container">
             <!--<h3>Last added super-adorable cutesy animal pics!!!</h3>
             <ol>
@@ -20,7 +21,9 @@
             </ol>-->
             <div  th:each="image : ${images}" class="picture border-pastel-blue">
                     <!--<img th:if="image.album != null" th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" />-->
+                 <a th:href="@{/picture/} + ${image.id}">
                     <img th:attr="src=@{/} + ${image.id}" />
+                </a>
                     <div class="title-box" th:if="${image.title != null}" th:text="${image.title}">
                             Title :)
                     </div>
@@ -29,10 +32,11 @@
                             <div class="span8" th:if="${image.description != null}" th:text="${image.description}">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             </div>
+                            <div class="span1"><a class="comment-box" th:href="@{/picture/} + ${image.id}"><i class="fa fa-comments"></i>(<span th:text="${#lists.size(image.comments)}"></span>)</a></div>
                             <div class="span1"><a class="like-box" th:attr="href=@{/} + ${image.id} + @{/like}"><i class="fa fa-heart-o"></i></a></div>
                             <div class="span1"><span th:text="${#lists.size(image.likes)}"></span></div>
                             <div class="span1"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                            <div class="span1"><span th:text="${#lists.size(image.comments)}"></span></div>
+                            <!--<div class="span1"><span th:text="${#lists.size(image.comments)}"></span></div> -->
                         </div>
                             <!--<div class="description-box" th:if="${image.description != null}" th:text="${image.description}">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -41,6 +45,7 @@
                     </div>
             </div>
         </div>
+       
     </div>
     <div th:if="${#lists.isEmpty(images)}">
             You don't have any pictures

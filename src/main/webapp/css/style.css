@@ -98,6 +98,15 @@ body {
   height: 100%;
   font-size: 20pt;
 }
+#animalpicture-container .picture .controls .comment-box {
+  float: left;
+  position: absolute;
+  left: 5px;
+  top: 38%;
+  width: 45px;
+  height: 100%;
+  font-size: 20pt;
+}
 /* line 121, ../sass/style.scss */
 #animalpicture-container .picture .controls .like-box i:hover:before {
   content: "\f004";

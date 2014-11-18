@@ -17,10 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
+import wepa.domain.Comment;
 import wepa.domain.User;
 import wepa.helpers.Routes;
+import wepa.repository.CommentRepository;
 import wepa.service.AlbumService;
 import wepa.service.AnimalPictureService;
+import wepa.service.CommentService;
 import wepa.service.UserService;
 
 @Controller
@@ -29,6 +32,9 @@ public class AnimalPictureController {
 
     @Autowired
     private AnimalPictureService animalPictureService;
+    
+    @Autowired
+    private CommentService commentService;
     
     @Autowired 
     private AlbumService albumService;
@@ -72,18 +78,15 @@ public class AnimalPictureController {
     
     // TODO: Comment AnimalPicture
     @RequestMapping(value = "/picture/{id}/comment", method = RequestMethod.POST)
-    public String postComment(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        AnimalPicture animalPicture = animalPictureService.getById(id);
-        
-        if(animalPicture == null){
-            redirectAttributes.addFlashAttribute("error", "Animal picture was not found!");
-            return Routes.INDEX_REDIRECT;
+    public String postComment(@PathVariable Long id, @RequestParam String comment, RedirectAttributes redirectAttributes){
+        try {
+            commentService.addComment(id, comment);
+            redirectAttributes.addFlashAttribute("message", "Comment added!");
+            return "redirect:/picture/" + id;
+        } catch (IllegalArgumentException e){
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/picture/" + id;
         }
-        
-        // TODO: Comment AnimalPicture
-        
-        redirectAttributes.addFlashAttribute("message", "Comment added!");
-        return "redirect:/picture/" + id;
     }
     
     // Like a picture
