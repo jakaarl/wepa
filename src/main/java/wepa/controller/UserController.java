@@ -50,7 +50,7 @@ public class UserController {
         model.addAttribute("latestAlbums", latestAlbums);
         
         List<AnimalPicture> latestAnimalPictures = animalPictureService.getLatestAnimalPictures(user, 5);
-        model.addAttribute("latestPictures", latestAnimalPictures);
+        model.addAttribute("latestAnimalPictures", latestAnimalPictures);
         
         return Routes.PROFILE_TEMPLATE;
     }
