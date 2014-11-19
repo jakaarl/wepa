@@ -12,13 +12,13 @@
     <div class="container-fluid">
         <div class="row">
                 <div class="col-sm-12">
-                        <a href="/users/id/1" class="back-to-username"><h1><< Back to user <span class="the-username" th:text="${user.username}">Kettutyttö</span></h1></a>
+                        <a th:href="@{/users/} + ${user.id}" class="back-to-username"><h1>&lt;&lt; Back to user <span class="the-username" th:text="${user.username}">Kettutytto</span></h1></a>
                 </div>
         </div>
         <div class="row">
             <h1 class="box-title red">Albums</h1>
-            <ul th:if="!${#lists.isEmpty(albums)}"th:each="album : ${albums}">
-                <li th:text="${album.title}">Album Title</li>
+            <ul th:if="!${#lists.isEmpty(albums)}" th:each="album : ${albums}">
+                <li th:text="${album.albumName}">Album Title</li>
             </ul>
         </div>
     </div>
