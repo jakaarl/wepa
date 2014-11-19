@@ -37,6 +37,9 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     private List<Comment> comments;
     
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<Album> albums;
+    
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<AnimalPicture> animalPictures;
     
     @ManyToMany(fetch = FetchType.LAZY)

@@ -36,6 +36,10 @@ public class CommentService {
         return commentRepository.findByAuthor(user, limit).getContent();
     }
     
+    public List<Comment> getAllCommentsByUser(User user) {
+        return commentRepository.findAllByAuthor(user);
+    }
+    
     public Comment addComment(Long pictureId, String comment){
         if (comment.isEmpty()){
             throw new IllegalArgumentException("Comment can not be empty!");   

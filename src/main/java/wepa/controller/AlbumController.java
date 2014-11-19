@@ -28,11 +28,6 @@ public class AlbumController {
     @Autowired
     private AnimalPictureService animalPictureService;
 
-    @PostConstruct
-    public void init(){
-        albumService.save(new Album("Default album_007"));
-    }
-    
     // Get albums
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {

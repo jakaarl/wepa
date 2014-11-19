@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -105,9 +106,14 @@ public class AnimalPictureService {
         return pictureRepo.findAll(limit).getContent();
     }
     
-    // TODO: Get all pictures for user
+    public List<AnimalPicture> getLatestAnimalPictures(User user, int maxCount) {
+        Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "created");
+        return pictureRepo.findByAuthor(user, limit).getContent();
+    }
     
-    // TODO: Get latest pictures for user
+    public List<AnimalPicture> getAllAnimalPicturesByUser(User user) {
+        return pictureRepo.findAllByAuthor(user);
+    }
     
     public AnimalPicture add(MultipartFile file, String title, String description, Album album) throws IllegalArgumentException, IOException {
         validate(file);
@@ -118,6 +124,11 @@ public class AnimalPictureService {
         } else {
             pic.setTitle(title);
         }
+        User user = userService.getAuthenticatedPerson();
+        if(user == null){
+            throw new IllegalArgumentException("First you must login!");
+        }
+        pic.setAuthor(user);
         pic.setDescription(description);
         pic.setAlbum(album);
         pic.setContentType(file.getContentType());

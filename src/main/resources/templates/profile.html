@@ -17,15 +17,25 @@
                 <h4 th:text="${user.firstName} + ' ' + ${user.lastName}">Jonniina Jurvanen</h4>
             </div>
             <div class="col-sm-4" th:if="${not #lists.isEmpty(latestComments)}">
-                <h4>Viimeisimmät kommentit</h4>
+                <a th:href="@{/users/} + ${user.id} + @{/comments}" class="box-title red">Latest comments</a>
                 <ul th:each="comment : ${latestComments}">
                   <li><span th:text="'&quot;' + ${comment.comment} + '&quot;'">&quot;Höpö höpö!&quot;</span> (<a href="#" th:href="@{/picture/} + ${comment.picture.id}" th:text="${comment.picture.title}">Joku kuva</a>)</li>
                 </ul>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6">Some recent animalpictures?</div>
-            <div class="col-sm-6">Some recent albums?</div>
+            <div class="col-sm-6" th:if="${not #lists.isEmpty(latestAnimalPictures)}">
+                <a th:href="@{/users/} + ${user.id} + @{/pictures}" class="box-title red">Latest animal pictures</a>
+                <ul th:each="animalPicture : ${latestAnimalPictures}">
+                  <li><a href="#" th:href="@{/} + ${animalPicture.id}" th:text="${animalPicture.title}">Animalpicture title</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6" th:if="${not #lists.isEmpty(latestAlbums)}">
+                <a th:href="@{/users/} + ${user.id} + @{/albums}" class="box-title red">Latest albums</a>
+                <ul th:each="album : ${latestAlbums}">
+                  <li><a href="#" th:href="@{/albums/} + ${album.id}" th:text="${album.title}">Album title</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     

@@ -6,15 +6,17 @@ package wepa.service;
 
 import java.io.IOException;
 import java.util.List;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.NoRollbackRuleAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
+import wepa.domain.User;
 import wepa.repository.AlbumRepository;
-import wepa.repository.AnimalPictureRepository;
 
 @Service
 public class AlbumService {
@@ -23,19 +25,35 @@ public class AlbumService {
     
     @Autowired
     private AnimalPictureService pictureService;
+    
+    @Autowired
+    private UserService userService;
 
     public List<Album> getAll() {
         return albumRepository.findAll();
     }
     
-    // TODO: Get all albums for user
+    public List<Album> getLatestAlbums(User user, int maxCount) {
+        Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "created");
+        return albumRepository.findByAuthor(user, limit).getContent();
+    }
     
-    // TODO: Get latest albums for user
+    public List<Album> getAllAlbumsByUser(User user) {
+        return albumRepository.findAllByAuthor(user);
+    }
 
     public Album save(Album album) {
         if (album.getAlbumName()==null || album.getAlbumName().isEmpty()){
             throw new IllegalArgumentException("Album name must not be empty!");
         }
+        
+        User user = userService.getAuthenticatedPerson();
+        if(user == null){
+            throw new IllegalArgumentException("First you must login!");
+        }
+        
+        album.setAuthor(user);
+        
         return albumRepository.save(album);
     }
     

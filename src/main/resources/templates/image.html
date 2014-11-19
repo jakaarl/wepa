@@ -16,6 +16,7 @@
             </div>
             <div class="col-sm-5">
                 <h1 class="image-title" th:text="${picture.title}">Image title</h1>
+                <a th:href="@{/users/} + ${picture.author.id}"><small th:text="${picture.author.username}">Username</small></a>
                 <p th:text="${picture.description}">Image description</p>
             </div>
         </div>
@@ -25,7 +26,7 @@
                 <div class="container-fluid">
                     <div th:if="!${#lists.isEmpty(picture.comments)}" th:each="comment : ${comments}" class="row clearfix comment">
                         <div class="col-md-12 column">
-                            <h2 class="comment-title" th:text="${comment.author.username}">Username</h2>
+                            <a th:href="@{/users/} + ${comment.author.id}"><h2 class="comment-title" th:text="${comment.author.username}">Username</h2></a>
                             <p th:text="${comment.comment}"></p>
                             <p>
                                 <span class="pull-right timestamp" th:text="${comment.created}">24.4.2014</span>

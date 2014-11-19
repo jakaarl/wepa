@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head th:replace="fragments/head">
+    <meta charset="utf-8" />
+    <title>Cutenimals!!!</title>
+    <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <nav th:replace="fragments/nav"></nav>
+    <div th:replace="fragments/messages">message</div>
+    
+    <div class="container-fluid">
+        <div class="row">
+                <div class="col-sm-12">
+                        <a href="/users/id/1" class="back-to-username"><h1><< Back to user <span class="the-username" th:text="${user.username}">Kettutyttö</span></h1></a>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 comments-container">  
+                <h1 class="comments-title">Comments</h1>
+                <div class="container-fluid">
+                    <div class="row clearfix comment" th:if="!${#lists.isEmpty(comments)}" th:each="comment : ${comments}">
+                        <div class="col-md-12 column">
+                            <h2 class="comment-title">Posted to <a href="#" class="back-to-animalpicture" th:text="${comment.picture.title}">Picture title</a></h2>
+                            <p th:text="${comment.comment}">Tämä on hieno kuva!</p>
+                            <p>
+                                <span class="pull-right timestamp" th:text="${comment.timestamp}">24.4.2014</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(images)}">
+        <center>
+            <h1 class="no-animal-pictures">No pictures found</h1>
+        </center>
+    </div>
+    
+    <div th:replace="fragments/modals">modals</div>
+    <script th:replace="fragments/scripts">scripts</script>
+  </body>
+</html>

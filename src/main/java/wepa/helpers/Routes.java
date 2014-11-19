@@ -20,6 +20,10 @@ public class Routes {
     public static final String INDEX_TEMPLATE = "index";
     public static final String LOGIN_TEMPLATE = "login";
     public static final String PROFILE_TEMPLATE = "profile";
+    public static final String PROFILE_ALBUMS_TEMPLATE = "profilealbums";
+    public static final String PROFILE_ANIMALPICTURES_TEMPLATE = "profileanimalpictures";
+    public static final String PROFILE_COMMENTS_TEMPLATE = "profilecomments";
     public static final String REGISTER_TEMPLATE = "register";
+    
     
 }

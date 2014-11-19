@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head th:replace="fragments/head">
+    <meta charset="utf-8" />
+    <title>Cutenimals!!!</title>
+    <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <nav th:replace="fragments/nav"></nav>
+    <div th:replace="fragments/messages">message</div>
+    
+    <div class="container-fluid">
+        <div class="row">
+                <div class="col-sm-12">
+                        <a href="/users/id/1" class="back-to-username"><h1><< Back to user <span class="the-username" th:text="${user.username}">Kettutyttö</span></h1></a>
+                </div>
+        </div>
+        <div class="row">
+            <div th:if="!${#lists.isEmpty(images)}" class="container-fluid">
+                <div id="animalpicture-container">
+                    <div  th:each="image : ${images}" class="picture border-pastel-blue">
+                            <div class="title-box" th:text="${image.title}">
+                                    Title :)
+                            </div>
+                            <a th:href="@{/picture/} + ${image.id}"><img th:attr="src=@{/} + ${image.id}" /></a>
+                            <div class="info-box">
+                                    <div class="description-box" th:text="${image.description}">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    </div>
+                                    <div class="tools-box">
+                                            <a href="#" class="comment-box" th:href="@{/picture/} + ${image.id}">(<span th:text="${#lists.size(image.comments)}">100</span>) <i class="fa fa-comments"></i></a>
+                                            <a href="#" class="like-box liked" th:attr="href=@{/} + ${image.id} + @{/like}">(<span th:text="${#lists.size(image.likes)}">100</span>) <i class="fa fa-heart-o"></i></a>
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(images)}">
+        <center>
+            <h1 class="no-animal-pictures">No pictures found</h1>
+        </center>
+    </div>
+    
+    <div th:replace="fragments/modals">modals</div>
+    <script th:replace="fragments/scripts">scripts</script>
+  </body>
+</html>

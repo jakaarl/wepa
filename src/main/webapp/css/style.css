@@ -210,12 +210,26 @@ body {
   color: #29221F;
   margin-left: -5px;
 }
-/* line 250, ../sass/style.scss */
+/* line 249, ../sass/style.scss */
+.comment .comment-title .back-to-animalpicture {
+  color: #f23460;
+}
+/* line 254, ../sass/style.scss */
 .comment .timestamp {
   font-style: italic;
 }
 
-/* line 255, ../sass/style.scss */
+/* line 259, ../sass/style.scss */
 .comment-form {
   margin: 25px;
+}
+
+/* line 263, ../sass/style.scss */
+.back-to-username {
+  font-family: Petrona;
+  color: #29221F;
+}
+/* line 267, ../sass/style.scss */
+.back-to-username .the-username {
+  color: #f23460;
 }

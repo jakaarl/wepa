@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +21,9 @@ public class Album extends AbstractPersistable<Long> {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     private String albumDescription;
+    
+    @ManyToOne
+    private User author;
 
     public Album() {
     }
@@ -60,7 +64,12 @@ public class Album extends AbstractPersistable<Long> {
     public void setAlbumDescription(String description) {
         this.albumDescription = description;
     }
-    
-    
-    
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
 }
