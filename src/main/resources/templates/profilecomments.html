@@ -24,7 +24,7 @@
                             <h2 class="comment-title">Posted to <a href="#" class="back-to-animalpicture" th:text="${comment.picture.title}">Picture title</a></h2>
                             <p th:text="${comment.comment}">Tämä on hieno kuva!</p>
                             <p>
-                                <span class="pull-right timestamp" th:text="${comment.timestamp}">24.4.2014</span>
+                                <span class="pull-right timestamp" th:text="${#dates.format(comment.created, 'dd.MM.yyyy HH:mm')}">24.4.2014</span>
                             </p>
                         </div>
                     </div>
