@@ -10,27 +10,28 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 @Entity
 @Table(name = "registered_user")
 public class User extends AbstractPersistable<Long> implements UserDetails {
     // TODO Roles and different authorities(?)
     
-    @NotBlank
+    @NotBlank @Length(min = 2, max = 64)
     private String firstName;
-    @NotBlank
+    @NotBlank @Length(min = 2, max = 64)
     private String lastName;
-    @Column(unique = true) @NotBlank
+    @Column(unique = true) @NotBlank @Length(min = 5, max = 256)
     private String email;
     private String salt;
-    @NotBlank
     private String password;
-    @Column(unique = true) @NotBlank
+    @NotBlank @Length(min = 6, max = 64)
+    private transient String clearTextPassword;
+    @Column(unique = true) @NotBlank @Length(min = 2, max = 32)
     private String username;
     
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
@@ -82,8 +83,15 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     }
 
     public void setPassword(String password) {
-        this.salt = BCrypt.gensalt();
-        this.password = BCrypt.hashpw(password, this.salt);
+        this.password = password;
+    }
+    
+    public String getClearTextPassword() {
+        return clearTextPassword;
+    }
+    
+    public void setClearTextPassword(String clearTextPassword) {
+        this.clearTextPassword = clearTextPassword;
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -28,13 +29,11 @@ public class JpaAuthenticationProvider implements AuthenticationProvider {
         User user = userService.findUserByEmail(email);
 
         if (user == null) {
-            throw new AuthenticationException("Unable to authenticate user " + email) {
-            };
+            throw new BadCredentialsException("No user found by email: " + email);
         }
 
         if (!BCrypt.hashpw(password, user.getSalt()).equals(user.getPassword())) {
-            throw new AuthenticationException("Unable to authenticate user " + email) {
-            };
+            throw new BadCredentialsException("Invalid password provided, user: " + email);
         }
 
         List<GrantedAuthority> grantedAuths = new ArrayList<>();

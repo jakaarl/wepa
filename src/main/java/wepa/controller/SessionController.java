@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package wepa.controller;
 
 import javax.validation.Valid;
@@ -11,6 +5,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,8 +18,14 @@ import wepa.service.UserService;
 
 @Controller
 public class SessionController {
+    
     @Autowired
     UserService userService;
+    
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setDisallowedFields("password", "salt", "comments", "albums", "animalPictures", "likedPictures");
+    }
     
     @RequestMapping(value = "/login")
     public String getLogin(){
@@ -48,12 +50,12 @@ public class SessionController {
     	}
         User created = userService.save(user);
         
-        if(created == null){
+        if (created == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "User was not created");
             return Routes.REGISTER_REDIRECT; // Hmm? Should we return to the template instead?
         }
         
-        redirectAttributes.addFlashAttribute("message", "User created: " + user.getUsername());
+        redirectAttributes.addFlashAttribute("message", "User created: " + created.getUsername());
         return Routes.LOGIN_REDIRECT;
     }
 }

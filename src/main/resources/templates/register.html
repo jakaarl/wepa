@@ -53,10 +53,10 @@
 
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
-                                        <input type="password" th:field="*{password}" class="form-control input-sm" placeholder="Password" />
-                                        <ul th:id="${#fields.hasErrors('password')}">
-                                            <li th:each="err : ${#fields.errors('password')}" th:text="${err}" />
+                                    <div class="form-group" th:classappend="${#fields.hasErrors('clearTextPassword')} ? 'has-error'">
+                                        <input type="password" th:field="*{clearTextPassword}" class="form-control input-sm" placeholder="Password" />
+                                        <ul th:id="${#fields.hasErrors('clearTextPassword')}">
+                                            <li th:each="err : ${#fields.errors('clearTextPassword')}" th:text="${err}" />
                                         </ul>
                                     </div>
                                 </div>
