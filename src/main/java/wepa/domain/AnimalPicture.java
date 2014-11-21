@@ -29,6 +29,9 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     @ManyToOne(fetch = FetchType.EAGER)
     private Album album;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Animal animal;
+    
     @OneToMany(mappedBy = "picture", fetch = FetchType.LAZY)
     private List<Comment> comments;
     

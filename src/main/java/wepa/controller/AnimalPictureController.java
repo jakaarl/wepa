@@ -22,7 +22,7 @@ import wepa.service.CommentService;
 import wepa.service.UserService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/pictures")
 public class AnimalPictureController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class AnimalPictureController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("images", animalPictureService.getLatest(5));
-        return Routes.INDEX_TEMPLATE;
+        return Routes.ANIMALPICTURES_TEMPLATE;
     }
     
     // Get AnimalPicture by id
@@ -69,7 +69,7 @@ public class AnimalPictureController {
         
         model.addAttribute("picture", animalPicture);
         model.addAttribute("comments", commentService.getLatestComments(animalPicture, 5));
-        return Routes.PICTURE_TEMPLATE;
+        return Routes.ANIMALPICTURE_TEMPLATE;
     }
     
     // TODO: Comment AnimalPicture
@@ -110,7 +110,7 @@ public class AnimalPictureController {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("albums", albumService.getAll());
             model.addAttribute("images", animalPictureService.getLatest(5));
-            return Routes.INDEX_TEMPLATE;
+            return Routes.ANIMALPICTURES_TEMPLATE;
         }
     }
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head th:replace="fragments/head">
+    <meta charset="utf-8" />
+    <title>Cutenimals!!!</title>
+    <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <nav th:replace="fragments/nav"></nav>
+    <div th:replace="fragments/messages">message</div>
+    
+    <div class="container-fluid">
+        <div th:if="${commentReports != null}"> 
+            <h3>Albums created </h3>     
+            <ol>
+                <li th:each="commentReport : ${commentReports}">
+                    <a th:href="@{/reports/comments/}+ ${commentReport.id}" th:text="${commentReport.reason}"></a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    
+    <div th:replace="fragments/modals">modals</div>
+    <script th:replace="fragments/scripts">scripts</script>
+  </body>
+</html>
