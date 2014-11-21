@@ -15,7 +15,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" th:with="reqUri=${#httpServletRequest.requestURI}">
                     <ul class="nav navbar-nav">
                             <li th:class="${reqUri == '/' ? 'active' : ''}"><a href="/">Home</a></li>
-                            <li th:class="${#strings.startsWith(reqUri, '/albums/') ? 'active' : ''}"><a href="/albums/">Albums</a></li>
+                            <li th:class="${#strings.startsWith(reqUri, '/pictures') ? 'active' : ''}"><a href="/pictures/">Animal Pictures</a></li>
+                            <li th:class="${#strings.startsWith(reqUri, '/albums') ? 'active' : ''}"><a href="/albums/">Albums</a></li>
                             <li sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAlbumModal"><i class="fa fa-plus"></i> Add a new album</a></li>
                             <li sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAnimalPicModal"><i class="fa fa-plus"></i> Add a new animal picture</a></li>
                     </ul>
