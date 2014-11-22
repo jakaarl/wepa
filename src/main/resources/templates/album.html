@@ -14,7 +14,7 @@
         <div id="animalpicture-container">
         <h3>Album pictures:</h3>
             <div th:each="image : ${album.animalPictures}" class="picture border-pastel-blue">
-               <img th:attr="src=@{/} + ${image.id}" />
+               <a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/} + ${image.id}" /></a>
                <div class="title-box" th:if="${image.title != null}" th:text="${image.title}">
                        Title :)
                </div>
