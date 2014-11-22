@@ -100,17 +100,14 @@ public class AnimalPictureController {
     // Add new AnimalPicture
     @RequestMapping(method = RequestMethod.POST)
     public String addNewAnimalPicture(@RequestParam MultipartFile file, @RequestParam String title, @RequestParam String description,
-            RedirectAttributes redirectAttributes, Model model) throws Exception {
+            RedirectAttributes redirectAttributes) throws Exception {
         
         try {
             AnimalPicture picture = animalPictureService.add(file, title, description, null);
-            redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
-            return Routes.INDEX_REDIRECT;
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("albums", albumService.getAll());
-            model.addAttribute("images", animalPictureService.getLatest(5));
-            return Routes.ANIMALPICTURES_TEMPLATE;
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
+        
+        return Routes.ANIMALPICTURES_REDIRECT;
     }
 }

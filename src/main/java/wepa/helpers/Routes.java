@@ -9,7 +9,8 @@ package wepa.helpers;
 public class Routes {
     // Redirects
     public static final String INDEX_REDIRECT = "redirect:/";
-    public static final String ALBUMS_REDIRECT = "redirect:/albums/";
+    public static final String ANIMALPICTURES_REDIRECT = "redirect:/pictures";
+    public static final String ALBUMS_REDIRECT = "redirect:/albums";
     public static final String LOGIN_REDIRECT = "redirect:/login";
     public static final String REGISTER_REDIRECT = "redirect:/register";
     public static final String COMMENT_REPORTS_REDIRECT = "redirect:/reports/comments";

@@ -42,11 +42,11 @@ public class AlbumController {
         try {
             albumService.save(album);
             redirectAttributes.addFlashAttribute("message", "New album has been created!");
-            return Routes.ALBUMS_REDIRECT; 
         } catch (IllegalArgumentException e){
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return Routes.ALBUMS_REDIRECT;
         }
+        
+        return Routes.ALBUMS_REDIRECT;
     }
     
     // Get Album by id
@@ -54,7 +54,6 @@ public class AlbumController {
     public String getAlbum(@PathVariable Long id, Model model) {
         Album album= albumService.find(id);
         model.addAttribute("album", album);
-       // model.addAttribute("animalPictures", album.getAnimalPictures());
         return Routes.ALBUM_TEMPLATE;
     }
     
@@ -62,19 +61,15 @@ public class AlbumController {
     @Transactional
     @RequestMapping(value="/{albumId}", method = RequestMethod.POST)
     public String addNewAnimalPicture(@RequestParam MultipartFile file, @PathVariable Long albumId, @RequestParam String title, @RequestParam String description,
-            RedirectAttributes redirectAttributes, Model model) throws Exception {      
+            RedirectAttributes redirectAttributes) throws Exception {      
         try {
             AnimalPicture picture = albumService.addPictureToAlbum(file, title, description, albumId);
             
             redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
-            redirectAttributes.addFlashAttribute("albumId", albumId);
-            redirectAttributes.addFlashAttribute("id", picture.getId());
-            redirectAttributes.addFlashAttribute("description", picture.getDescription());
-            return Routes.ALBUMS_REDIRECT;
         } catch (IllegalArgumentException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("album", albumService.find(albumId));
-            return Routes.ALBUM_TEMPLATE;
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
+        
+        return Routes.ALBUMS_REDIRECT;
     }
 }
