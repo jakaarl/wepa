@@ -9,7 +9,7 @@
     <nav th:replace="fragments/nav"></nav>
     <div th:replace="fragments/messages">message</div>  
     
-    <h3>This is your <span  th:if="${album.albumName != null}" th:text="${album.albumName}"></span> album page</h3>
+    <h3>This is your <span  th:if="${album.name != null}" th:text="${album.name}"></span> album page</h3>
     <div th:if="!${#lists.isEmpty(album.animalPictures)}"  class="container-fluid">
         <div id="animalpicture-container">
         <h3>Album pictures:</h3>
