@@ -44,7 +44,7 @@ public class AlbumController {
             redirectAttributes.addFlashAttribute("message", "New album has been created!");
             return Routes.ALBUMS_REDIRECT; 
         } catch (IllegalArgumentException e){
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
             return Routes.ALBUMS_REDIRECT;
         }
     }

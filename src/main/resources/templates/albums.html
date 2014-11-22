@@ -10,13 +10,22 @@
     <div th:replace="fragments/messages">message</div>
     
     <div class="container-fluid">
-        <div th:if="${albums != null}"> 
-            <h3>Albums created </h3>     
-            <ol>
-                <li th:each="album : ${albums}">
-                    <a th:href="@{/albums/}+ ${album.id}" th:text="${album.albumName}"></a> (<span th:text="${#lists.size(album.animalPictures)}"/>)
-                </li>
-            </ol>
+        <div class="row albums" th:if="${albums != null}">
+            <div class="col-sm-12" th:each="album : ${albums}">
+                <div class="album">
+                    <h1 class="album-title" th:text="${album.name}">Album Name</h1>
+                    <a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
+                    <div class="row album-pictures animalpicture-container">
+                        <div class="col-sm-4 album-thumbnail-image" th:each="animalpic : ${album.getMax3AnimalPictures()}"><img src="img/animals/animal1.jpg"/></div>
+                    </div>
+                    <div class="album-statistics">
+                        <div class="pull-right">
+                            <div class="total-images"><i class="fa fa-image"></i> <span th:text="${#lists.size(album.animalPictures)}" /></div>
+                            <a href="#" class="like-box liked"><i class="fa fa-heart-o"></i> <span th:text="${album.likes}" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     

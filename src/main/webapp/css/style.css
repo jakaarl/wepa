@@ -1,32 +1,32 @@
-/* line 21, ../sass/style.scss */
+/* line 28, ../sass/style.scss */
 body {
   margin-top: 60px;
 }
 
-/* line 26, ../sass/style.scss */
+/* line 33, ../sass/style.scss */
 .navbar-brand {
   font-family: Kaushan Script;
 }
 
-/* line 30, ../sass/style.scss */
+/* line 37, ../sass/style.scss */
 #messages {
   position: fixed;
   top: 56px;
   z-index: 10000;
 }
 
-/* line 36, ../sass/style.scss */
+/* line 43, ../sass/style.scss */
 .no-animal-pictures {
   font-family: Kaushan Script;
   margin-top: 85px;
 }
 
-/* line 41, ../sass/style.scss */
-#animalpicture-container {
+/* line 48, ../sass/style.scss */
+#animalpicture-container, .animalpicture-container {
   position: relative;
 }
-/* line 45, ../sass/style.scss */
-#animalpicture-container .picture {
+/* line 52, ../sass/style.scss */
+#animalpicture-container .picture, .animalpicture-container .picture {
   position: relative;
   overflow: hidden;
   background-color: #fff;
@@ -39,8 +39,8 @@ body {
   text-align: center;
   vertical-align: middle;
 }
-/* line 60, ../sass/style.scss */
-#animalpicture-container .picture img {
+/* line 67, ../sass/style.scss */
+#animalpicture-container .picture img, .animalpicture-container .picture img {
   /*max-width: 100%;*/
   max-height: 480px;
   vertical-align: middle;
@@ -48,12 +48,12 @@ body {
   margin: 0px auto;
   text-align: center;
 }
-/* line 68, ../sass/style.scss */
-#animalpicture-container .picture.large {
+/* line 75, ../sass/style.scss */
+#animalpicture-container .picture.large, .animalpicture-container .picture.large {
   width: 50%;
 }
-/* line 72, ../sass/style.scss */
-#animalpicture-container .picture .title-box {
+/* line 79, ../sass/style.scss */
+#animalpicture-container .picture .title-box, .animalpicture-container .picture .title-box {
   background-color: #000;
   display: block;
   padding: 25px;
@@ -64,172 +64,298 @@ body {
   font-size: 18pt;
   overflow: hidden;
 }
-/* line 87, ../sass/style.scss */
-#animalpicture-container .picture .info-box {
+/* line 94, ../sass/style.scss */
+#animalpicture-container .picture .info-box, .animalpicture-container .picture .info-box {
   background-color: #0333;
   display: block;
   height: 80px;
   overflow: hidden;
 }
-/* line 94, ../sass/style.scss */
-#animalpicture-container .picture .info-box .description-box {
+/* line 101, ../sass/style.scss */
+#animalpicture-container .picture .info-box .description-box, .animalpicture-container .picture .info-box .description-box {
   display: inline-block;
   width: 80%;
   height: 100%;
   overflow: visible;
   padding: 8px 5px 8px 5px;
 }
-/* line 102, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box {
+/* line 109, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box, .animalpicture-container .picture .info-box .tools-box {
   display: inline-block;
   width: 15%;
   padding-top: 13px;
 }
-/* line 108, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box a {
+/* line 115, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box a, .animalpicture-container .picture .info-box .tools-box a {
   text-align: center;
   width: 100%;
   color: #fff;
 }
-/* line 114, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box a:hover {
+/* line 121, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box a:hover, .animalpicture-container .picture .info-box .tools-box a:hover {
   text-decoration: none;
 }
-/* line 119, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box .comment-box {
+/* line 126, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box .comment-box, .animalpicture-container .picture .info-box .tools-box .comment-box {
   font-size: 15pt;
-}
-/* line 122, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box .comment-box i:hover:before {
-  content: "\f075";
 }
 /* line 129, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box a.comment-box:hover i:before {
+#animalpicture-container .picture .info-box .tools-box .comment-box i:hover:before, .animalpicture-container .picture .info-box .tools-box .comment-box i:hover:before {
   content: "\f075";
 }
-/* line 135, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box .like-box {
+/* line 136, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box a.comment-box:hover i:before, .animalpicture-container .picture .info-box .tools-box a.comment-box:hover i:before {
+  content: "\f075";
+}
+/* line 142, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box .like-box, .animalpicture-container .picture .info-box .tools-box .like-box {
   font-size: 15pt;
 }
-/* line 139, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box .like-box i:hover:before {
+/* line 146, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box .like-box i:hover:before, .animalpicture-container .picture .info-box .tools-box .like-box i:hover:before {
   content: "\f004";
-}
-/* line 143, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box .like-box.liked {
-  color: #f23460;
 }
 /* line 150, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box a.like-box:hover i:before {
+#animalpicture-container .picture .info-box .tools-box .like-box.liked, .animalpicture-container .picture .info-box .tools-box .like-box.liked {
+  color: #f23460;
+}
+/* line 157, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box a.like-box:hover i:before, .animalpicture-container .picture .info-box .tools-box a.like-box:hover i:before {
   content: "\f004";
 }
-/* line 156, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box a.like-box.liked i:before {
+/* line 163, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box a.like-box.liked i:before, .animalpicture-container .picture .info-box .tools-box a.like-box.liked i:before {
   content: "\f004";
 }
-/* line 160, ../sass/style.scss */
-#animalpicture-container .picture .info-box .tools-box a.like-box.liked i:hover:before {
+/* line 167, ../sass/style.scss */
+#animalpicture-container .picture .info-box .tools-box a.like-box.liked i:hover:before, .animalpicture-container .picture .info-box .tools-box a.like-box.liked i:hover:before {
   content: "\f08a";
 }
-/* line 168, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-green {
+/* line 175, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-green, .animalpicture-container .picture.border-pastel-green {
   border: #BFD8AD 2px solid;
 }
-/* line 171, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-green .title-box {
+/* line 178, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-green .title-box, .animalpicture-container .picture.border-pastel-green .title-box {
   background-color: #BFD8AD;
 }
-/* line 175, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-green .info-box {
+/* line 182, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-green .info-box, .animalpicture-container .picture.border-pastel-green .info-box {
   background-color: #BFD8AD;
-}
-/* line 180, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-red {
-  border: #F06D61 2px solid;
-}
-/* line 183, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-red .title-box {
-  background-color: #F06D61;
 }
 /* line 187, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-red .info-box {
+#animalpicture-container .picture.border-pastel-red, .animalpicture-container .picture.border-pastel-red {
+  border: #F06D61 2px solid;
+}
+/* line 190, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-red .title-box, .animalpicture-container .picture.border-pastel-red .title-box {
   background-color: #F06D61;
 }
-/* line 192, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-yellow {
-  border: #F7AF63 2px solid;
-}
-/* line 195, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-yellow .title-box {
-  background-color: #F7AF63;
+/* line 194, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-red .info-box, .animalpicture-container .picture.border-pastel-red .info-box {
+  background-color: #F06D61;
 }
 /* line 199, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-yellow .info-box {
+#animalpicture-container .picture.border-pastel-yellow, .animalpicture-container .picture.border-pastel-yellow {
+  border: #F7AF63 2px solid;
+}
+/* line 202, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-yellow .title-box, .animalpicture-container .picture.border-pastel-yellow .title-box {
   background-color: #F7AF63;
 }
-/* line 204, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-blue {
-  border: #9CDDC8 2px solid;
-}
-/* line 207, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-blue .title-box {
-  background-color: #9CDDC8;
+/* line 206, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-yellow .info-box, .animalpicture-container .picture.border-pastel-yellow .info-box {
+  background-color: #F7AF63;
 }
 /* line 211, ../sass/style.scss */
-#animalpicture-container .picture.border-pastel-blue .info-box {
+#animalpicture-container .picture.border-pastel-blue, .animalpicture-container .picture.border-pastel-blue {
+  border: #9CDDC8 2px solid;
+}
+/* line 214, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-blue .title-box, .animalpicture-container .picture.border-pastel-blue .title-box {
+  background-color: #9CDDC8;
+}
+/* line 218, ../sass/style.scss */
+#animalpicture-container .picture.border-pastel-blue .info-box, .animalpicture-container .picture.border-pastel-blue .info-box {
   background-color: #9CDDC8;
 }
 
-/* line 219, ../sass/style.scss */
+/* line 226, ../sass/style.scss */
 .image-container .image {
   width: 100%;
 }
-/* line 223, ../sass/style.scss */
+/* line 230, ../sass/style.scss */
 .image-container .image-title {
   color: #f23460;
   font-family: Kaushan Script;
 }
 
-/* line 230, ../sass/style.scss */
+/* line 237, ../sass/style.scss */
 .comments-container .comments-title {
   font-family: Kaushan Script;
   font-size: 20pt;
 }
 
-/* line 236, ../sass/style.scss */
+/* line 243, ../sass/style.scss */
 .comment {
   border-bottom: 1px solid rgba(242, 52, 96, 0.7);
+  margin-bottom: 15px;
+  background-color: rgba(240, 242, 235, 0.8);
+  padding-bottom: 12px;
+  padding-left: 5px;
+  -moz-border-radius: 15px / 15px;
+  -webkit-border-radius: 15px 15px;
+  border-radius: 15px / 15px;
 }
-/* line 239, ../sass/style.scss */
+/* line 253, ../sass/style.scss */
 .comment:last-child {
-  border-bottom: 0px;
+  margin-bottom: 0px;
 }
-/* line 243, ../sass/style.scss */
+/* line 257, ../sass/style.scss */
 .comment .comment-title {
   font-size: 20pt;
   color: #29221F;
   margin-left: -5px;
 }
-/* line 249, ../sass/style.scss */
+/* line 263, ../sass/style.scss */
+.comment .comment-title a {
+  font-family: Kaushan Script;
+  color: #f23460;
+  text-decoration: none;
+}
+/* line 268, ../sass/style.scss */
+.comment .comment-title a:hover {
+  text-decoration: underline;
+}
+/* line 273, ../sass/style.scss */
 .comment .comment-title .back-to-animalpicture {
   color: #f23460;
 }
-/* line 254, ../sass/style.scss */
+/* line 278, ../sass/style.scss */
 .comment .timestamp {
   font-style: italic;
 }
 
-/* line 259, ../sass/style.scss */
+/* line 283, ../sass/style.scss */
 .comment-form {
   margin: 25px;
 }
 
-/* line 263, ../sass/style.scss */
+/* line 287, ../sass/style.scss */
 .back-to-username {
   font-family: Petrona;
   color: #29221F;
 }
-/* line 267, ../sass/style.scss */
+/* line 291, ../sass/style.scss */
 .back-to-username .the-username {
   color: #f23460;
+}
+
+/* line 296, ../sass/style.scss */
+.box-title {
+  font-family: Kaushan Script;
+  color: #29221F;
+  font-size: 20pt;
+}
+/* line 302, ../sass/style.scss */
+.box-title.red {
+  color: #f23460;
+}
+
+/* line 309, ../sass/style.scss */
+.albums > div {
+  margin-bottom: 20px;
+}
+/* line 312, ../sass/style.scss */
+.albums > div:last-child {
+  margin-bottom: 0px;
+}
+/* line 317, ../sass/style.scss */
+.albums .album {
+  background-color: rgba(240, 242, 235, 0.8);
+  -moz-border-radius: 20px / 20px;
+  -webkit-border-radius: 20px 20px;
+  border-radius: 20px / 20px;
+  padding: 20px;
+}
+/* line 326, ../sass/style.scss */
+.albums .album .album-title {
+  font-family: Kaushan Script;
+  color: #f23460;
+  margin-top: 0px;
+}
+/* line 334, ../sass/style.scss */
+.albums .album .album-pictures .album-thumbnail-image {
+  display: table !important;
+  overflow: hidden;
+}
+/* line 339, ../sass/style.scss */
+.albums .album .album-pictures .album-thumbnail-image img {
+  max-width: 100%;
+  overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
+  -moz-border-radius: 20px / 20px;
+  -webkit-border-radius: 20px 20px;
+  border-radius: 20px / 20px;
+}
+/* line 351, ../sass/style.scss */
+.albums .album .album-statistics {
+  height: 65px;
+}
+/* line 354, ../sass/style.scss */
+.albums .album .album-statistics > * {
+  font-family: Petrona;
+  color: #f23460;
+  font-size: 22pt;
+  display: inline-block;
+}
+/* line 361, ../sass/style.scss */
+.albums .album .album-statistics .like-box i:hover:before {
+  content: "\f004";
+}
+/* line 365, ../sass/style.scss */
+.albums .album .album-statistics .like-box.liked {
+  color: #f23460;
+}
+/* line 371, ../sass/style.scss */
+.albums .album .album-statistics a.like-box:hover {
+  text-decoration: none;
+}
+/* line 374, ../sass/style.scss */
+.albums .album .album-statistics a.like-box:hover i:before {
+  content: "\f004";
+}
+/* line 380, ../sass/style.scss */
+.albums .album .album-statistics a.like-box.liked i:before {
+  content: "\f004";
+}
+/* line 384, ../sass/style.scss */
+.albums .album .album-statistics a.like-box.liked i:hover:before {
+  content: "\f08a";
+}
+
+/* line 393, ../sass/style.scss */
+.report-button {
+  position: absolute;
+  display: block;
+  color: #f23460;
+  font-size: 22px;
+  text-decoration: none;
+  font-family: Petrona;
+}
+/* line 403, ../sass/style.scss */
+.report-button:hover {
+  text-transform: uppercase;
+  text-decoration: none;
+}
+/* line 408, ../sass/style.scss */
+.report-button:hover:before {
+  content: 'Report ';
+}
+
+/* line 414, ../sass/style.scss */
+.album .report-button {
+  top: 20px;
+  right: 40px;
 }

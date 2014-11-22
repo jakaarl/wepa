@@ -43,7 +43,7 @@ public class AlbumService {
     }
 
     public Album save(Album album) {
-        if (album.getAlbumName()==null || album.getAlbumName().isEmpty()){
+        if (album.getName()==null || album.getName().isEmpty()){
             throw new IllegalArgumentException("Album name must not be empty!");
         }
         

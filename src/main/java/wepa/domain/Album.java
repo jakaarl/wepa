@@ -1,7 +1,9 @@
 package wepa.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -17,10 +19,11 @@ public class Album extends AbstractPersistable<Long> {
     @OneToMany(mappedBy = "album", fetch= FetchType.EAGER)
     private List<AnimalPicture> animalPictures;
     @NotBlank
-    private String albumName;
+    private String name;
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    private String albumDescription;
+    private String description;
+    private int likes;
     
     @ManyToOne
     private User author;
@@ -28,8 +31,8 @@ public class Album extends AbstractPersistable<Long> {
     public Album() {
     }
 
-    public Album(String albumName) {
-        this.albumName = albumName;
+    public Album(String name) {
+        this.name = name;
         this.created = new Date();
     }
 
@@ -41,12 +44,12 @@ public class Album extends AbstractPersistable<Long> {
         this.animalPictures = animalPictures;
     }
 
-    public String getAlbumName() {
-        return albumName;
+    public String getName() {
+        return name;
     }
 
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getCreated() {
@@ -57,12 +60,12 @@ public class Album extends AbstractPersistable<Long> {
         this.created = created;
     }
 
-    public String getAlbumDescription() {
-        return albumDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAlbumDescription(String description) {
-        this.albumDescription = description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getAuthor() {
@@ -71,5 +74,29 @@ public class Album extends AbstractPersistable<Long> {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+    
+    public int getLikes(){
+        return this.likes;
+    }
+    
+    public void setLikes(int likes){
+        this.likes = likes;
+    }
+    
+    public List<AnimalPicture> getMax3AnimalPictures(){
+        List<AnimalPicture> animalPictures = this.getAnimalPictures();
+        
+        if(animalPictures.size() > 3){
+            List<AnimalPicture> newList = new ArrayList<AnimalPicture>();
+            Random rand = new Random();
+            newList.add(animalPictures.get(rand.nextInt(animalPictures.size())));
+            newList.add(animalPictures.get(rand.nextInt(animalPictures.size())));
+            newList.add(animalPictures.get(rand.nextInt(animalPictures.size())));
+            
+            return newList;
+        } else {
+            return this.getAnimalPictures();
+        }
     }
 }

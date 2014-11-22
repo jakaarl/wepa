@@ -78,8 +78,8 @@ public class AlbumControllerTest {
         
         Album album = albumRepo.findOne(albumRepo.count());
         assertEquals(sizeBefore+1, albumRepo.count());
-        assertEquals(albumName, album.getAlbumName());
-        assertEquals(albumDescription, album.getAlbumDescription());
+        assertEquals(albumName, album.getName());
+        assertEquals(albumDescription, album.getDescription());
     }
     
     @Test
