@@ -23,7 +23,7 @@
                     <div class="title-box" th:text="${image.title}">
                             Title :)
                     </div>
-                    <a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/} + ${image.id}" /></a>
+                    <a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>
                     <div class="info-box">
                             <div class="description-box" th:text="${image.description}">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.

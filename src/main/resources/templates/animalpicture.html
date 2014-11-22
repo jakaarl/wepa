@@ -12,7 +12,7 @@
     <div class="container image-container">
         <div class="row">
             <div class="col-sm-7">
-                <img th:attr="src=@{/} + ${picture.id}" class="image" /> 
+                <img th:attr="src=@{/pictures/} + ${picture.id} + @{/src}" class="image" /> 
             </div>
             <div class="col-sm-5">
                 <h1 class="image-title" th:text="${picture.title}">Image title</h1>

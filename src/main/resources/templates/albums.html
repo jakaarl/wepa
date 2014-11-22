@@ -16,7 +16,7 @@
                     <a th:href="@{/albums/} + ${album.id}"><h1 class="album-title" th:text="${album.name}">Album Name</h1></a>
                     <a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
                     <div class="row album-pictures animalpicture-container">
-                        <div class="col-sm-4 album-thumbnail-image" th:each="animalpic : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/} + ${image.id}" /></div>
+                        <div class="col-sm-4 album-thumbnail-image" th:each="animalpic : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
                     </div>
                     <div class="album-statistics">
                         <div class="pull-right">

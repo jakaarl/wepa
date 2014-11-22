@@ -45,7 +45,7 @@ public class AnimalPictureController {
     }
     
     // Get AnimalPicture by id
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/src", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getPicture(@PathVariable Long id) {
         AnimalPicture pic = animalPictureService.getById(id);
         final HttpHeaders headers = new HttpHeaders();
@@ -58,7 +58,7 @@ public class AnimalPictureController {
     }
     
     // Get AnimalPicture page
-    @RequestMapping(value = "/picture/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getPicturePage(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
         AnimalPicture animalPicture = animalPictureService.getById(id);
         
