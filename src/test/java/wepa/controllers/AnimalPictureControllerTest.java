@@ -95,7 +95,8 @@ public class AnimalPictureControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        AnimalPicture picture = pictureService.getLatest(3).get(0);
+       // AnimalPicture picture = pictureService.getLatest(3).get(0);
+         AnimalPicture picture = pictureRepo.findOne(pictureRepo.count());
         res = mockMvc.perform(get(POST_ADDRESS + picture.getId() + "/src")) 
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
