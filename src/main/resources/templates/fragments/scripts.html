@@ -21,14 +21,26 @@
             });
         });
         
-        $('.like a').on('click', function(event) {
+        $('.like-box').on('click', function(event) {
             event.preventDefault();
+            var clickedEl = $(this);
+            var address = "/pictures/" + $(this).attr('id');
+            var like = "/like/";
+            var dislike = "/dislike/";
+            
+            if (clickedEl.attr('href')==(address+like)){
+                address += dislike;
+            } else {
+                address += like;
+            }
             
             jQuery.ajax($(this).attr('href'), {type: 'GET'})
                     .done(function(data){
-                        $(this).addClass("liked");;
-                        $(this).attr('href', $(this).attr('href').split('like')[0] + 'dislike')
+                        clickedEl.addClass("liked");
+                        clickedEl.attr('href', address)
+                        clickedEl.find("span").html(data);
                     });
+                    
             return false;
         });
     });

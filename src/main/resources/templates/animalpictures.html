@@ -30,7 +30,7 @@
                             </div>
                             <div class="tools-box">
                                     <a href="#" class="comment-box" th:href="@{/pictures/} + ${image.id}">(<span th:text="${#lists.size(image.comments)}">100</span>) <i class="fa fa-comments"></i></a>
-                                    <a href="#" class="like-box liked" >(<span th:text="${#lists.size(image.likes)}">100</span>) <i class="fa fa-heart-o"></i></a>
+                                    <a href="#" class="like-box" th:id="${image.id}" th:attr="href=@{pictures/} + ${image.id} + @{/like}">(<span th:text="${#lists.size(image.likes)}">100</span>) <i class="fa fa-heart-o"></i></a>
                             </div>
                     </div>
             </div>
