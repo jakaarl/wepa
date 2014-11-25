@@ -9,6 +9,7 @@ package wepa.domain;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -16,6 +17,7 @@ public class CommentReport extends AbstractPersistable<Long> {
     @ManyToOne
     private Comment comment;
     private String reason;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
     @ManyToOne
     private User sentBy;

@@ -37,7 +37,7 @@
                         <center>No comments yet!</center>
                     </div>
                 </div>
-                <form class="comment-form" role="form" method="POST" th:action="@{/picture/} + ${picture.id} + @{/comment}">
+                <form class="comment-form" role="form" method="POST" th:action="@{/pictures/} + ${picture.id} + @{/comment}">
                     <div class="form-group">
                         <!-- <label for="comment">Comment this picture</label>-->
                         <textarea id="comment" name="comment" placeholder="Add your comment..." class="form-control" rows="3"></textarea>

@@ -67,4 +67,19 @@ public class UserService {
     public User findUser(Long id){
         return userRepository.findOne(id);
     }
+
+    public User getTestUser() {
+       User user =  userRepository.findByEmail("testUser@mail.com");
+       if (user==null){ 
+            user = new User();
+            user.setEmail("testUser@mail.com");
+            user.setUsername("testUser");
+            user.setPassword("testPassword");
+            user.setLastName("User");
+            user.setFirstName("Test");
+            user.setClearTextPassword("testPassword");
+            return userRepository.save(user);
+       }
+       return user;
+    }
 }

@@ -6,18 +6,24 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
+import org.junit.Before;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.multipart.MultipartFile;
 
 import wepa.Application;
 import wepa.domain.AnimalPicture;
+import wepa.domain.User;
 import wepa.repository.AnimalPictureRepository;
+import wepa.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -29,6 +35,14 @@ public class AnimalPictureServiceTest {
     @Autowired
     private AnimalPictureService animalPictureService;
     
+    @Autowired
+    private UserService userService;
+    
+    @Before
+    public void onSetUp() {
+       Authentication auth = new UsernamePasswordAuthenticationToken(userService.getTestUser(),null);
+       SecurityContextHolder.getContext().setAuthentication(auth);
+    }
     @Test
     public void getLatestShouldReturnEmptyListWhenNoPicturesFound() {
         animalPictureRepository.deleteAllInBatch();
@@ -87,6 +101,7 @@ public class AnimalPictureServiceTest {
     
     @Test
     public void addShouldAllowValidImage() throws IOException {
+               
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [10]);
         AnimalPicture picture = animalPictureService.add(pictureFile, "valid image", "valid image", null);
         assertNotNull(picture);

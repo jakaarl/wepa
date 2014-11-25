@@ -46,15 +46,20 @@ public class AnimalPictureController {
     
     // Get AnimalPicture by id
     @RequestMapping(value = "/{id}/src", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getPicture(@PathVariable Long id) {
-        AnimalPicture pic = animalPictureService.getById(id);
+    public ResponseEntity<byte[]> getPicture(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        AnimalPicture animalPicture = animalPictureService.getById(id);
+        if (animalPicture==null){
+            redirectAttributes.addFlashAttribute("error", "Animal picture was not found!");
+            return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
+        }
+        
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType(pic.getContentType()));
-        headers.setContentLength(pic.getImage().length);
+        headers.setContentType(MediaType.parseMediaType(animalPicture.getContentType()));
+        headers.setContentLength(animalPicture.getImage().length);
         headers.setCacheControl("public");
         headers.setExpires(Long.MAX_VALUE);
 
-        return new ResponseEntity<>(pic.getImage(), headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(animalPicture.getImage(), headers, HttpStatus.CREATED);
     }
     
     // Get AnimalPicture page
@@ -73,7 +78,7 @@ public class AnimalPictureController {
     }
     
     // TODO: Comment AnimalPicture
-    @RequestMapping(value = "/picture/{id}/comment", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/comment", method = RequestMethod.POST)
     public String postComment(@PathVariable Long id, @RequestParam String comment, RedirectAttributes redirectAttributes){
         try {
             commentService.addComment(id, comment);
@@ -81,7 +86,7 @@ public class AnimalPictureController {
         } catch (IllegalArgumentException e){
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/picture/" + id;
+        return "redirect:/pictures/" + id;
     }
     
     // Like a picture

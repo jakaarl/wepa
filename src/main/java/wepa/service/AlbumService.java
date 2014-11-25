@@ -38,6 +38,11 @@ public class AlbumService {
         return albumRepository.findByAuthor(user, limit).getContent();
     }
     
+    public List<Album> getLatest(int maxCount) {
+        Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "created");
+        return albumRepository.findAll(limit).getContent();
+    }
+    
     public List<Album> getAllAlbumsByUser(User user) {
         return albumRepository.findAllByAuthor(user);
     }
