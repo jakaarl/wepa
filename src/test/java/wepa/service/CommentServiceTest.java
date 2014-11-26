@@ -59,6 +59,7 @@ public class CommentServiceTest {
         Long pictureId = createPicture().getId();
         String commentTitle = "some comment";
 //        Comment c = commentService.addComment(pictureId, commentTitle);
+//        c.getAuthor();
 //        assertNotNull(c);
 //        assertEquals(c.getPicture().getId(), pictureId);
 //        assertEquals(c.getComment(), commentTitle);

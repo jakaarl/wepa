@@ -49,7 +49,7 @@ public class CommentService {
         if(animalPicture == null){
             throw new IllegalArgumentException("Animal picture was not found!");
         }
-        
+
         User user = userService.getAuthenticatedPerson();
         if(user == null){
             throw new IllegalArgumentException("First you must login!");

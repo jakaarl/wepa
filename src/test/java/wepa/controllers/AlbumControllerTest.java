@@ -104,7 +104,7 @@ public class AlbumControllerTest {
     }
     
     @Test
-    public void addingPictureFileSavesItCorrectly() throws Exception {
+    public void addingPictureFileToAlbumSavesItCorrectly() throws Exception {
         Album album = albumRepo.save(new Album("as"));
         Long sizeBefore = pictureRepo.count();
         String description = UUID.randomUUID().toString().substring(0, 6);
@@ -120,8 +120,11 @@ public class AlbumControllerTest {
                 .andReturn();
         
         AnimalPicture picture = pictureService.getLatest(3).get(0);
+        Album pictureAlbum = picture.getAlbum();
+        //checks if the saved picture is assigned to the right album
+        assertEquals(album.getId(), picture.getAlbum().getId());
         assertEquals(picture.getTitle(), title);
-      //  assertEquals(picture.getDescription(), description);
+        assertEquals(picture.getDescription(), description);
         res = mockMvc.perform(get("/pictures/" + picture.getId() + "/src"))          
                  .andExpect(status().is2xxSuccessful())            
                  .andReturn();

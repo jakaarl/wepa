@@ -1,5 +1,6 @@
 package wepa.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -36,7 +37,7 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     private List<Comment> comments;
     
     @ManyToMany(mappedBy = "likedPictures", fetch = FetchType.LAZY)
-    private List<User> likes;
+    private List<User> likes = new ArrayList<User>();
     
     public AnimalPicture(){
         this.added = new Date();

@@ -60,7 +60,7 @@ public class AlbumController {
     // Add image to album
     @Transactional
     @RequestMapping(value="/{albumId}", method = RequestMethod.POST)
-    public String addNewAnimalPicture(@RequestParam MultipartFile file, @PathVariable Long albumId, @RequestParam String title, @RequestParam String description,
+    public String addNewAnimalPictureToAlbum(@RequestParam MultipartFile file, @PathVariable Long albumId, @RequestParam String title, @RequestParam String description,
             RedirectAttributes redirectAttributes) throws Exception {      
         try {
             AnimalPicture picture = albumService.addPictureToAlbum(file, title, description, albumId);

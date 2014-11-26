@@ -93,6 +93,7 @@ public class AnimalPictureController {
     @RequestMapping(value = "/{id}/like", method = RequestMethod.GET)
     @ResponseBody
     public int likeImage(@PathVariable Long id) {
+        System.out.println("\n\n\nUseo...");
         return animalPictureService.likeAnimalPicture(id);
     }
     // Dislike a picture
