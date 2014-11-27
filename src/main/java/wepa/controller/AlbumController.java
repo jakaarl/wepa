@@ -1,7 +1,7 @@
 package wepa.controller;
 
-import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wepa.domain.Album;
-import wepa.domain.AnimalPicture;
+import wepa.domain.User;
+import wepa.helpers.CurrentUserProvider;
 import wepa.helpers.Routes;
 import wepa.service.AlbumService;
 import wepa.service.AnimalPictureService;
@@ -22,11 +23,15 @@ import wepa.service.AnimalPictureService;
 @Controller
 @RequestMapping("/albums/")
 public class AlbumController {
+    
     @Autowired
     private AlbumService albumService;
     
     @Autowired
     private AnimalPictureService animalPictureService;
+    
+    @Autowired
+    private CurrentUserProvider currentUserProvider;
 
     // Get albums
     @RequestMapping(method = RequestMethod.GET)
@@ -35,7 +40,7 @@ public class AlbumController {
         return Routes.ALBUMS_TEMPLATE;
     }
     
-    // Post a new Album
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     public String addNewAlbum(@ModelAttribute Album album, 
                             RedirectAttributes redirectAttributes) throws Exception {
@@ -57,14 +62,14 @@ public class AlbumController {
         return Routes.ALBUM_TEMPLATE;
     }
     
-    // Add image to album
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @RequestMapping(value="/{albumId}", method = RequestMethod.POST)
     public String addNewAnimalPictureToAlbum(@RequestParam MultipartFile file, @PathVariable Long albumId, @RequestParam String title, @RequestParam String description,
-            RedirectAttributes redirectAttributes) throws Exception {      
+            RedirectAttributes redirectAttributes) throws Exception {
+        User user = currentUserProvider.getUser();
         try {
-            AnimalPicture picture = albumService.addPictureToAlbum(file, title, description, albumId);
-            
+            albumService.addPictureToAlbum(file, title, user, description, albumId);
             redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());

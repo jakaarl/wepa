@@ -23,7 +23,6 @@ import wepa.Application;
 import wepa.domain.AnimalPicture;
 import wepa.domain.User;
 import wepa.repository.AnimalPictureRepository;
-import wepa.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -38,11 +37,15 @@ public class AnimalPictureServiceTest {
     @Autowired
     private UserService userService;
     
+    private User testUser;
+    
     @Before
     public void onSetUp() {
-       Authentication auth = new UsernamePasswordAuthenticationToken(userService.getTestUser(),null);
+       testUser = userService.getTestUser();
+       Authentication auth = new UsernamePasswordAuthenticationToken(testUser, null);
        SecurityContextHolder.getContext().setAuthentication(auth);
     }
+    
     @Test
     public void getLatestShouldReturnEmptyListWhenNoPicturesFound() {
         animalPictureRepository.deleteAllInBatch();
@@ -84,26 +87,26 @@ public class AnimalPictureServiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void addShouldDisallowNonImageTypes() throws IOException {
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "not/image", new byte [10]);
-        animalPictureService.add(pictureFile, "not an image", "not an image", null);
+        animalPictureService.add(pictureFile, "not an image", testUser, "not an image", null);
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void addShouldDisallowEmptyImages() throws IOException {
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [0]);
-        animalPictureService.add(pictureFile, "empty image", "empty image", null);
+        animalPictureService.add(pictureFile, "empty image", testUser, "empty image", null);
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void addShouldDisallowBigImages() throws IOException {
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [6*1024*1024]);
-        animalPictureService.add(pictureFile, "big image", "big image", null);
+        animalPictureService.add(pictureFile, "big image", testUser, "big image", null);
     }
     
     @Test
     public void addShouldAllowValidImage() throws IOException {
                
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [10]);
-        AnimalPicture picture = animalPictureService.add(pictureFile, "valid image", "valid image", null);
+        AnimalPicture picture = animalPictureService.add(pictureFile, "valid image", testUser, "valid image", null);
         assertNotNull(picture);
     }
 }

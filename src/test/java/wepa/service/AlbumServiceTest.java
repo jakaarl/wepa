@@ -3,7 +3,6 @@ package wepa.service;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import org.junit.After;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -22,7 +21,6 @@ import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
 import wepa.domain.User;
 import wepa.repository.AlbumRepository;
-import wepa.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -37,6 +35,7 @@ public class AlbumServiceTest {
     @Autowired
     private AlbumService albumService;
     
+    private User testUser;
     
     private Album createAlbum() {
         return albumRepository.save(new Album("new Album"));
@@ -44,7 +43,8 @@ public class AlbumServiceTest {
     
     @Before
     public void onSetUp() {
-       Authentication auth = new UsernamePasswordAuthenticationToken(userService.getTestUser(),null);
+       testUser = userService.getTestUser();
+       Authentication auth = new UsernamePasswordAuthenticationToken(testUser, null);
        SecurityContextHolder.getContext().setAuthentication(auth);
     }
     
@@ -57,7 +57,7 @@ public class AlbumServiceTest {
     public void addShouldDisallowEmptyImages() throws IOException {
         Album a = createAlbum();
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [0]);
-        albumService.addPictureToAlbum(pictureFile, "empty image", "empty image", a.getId());
+        albumService.addPictureToAlbum(pictureFile, "empty image", testUser, "empty image", a.getId());
     }
     
 
@@ -67,7 +67,7 @@ public class AlbumServiceTest {
         Album a = createAlbum();
         Long albumId = a.getId();
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [10]);
-        AnimalPicture picture = albumService.addPictureToAlbum(pictureFile, "image", "image", albumId);
+        AnimalPicture picture = albumService.addPictureToAlbum(pictureFile, "image", testUser, "image", albumId);
 
         assertNotNull(picture);
     }

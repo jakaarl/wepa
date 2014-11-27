@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import wepa.helpers.UserIdProvider;
+import wepa.helpers.CurrentUserProvider;
 
 @Configuration
 @ComponentScan
@@ -41,7 +41,7 @@ public class Application {
     }
     
     @Bean
-    UserIdProvider userIdProvider() {
-        return new UserIdProvider();
+    CurrentUserProvider currentUserProvider() {
+        return new CurrentUserProvider();
     }
 }

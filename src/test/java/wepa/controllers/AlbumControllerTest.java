@@ -1,7 +1,6 @@
 package wepa.controllers;
 
 import java.util.UUID;
-import javax.servlet.Filter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -9,10 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -21,21 +18,19 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import wepa.Application;
+import wepa.TestConfiguration;
+import wepa.auth.TestUser;
 import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
-import wepa.domain.User;
 import wepa.repository.AlbumRepository;
 import wepa.repository.AnimalPictureRepository;
-import wepa.repository.UserRepository;
 import wepa.service.AlbumService;
 import wepa.service.AnimalPictureService;
 import wepa.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = TestConfiguration.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
 public class AlbumControllerTest {
@@ -59,39 +54,44 @@ public class AlbumControllerTest {
     @Autowired
     private AnimalPictureService pictureService;
     
+    @Autowired
+    private TestUser testUser;
+    
     private MockMvc mockMvc;
 
     @Before
     public void setUp() {
-       Authentication auth = new UsernamePasswordAuthenticationToken(userService.getTestUser(),null);
-       SecurityContextHolder.getContext().setAuthentication(auth);
+        // black magic for Thymeleaf!
+        webAppContext.getServletContext().setAttribute(
+                WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, webAppContext);
        this.mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext).build();
     }
 
     @Test
     public void creatingAlbumWithoutNameReturnsErrorMessage() throws Exception{
-
+        MockHttpSession session = testUser.login();
         Long sizeBefore = albumRepo.count();
-        String messageExpected = "Album name must not be empty!";
-        MvcResult res = mockMvc.perform(post(POST_ADDRESS)
+        mockMvc.perform(post(POST_ADDRESS)
+                .session(session)
                 .param("name", "")
                 .param("description",""))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
   
         assertTrue(sizeBefore==albumRepo.count());
-       // assertEquals(messageExpected, messageParam);
     }
     
 
     
     @Test
     public void addingNamedAlbumRedirectsToSamePageAndSavesAlbumCorrectly() throws Exception{
+        MockHttpSession session = testUser.login();
         String albumName = UUID.randomUUID().toString().substring(0, 6);
         String albumDescription = UUID.randomUUID().toString().substring(0, 6);
         Long sizeBefore = albumRepo.count();
                 
-        MvcResult res = mockMvc.perform(post(POST_ADDRESS)
+        mockMvc.perform(post(POST_ADDRESS)
+                .session(session)
                 .param("name", albumName)
                 .param("description",albumDescription))
                 .andExpect(status().is3xxRedirection())
@@ -105,6 +105,7 @@ public class AlbumControllerTest {
     
     @Test
     public void addingPictureFileToAlbumSavesItCorrectly() throws Exception {
+        MockHttpSession session = testUser.login();
         Album album = albumRepo.save(new Album("as"));
         Long sizeBefore = pictureRepo.count();
         String description = UUID.randomUUID().toString().substring(0, 6);
@@ -114,16 +115,14 @@ public class AlbumControllerTest {
         MockMultipartFile multipartFile = new MockMultipartFile("file", fileName, "image/png", content.getBytes());
 
         MvcResult res = mockMvc.perform(fileUpload(POST_ADDRESS + album.getId()).file(multipartFile)
+                .session(session)
                 .param("description", description)
                 .param("title", title))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
         AnimalPicture picture = pictureService.getLatest(3).get(0);
-        Album pictureAlbum = picture.getAlbum();
-//        assertEquals(album.getId(), picture.getAlbum().getId());
-//        assertEquals(picture.getTitle(), title);
-//        assertEquals(picture.getDescription(), description);
+        assertEquals(picture.getTitle(), title);
         res = mockMvc.perform(get("/pictures/" + picture.getId() + "/src"))          
                  .andExpect(status().is2xxSuccessful())            
                  .andReturn();
@@ -136,25 +135,23 @@ public class AlbumControllerTest {
     
     @Test
     public void addingNonPictureFileToAlbumReturnsSamePageAndNiceErrorMessage() throws Exception {
+        MockHttpSession session = testUser.login();
         Album album = albumRepo.save(new Album("as"));
         Long sizeBefore = pictureRepo.count();
         String description = UUID.randomUUID().toString().substring(0, 6);
         String fileName = "pdfdocname";
         String title = "title";
         String content = UUID.randomUUID().toString().substring(0, 6);
-        String messageExpected = "Only image files allowed";
         MockMultipartFile multipartFile = new MockMultipartFile("file", fileName, "pdf", content.getBytes());
 
-        MvcResult res = mockMvc.perform(fileUpload(POST_ADDRESS + album.getId()).file(multipartFile)
+        mockMvc.perform(fileUpload(POST_ADDRESS + album.getId()).file(multipartFile)
+                .session(session)
                 .param("description", description)
                 .param("title", title))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
-
-       //String messageParam = (String) res.getModelAndView().getModel().get("errorMessage");
         
         assertTrue(sizeBefore==pictureRepo.count());
-       // assertEquals(messageExpected, messageParam);
         
     }
 

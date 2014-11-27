@@ -1,12 +1,20 @@
 package wepa.controller;
 
+import javax.validation.Valid;
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.AssertTrue;
+
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,11 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wepa.domain.AnimalPicture;
+import wepa.domain.User;
+import wepa.helpers.CurrentUserProvider;
 import wepa.helpers.Routes;
 import wepa.service.AlbumService;
 import wepa.service.AnimalPictureService;
 import wepa.service.CommentService;
-import wepa.service.UserService;
 
 @Controller
 @RequestMapping("/pictures")
@@ -35,7 +44,7 @@ public class AnimalPictureController {
     private AlbumService albumService;
     
     @Autowired
-    private UserService userService;
+    private CurrentUserProvider currentUserProvider;
     
     // Index
     @RequestMapping(method = RequestMethod.GET)
@@ -103,17 +112,65 @@ public class AnimalPictureController {
         return animalPictureService.dislikeAnimalPicture(id);
     }
     
-    // Add new AnimalPicture
+    @PreAuthorize("authenticated")
     @RequestMapping(method = RequestMethod.POST)
-    public String addNewAnimalPicture(@RequestParam MultipartFile file, @RequestParam String title, @RequestParam String description,
-            RedirectAttributes redirectAttributes) throws Exception {
+    public String addNewAnimalPicture(@Valid @ModelAttribute AnimalPictureFile file,
+            BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
+        if (bindingResult.hasErrors()) {
+            return Routes.ANIMALPICTURES_TEMPLATE;
+        }
+        User user = currentUserProvider.getUser();
+        animalPictureService.add(file.getFile(), file.getTitle(), user, file.getDescription(), null);
+        return Routes.ANIMALPICTURES_REDIRECT;
+    }
+    
+    protected static class AnimalPictureFile {
         
-        try {
-            AnimalPicture picture = animalPictureService.add(file, title, description, null);
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        @NotBlank
+        private String title;
+        @NotBlank
+        private String description;
+        private MultipartFile file;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
         
-        return Routes.ANIMALPICTURES_REDIRECT;
+        public MultipartFile getFile() {
+            return file;
+        }
+
+        public void setFile(MultipartFile file) {
+            this.file = file;
+        }
+        
+        @AssertFalse(message = "File cannot be empty")
+        public boolean isEmpty() {
+            return file.isEmpty();
+        }
+        
+        @AssertFalse(message = "File size must be less than 5MB")
+        public boolean isOversized() {
+            return file.getSize() > (5*1024*1024);
+        }
+        
+        @AssertTrue(message = "Only image files allowed")
+        public boolean isImageFile() {
+            return file.getContentType().startsWith("image/");
+        }
+
+        
     }
 }

@@ -116,7 +116,8 @@ public class AnimalPictureService {
         return pictureRepo.findAllByAuthor(user);
     }
     
-    public AnimalPicture add(MultipartFile file, String title, String description, Album album) throws IllegalArgumentException, IOException {
+    public AnimalPicture add(MultipartFile file, String title, User user, String description, Album album)
+            throws IllegalArgumentException, IOException {
         validate(file);
         AnimalPicture pic = new AnimalPicture();
         pic.setAdded(new Date());
@@ -124,10 +125,6 @@ public class AnimalPictureService {
             pic.setTitle(file.getOriginalFilename());
         } else {
             pic.setTitle(title);
-        }
-        User user = userService.getAuthenticatedPerson();
-        if(user == null){
-            throw new IllegalArgumentException("First you must login!");
         }
         pic.setAuthor(user);
         pic.setDescription(description);
