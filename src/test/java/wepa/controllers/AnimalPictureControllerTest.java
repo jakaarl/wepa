@@ -159,7 +159,7 @@ public class AnimalPictureControllerTest {
     }
     
     @Test
-    public void addingNonEmptyCommentSavisItCorrectlyAndRedirect() throws Exception {
+    public void addingNonEmptyCommentSavesItCorrectlyAndRedirects() throws Exception {
         AnimalPicture picture = createPicture();
         Long sizeBefore = commentRepo.count();
 
