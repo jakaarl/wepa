@@ -34,7 +34,7 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     @Column(unique = true) @NotBlank @Length(min = 2, max = 32)
     private String username;
     
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private List<Comment> comments;
     
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)

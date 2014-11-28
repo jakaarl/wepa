@@ -33,7 +33,7 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     private Animal animal;
     
-    @OneToMany(mappedBy = "picture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "picture", fetch = FetchType.EAGER)
     private List<Comment> comments;
     
     @ManyToMany(mappedBy = "likedPictures", fetch = FetchType.LAZY)

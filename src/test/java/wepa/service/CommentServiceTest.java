@@ -58,11 +58,11 @@ public class CommentServiceTest {
     public void addShouldAllowValidComment() throws IOException {
         Long pictureId = createPicture().getId();
         String commentTitle = "some comment";
-//        Comment c = commentService.addComment(pictureId, commentTitle);
-//        c.getAuthor();
-//        assertNotNull(c);
-//        assertEquals(c.getPicture().getId(), pictureId);
-//        assertEquals(c.getComment(), commentTitle);
+        Comment c = commentService.addComment(pictureId, commentTitle);
+        c.getAuthor();
+        assertNotNull(c);
+        assertEquals(c.getPicture().getId(), pictureId);
+        assertEquals(c.getComment(), commentTitle);
     }
     
 }
