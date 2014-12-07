@@ -105,3 +105,313 @@ h1.no-data {
 	font-family: $font_kaushan;
 
 }
+
+body {
+	margin-top: 60px;
+}
+
+.navbar-brand {
+	font-family: Kaushan Script;
+}
+
+#messages {
+	position: fixed;
+	top: 56px;
+	z-index: 10000;
+}
+
+.no-animal-pictures {
+	font-family: Kaushan Script;
+	margin-top: 85px;
+}
+
+#animalpicture-container, .animalpicture-container {
+	position: relative;
+}
+
+#animalpicture-container .picture, .animalpicture-container .picture {
+	position: relative;
+	overflow: hidden;
+	background-color: #fff;
+	width: 25%;
+	display: block;
+	margin-bottom: 5px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#animalpicture-container .picture img, .animalpicture-container .picture img {
+  /*max-width: 100%;*/
+  max-height: 480px;
+  vertical-align: middle;
+  display: block;
+  margin: 0px auto;
+  text-align: center;
+}
+
+#animalpicture-container .picture.large, .animalpicture-container .picture.large {
+	width: 50%;
+}
+
+#animalpicture-container .picture .title-box, .animalpicture-container .picture .title-box {
+	background-color: #000;
+	display: block;
+	padding: 25px;
+	height: 75px;
+	color: #fff;
+	text-align: left;
+	font-family: Kaushan Script;
+	font-size: 18pt;
+	overflow: hidden;
+}
+
+#animalpicture-container .picture .info-box, .animalpicture-container .picture .info-box {
+	background-color: #0333;
+	display: block;
+	height: 80px;
+	overflow: hidden;
+}
+
+#animalpicture-container .picture .info-box .description-box, .animalpicture-container .picture .info-box .description-box {
+	display: inline-block;
+	width: 80%;
+	height: 100%;
+	overflow: visible;
+	padding: 8px 5px 8px 5px;
+}
+
+#animalpicture-container .picture .info-box .tools-box, .animalpicture-container .picture .info-box .tools-box {
+	display: inline-block;
+	width: 15%;
+	padding-top: 13px;
+}
+
+#animalpicture-container .picture .info-box .tools-box a, .animalpicture-container .picture .info-box .tools-box a {
+	text-align: center;
+	width: 100%;
+	color: #fff;
+}
+
+#animalpicture-container .picture .info-box .tools-box a:hover, .animalpicture-container .picture .info-box .tools-box a:hover {
+	text-decoration: none;
+}
+
+#animalpicture-container .picture .info-box .tools-box .comment-box, .animalpicture-container .picture .info-box .tools-box .comment-box {
+	font-size: 15pt;
+}
+
+#animalpicture-container .picture .info-box .tools-box .comment-box i:hover:before, .animalpicture-container .picture .info-box .tools-box .comment-box i:hover:before, #animalpicture-container .picture .info-box .tools-box a.comment-box:hover i:before, .animalpicture-container .picture .info-box .tools-box a.comment-box:hover i:before {
+	content: "\f075";
+}
+
+#animalpicture-container .picture .info-box .tools-box .like-box, .animalpicture-container .picture .info-box .tools-box .like-box {
+	font-size: 15pt;
+}
+
+#animalpicture-container .picture .info-box .tools-box .like-box i:hover:before, .animalpicture-container .picture .info-box .tools-box .like-box i:hover:before {
+	content: "\f004";
+}
+
+#animalpicture-container .picture .info-box .tools-box .like-box.liked, .animalpicture-container .picture .info-box .tools-box .like-box.liked {
+	color: #f23460;
+}
+
+#animalpicture-container .picture .info-box .tools-box a.like-box:hover i:before, .animalpicture-container .picture .info-box .tools-box a.like-box:hover i:before, #animalpicture-container .picture .info-box .tools-box a.like-box.liked i:before, .animalpicture-container .picture .info-box .tools-box a.like-box.liked i:before {
+	content: "\f004";
+}
+
+#animalpicture-container .picture .info-box .tools-box a.like-box.liked i:hover:before, .animalpicture-container .picture .info-box .tools-box a.like-box.liked i:hover:before {
+	content: "\f08a";
+}
+
+#animalpicture-container .picture.border-pastel-green, .animalpicture-container .picture.border-pastel-green {
+	border: #BFD8AD 2px solid;
+}
+
+#animalpicture-container .picture.border-pastel-green .title-box, .animalpicture-container .picture.border-pastel-green .title-box, #animalpicture-container .picture.border-pastel-green .info-box, .animalpicture-container .picture.border-pastel-green .info-box {
+	background-color: #BFD8AD;
+}
+
+#animalpicture-container .picture.border-pastel-red, .animalpicture-container .picture.border-pastel-red {
+	border: #F06D61 2px solid;
+}
+
+#animalpicture-container .picture.border-pastel-red .title-box, .animalpicture-container .picture.border-pastel-red .title-box, #animalpicture-container .picture.border-pastel-red .info-box, .animalpicture-container .picture.border-pastel-red .info-box {
+	background-color: #F06D61;
+}
+
+#animalpicture-container .picture.border-pastel-yellow, .animalpicture-container .picture.border-pastel-yellow {
+	border: #F7AF63 2px solid;
+}
+
+#animalpicture-container .picture.border-pastel-yellow .title-box, .animalpicture-container .picture.border-pastel-yellow .title-box, #animalpicture-container .picture.border-pastel-yellow .info-box, .animalpicture-container .picture.border-pastel-yellow .info-box {
+	background-color: #F7AF63;
+}
+
+#animalpicture-container .picture.border-pastel-blue, .animalpicture-container .picture.border-pastel-blue {
+	border: #9CDDC8 2px solid;
+}
+
+#animalpicture-container .picture.border-pastel-blue .title-box, .animalpicture-container .picture.border-pastel-blue .title-box, #animalpicture-container .picture.border-pastel-blue .info-box, .animalpicture-container .picture.border-pastel-blue .info-box {
+	background-color: #9CDDC8;
+}
+
+.image-container {
+	.image {
+		width: 100%;
+	}
+	.image-title {
+		color: #f23460;
+		font-family: Kaushan Script;
+	}
+}
+
+.comments-container .comments-title {
+	font-family: Kaushan Script;
+	font-size: 20pt;
+}
+
+.comment {
+	border-bottom: 1px solid rgba(242, 52, 96, 0.7);
+	margin-bottom: 15px;
+	background-color: rgba(240, 242, 235, 0.8);
+	padding-bottom: 12px;
+	padding-left: 5px;
+	-moz-border-radius: 15px / 15px;
+	-webkit-border-radius: 15px 15px;
+	border-radius: 15px / 15px;
+	&:last-child {
+		margin-bottom: 0px;
+	}
+	.comment-title {
+		font-size: 20pt;
+		color: #29221F;
+		margin-left: -5px;
+		a {
+			font-family: Kaushan Script;
+			color: #f23460;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		.back-to-animalpicture {
+			color: #f23460;
+		}
+	}
+	.timestamp {
+		font-style: italic;
+	}
+}
+
+.comment-form {
+	margin: 25px;
+}
+
+.back-to-username {
+	font-family: Petrona;
+	color: #29221F;
+	.the-username {
+		color: #f23460;
+	}
+}
+
+.box-title {
+	font-family: Kaushan Script;
+	color: #29221F;
+	font-size: 20pt;
+	&.red {
+		color: #f23460;
+	}
+}
+
+.albums {
+	> div {
+		margin-bottom: 20px;
+		&:last-child {
+			margin-bottom: 0px;
+		}
+	}
+	.album {
+		background-color: rgba(240, 242, 235, 0.8);
+		-moz-border-radius: 20px / 20px;
+		-webkit-border-radius: 20px 20px;
+		border-radius: 20px / 20px;
+		padding: 20px;
+		.album-title {
+			font-family: Kaushan Script;
+			color: #f23460;
+			margin-top: 0px;
+		}
+		.album-pictures .album-thumbnail-image {
+			display: table !important;
+			overflow: hidden;
+			img {
+				max-width: 100%;
+				overflow: hidden;
+				display: table-cell;
+				vertical-align: middle;
+				-moz-border-radius: 20px / 20px;
+				-webkit-border-radius: 20px 20px;
+				border-radius: 20px / 20px;
+			}
+		}
+		.album-statistics {
+			height: 65px;
+			> * {
+				font-family: Petrona;
+				color: #f23460;
+				font-size: 22pt;
+				display: inline-block;
+			}
+			.like-box {
+				i:hover:before {
+					content: "\f004";
+				}
+				&.liked {
+					color: #f23460;
+				}
+			}
+			a.like-box {
+				&:hover {
+					text-decoration: none;
+					i:before {
+						content: "\f004";
+					}
+				}
+				&.liked i {
+					&:before {
+						content: "\f004";
+					}
+					&:hover:before {
+						content: "\f08a";
+					}
+				}
+			}
+		}
+	}
+}
+
+.report-button {
+	position: absolute;
+	display: block;
+	color: #f23460;
+	font-size: 22px;
+	text-decoration: none;
+	font-family: Petrona;
+	&:hover {
+		text-transform: uppercase;
+		text-decoration: none;
+		&:before {
+			content: 'Report ';
+		}
+	}
+}
+
+.album .report-button {
+	top: 20px;
+	right: 40px;
+}
