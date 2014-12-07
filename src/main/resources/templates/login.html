@@ -10,27 +10,22 @@
     <div th:replace="fragments/messages">message</div>
     
     <div class="container">
-        <div class="row centered-form">
-            <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Sign in</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form" method="POST" th:action="@{/authenticate}" >
-                            <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" />
-                            </div>
-
-                            <input type="submit" value="Login" class="btn btn-info btn-block" />
-
-                        </form>
-                    </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+                <h1 class="text-center login-title">Sign in to continue to Cutenimals</h1>
+                <div class="account-wall">
+                    <form role="form" method="POST" th:action="@{/authenticate}" class="form-signin">
+                        <input name="email" id="email" type="email" class="form-control" placeholder="Email" required="required" autofocus="autofocus" />
+                        <input name="password" id="password" type="password" class="form-control" placeholder="Password" required="required" />
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                            Sign in</button>
+                        <label class="checkbox pull-left">
+                            <input type="checkbox" value="remember-me" />
+                            Remember me
+                        </label>
+                    </form>
                 </div>
+                <a href="/register" class="text-center new-account">Create an account </a>
             </div>
         </div>
     </div>

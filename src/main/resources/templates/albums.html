@@ -27,6 +27,12 @@
                 </div>
             </div>
         </div>
+        <div th:if="${#lists.isEmpty(albums)}">
+            <center>
+                <h1 class="no-data">No albums found</h1>
+                <span sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAlbumModal"><i class="fa fa-plus"></i> Add a new album</a></span>
+            </center>
+        </div>
     </div>
     
     <div th:replace="fragments/modals">modals</div>
