@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import wepa.Application;
@@ -26,6 +27,7 @@ import wepa.repository.AnimalPictureRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
+@Transactional
 public class AnimalPictureServiceTest {
     
     @Autowired
@@ -48,7 +50,6 @@ public class AnimalPictureServiceTest {
     
     @Test
     public void getLatestShouldReturnEmptyListWhenNoPicturesFound() {
-        animalPictureRepository.deleteAllInBatch();
         List<AnimalPicture> latest = animalPictureService.getLatest(10);
         assertNotNull(latest);
         assertTrue(latest.isEmpty());
@@ -56,7 +57,6 @@ public class AnimalPictureServiceTest {
     
     @Test
     public void getLatestShouldReturnNonEmptyListWhenPicturesFound() {
-        animalPictureRepository.deleteAllInBatch();
         createPicture();
         List<AnimalPicture> latest = animalPictureService.getLatest(10);
         assertNotNull(latest);
@@ -65,7 +65,6 @@ public class AnimalPictureServiceTest {
     
     @Test
     public void getLatestShouldReturnListSortedByAddedDate() throws InterruptedException {
-        animalPictureRepository.deleteAllInBatch();
         AnimalPicture first = createPicture();
         Thread.sleep(15); // should be long enough for most modern OS/HW clocks
         AnimalPicture second = createPicture();
@@ -104,7 +103,6 @@ public class AnimalPictureServiceTest {
     
     @Test
     public void addShouldAllowValidImage() throws IOException {
-               
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [10]);
         AnimalPicture picture = animalPictureService.add(pictureFile, "valid image", testUser, "valid image", null);
         assertNotNull(picture);
