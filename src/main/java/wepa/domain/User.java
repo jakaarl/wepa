@@ -3,6 +3,7 @@ package wepa.domain;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,13 +35,13 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     @Column(unique = true) @NotBlank @Length(min = 2, max = 32)
     private String username;
     
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Comment> comments;
     
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Album> albums;
     
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<AnimalPicture> animalPictures;
     
     @ManyToMany(fetch = FetchType.LAZY)

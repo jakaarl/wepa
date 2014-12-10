@@ -3,6 +3,8 @@ package wepa.domain;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +35,7 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     private Animal animal;
     
-    @OneToMany(mappedBy = "picture", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "picture", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Comment> comments;
     
     @ManyToMany(mappedBy = "likedPictures", fetch = FetchType.LAZY)

@@ -17,7 +17,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Album extends AbstractPersistable<Long> {
     
     @OneToMany(mappedBy = "album", fetch= FetchType.EAGER)
-    private List<AnimalPicture> animalPictures;
+    private List<AnimalPicture> animalPictures = new ArrayList<>();
     @NotBlank
     private String name;
     @Temporal(TemporalType.TIMESTAMP)

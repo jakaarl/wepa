@@ -2,7 +2,6 @@ package wepa.controllers;
 
 import java.util.UUID;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -30,6 +30,7 @@ import wepa.service.AnimalPictureService;
 import wepa.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
 @SpringApplicationConfiguration(classes = TestConfiguration.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
@@ -70,7 +71,7 @@ public class AlbumControllerTest {
     @Test
     public void creatingAlbumWithoutNameReturnsErrorMessage() throws Exception{
         MockHttpSession session = testUser.login();
-        Long sizeBefore = albumRepo.count();
+        long sizeBefore = albumRepo.count();
         mockMvc.perform(post(POST_ADDRESS)
                 .session(session)
                 .param("name", "")
@@ -78,7 +79,7 @@ public class AlbumControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
   
-        assertTrue(sizeBefore==albumRepo.count());
+        assertEquals(sizeBefore, albumRepo.count());
     }
     
 
@@ -88,7 +89,6 @@ public class AlbumControllerTest {
         MockHttpSession session = testUser.login();
         String albumName = UUID.randomUUID().toString().substring(0, 6);
         String albumDescription = UUID.randomUUID().toString().substring(0, 6);
-        Long sizeBefore = albumRepo.count();
                 
         mockMvc.perform(post(POST_ADDRESS)
                 .session(session)
@@ -98,7 +98,7 @@ public class AlbumControllerTest {
                 .andReturn();
         
         Album album = albumService.getLatest(1).get(0);
-        assertEquals(sizeBefore+1, albumRepo.count());
+        assertEquals(1, albumRepo.count());
         assertEquals(albumName, album.getName());
         assertEquals(albumDescription, album.getDescription());
     }
@@ -107,7 +107,6 @@ public class AlbumControllerTest {
     public void addingPictureFileToAlbumSavesItCorrectly() throws Exception {
         MockHttpSession session = testUser.login();
         Album album = albumRepo.save(new Album("as"));
-        Long sizeBefore = pictureRepo.count();
         String description = UUID.randomUUID().toString().substring(0, 6);
         String fileName = UUID.randomUUID().toString().substring(0, 6);
         String title = "title";
@@ -121,7 +120,9 @@ public class AlbumControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        AnimalPicture picture = pictureService.getLatest(3).get(0);
+        album = albumRepo.findOne(album.getId());
+        assertEquals(1, album.getAnimalPictures().size());
+        AnimalPicture picture = album.getAnimalPictures().get(0);
         assertEquals(picture.getTitle(), title);
         res = mockMvc.perform(get("/pictures/" + picture.getId() + "/src"))          
                  .andExpect(status().is2xxSuccessful())            
@@ -129,15 +130,12 @@ public class AlbumControllerTest {
         
          assertEquals(content, res.getResponse().getContentAsString());
          assertEquals( "image/png", res.getResponse().getContentType());
-         assertEquals(sizeBefore + 1, pictureRepo.count());
-        
     }
     
     @Test
     public void addingNonPictureFileToAlbumReturnsSamePageAndNiceErrorMessage() throws Exception {
         MockHttpSession session = testUser.login();
         Album album = albumRepo.save(new Album("as"));
-        Long sizeBefore = pictureRepo.count();
         String description = UUID.randomUUID().toString().substring(0, 6);
         String fileName = "pdfdocname";
         String title = "title";
@@ -151,7 +149,8 @@ public class AlbumControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        assertTrue(sizeBefore==pictureRepo.count());
+        album = albumRepo.findOne(album.getId());
+        assertEquals(0, album.getAnimalPictures().size());
         
     }
 
