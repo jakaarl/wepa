@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,18 +43,23 @@ public class AlbumController {
     
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
-    public String addNewAlbum(@ModelAttribute Album album, 
+    public String addNewAlbum(@ModelAttribute Album album,
                             RedirectAttributes redirectAttributes) throws Exception {
         try {
             albumService.save(album);
             redirectAttributes.addFlashAttribute("message", "New album has been created!");
         } catch (IllegalArgumentException e){
             redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/albums/#submitAlbumModal";
         }
         
-        return Routes.ALBUMS_REDIRECT;
+        return "redirect:/albums/" + album.getId();
     }
     
+    @ModelAttribute("album")
+    private Album getAlbum() {
+        return new Album();
+    }
     // Get Album by id
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getAlbum(@PathVariable Long id, Model model) {
@@ -75,6 +81,7 @@ public class AlbumController {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
         
-        return Routes.ALBUMS_REDIRECT;
+        return "redirect:/albums/" + albumId;
+        
     }
 }

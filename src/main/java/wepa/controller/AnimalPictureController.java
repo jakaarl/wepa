@@ -114,16 +114,22 @@ public class AnimalPictureController {
     
     @PreAuthorize("authenticated")
     @RequestMapping(method = RequestMethod.POST)
-    public String addNewAnimalPicture(@Valid @ModelAttribute AnimalPictureFile file,
+    public String addNewAnimalPicture(@Valid @ModelAttribute AnimalPictureFile animalPictureFile,
             BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
         if (bindingResult.hasErrors()) {
-            return Routes.ANIMALPICTURES_TEMPLATE;
+            redirectAttributes.addFlashAttribute("error", bindingResult.getAllErrors().get(0).getDefaultMessage());
+            return "redirect:/pictures/#submitAnimalPicModal";
         }
         User user = currentUserProvider.getUser();
-        animalPictureService.add(file.getFile(), file.getTitle(), user, file.getDescription(), null);
+        animalPictureService.add(animalPictureFile.getFile(), animalPictureFile.getTitle(), user, animalPictureFile.getDescription(), null);
         return Routes.ANIMALPICTURES_REDIRECT;
     }
-    
+    @ModelAttribute("animaPictureFile")
+    private AnimalPictureFile getAnimalPictureFile() {
+        return new AnimalPictureFile();
+    }
+
+
     protected static class AnimalPictureFile {
         
         @NotBlank
