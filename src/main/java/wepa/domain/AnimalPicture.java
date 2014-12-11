@@ -36,10 +36,10 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     private Animal animal;
     
     @OneToMany(mappedBy = "picture", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
     
     @ManyToMany(mappedBy = "likedPictures", fetch = FetchType.LAZY)
-    private List<User> likes = new ArrayList<User>();
+    private List<User> likes = new ArrayList<>();
     
     public AnimalPicture(){
         this.added = new Date();

@@ -1,5 +1,6 @@
 package wepa.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,16 +37,16 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     private String username;
     
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
     
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Album> albums;
+    private List<Album> albums = new ArrayList<>();
     
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<AnimalPicture> animalPictures;
+    private List<AnimalPicture> animalPictures = new ArrayList<>();
     
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<AnimalPicture> likedPictures;
+    private List<AnimalPicture> likedPictures = new ArrayList<>();
 
     public String getFirstName() {
         return firstName;
