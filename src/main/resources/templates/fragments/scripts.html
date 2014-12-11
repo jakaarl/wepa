@@ -43,5 +43,12 @@
                     
             return false;
         });
+        $(function() {
+            if (window.location.hash.indexOf("submitAnimalPicModal") !== -1) {
+                $("#submitAnimalPicModal").modal();
+            } else if (window.location.hash.indexOf("submitAlbumModal") !== -1) {
+                $("#submitAlbumModal").modal();
+            }
+        });
     });
 </script>
