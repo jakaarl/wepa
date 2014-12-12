@@ -91,7 +91,7 @@ public class AnimalPictureControllerTest {
                 .session(session)
                 .param("description", description)
                 .param("title", title))
-                .andExpect(status().is2xxSuccessful())
+                .andExpect(status().is3xxRedirection())
                 .andReturn();
         assertEquals(sizeBefore, pictureRepo.count());
     }
