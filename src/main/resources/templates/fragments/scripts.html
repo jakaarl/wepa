@@ -44,11 +44,17 @@
             return false;
         });
         $(function() {
+            //sets form action attr to currentPath
+            var currentPath = $(location).attr('href');
+            $("#submitAnimalPicModal").attr("action",currentPath);
+            //shows modal
             if (window.location.hash.indexOf("submitAnimalPicModal") !== -1) {
                 $("#submitAnimalPicModal").modal();
             } else if (window.location.hash.indexOf("submitAlbumModal") !== -1) {
                 $("#submitAlbumModal").modal();
             } 
         });
+
+        
     });
 </script>

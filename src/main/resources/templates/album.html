@@ -5,11 +5,12 @@
     <title>Cutenimals!!!</title>
     <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
   </head>
-  <body>   
+  <body>
     <nav th:replace="fragments/nav"></nav>
-    <div th:replace="fragments/messages">message</div>  
+    <div th:replace="fragments/messages">message</div>
     
     <h3>This is your <span  th:if="${album.name != null}" th:text="${album.name}"></span> album page</h3>
+    
     <div th:if="!${#lists.isEmpty(album.animalPictures)}"  class="container-fluid">
         <div id="animalpicture-container">
         <h3>Album pictures:</h3>
@@ -28,18 +29,14 @@
         </div>
    </div>
     
-    <div th:if="${#lists.isEmpty(album.animalPictures)}"> No picture added!</div>
+   <div class="container-fluid" th:if="${#lists.isEmpty(album.animalPictures)}">
+        <center>
+            <h1 class="no-data">No pictures found</h1>
+             <span sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAnimalPicModal"><i class="fa fa-plus"></i> Add a new animal picture</a></span>
+        </center>
+   </div>
 
-    <hr/>
-    <span sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAnimalPicModal"><i class="fa fa-plus"></i> Add a new animal picture</a></span>
-    
-    <h4>Add new picture to album</h4>
-    <!--<form method="POST" th:action="@{/albums/} + ${album.id}" enctype="multipart/form-data">
-        <label for="file">Picture</label><input type="file" name="file" id="file"/>
-        <span th:if="${errorMessage != null}" th:text="${errorMessage}">bla</span><br/>
-        <label for="title">Title</label> <input type="text" name="title" id="title"/><br/>
-        <label for="name">Description</label> <input type="text" name="description" id="description"/><br/>
-        <input type="submit" value="Add picture!"/>
-    </form>-->
+    <div th:replace="fragments/modals">modals</div>
+    <script th:replace="fragments/scripts">scripts</script>
   </body>
 </html>
