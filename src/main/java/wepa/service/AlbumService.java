@@ -43,10 +43,19 @@ public class AlbumService {
         return albumRepository.findAll(limit).getContent();
     }
     
+    public List<Album> getLatest(int minCount, int maxCount){
+        Pageable limit = new PageRequest(minCount, maxCount, Sort.Direction.DESC, "created");
+        return albumRepository.findAll(limit).getContent();
+    }
+    
     public List<Album> getAllAlbumsByUser(User user) {
         return albumRepository.findAllByAuthor(user);
     }
-
+    
+    public long countAlbums(){
+        return albumRepository.count();
+    }
+    
     public Album save(Album album) {
         if (album.getName()==null || album.getName().isEmpty()){
             throw new IllegalArgumentException("Album name must not be empty!");

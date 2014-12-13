@@ -95,6 +95,9 @@ public class AnimalPictureService {
         return size;
     }
     
+    public long countAnimalPictures(){
+        return pictureRepo.count();
+    }
     /**
      * Gets <code>maxCount</code> latest animal pictures, newest first.
      * 
@@ -104,6 +107,11 @@ public class AnimalPictureService {
      */
     public List<AnimalPicture> getLatest(int maxCount) {
         Pageable limit = new PageRequest(0, maxCount, Direction.DESC, "added");
+        return pictureRepo.findAll(limit).getContent();
+    }
+    
+    public List<AnimalPicture> getLatest(int minCount, int maxCount){
+        Pageable limit = new PageRequest(minCount, maxCount, Sort.Direction.DESC, "added");
         return pictureRepo.findAll(limit).getContent();
     }
     
