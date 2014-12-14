@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import wepa.domain.AlbumReport;
+import wepa.domain.AnimalPictureReport;
 import wepa.domain.CommentReport;
 import wepa.helpers.Routes;
 import wepa.service.ReportService;
@@ -18,6 +20,12 @@ import wepa.service.ReportService;
 public class ReportController {
     @Autowired
     ReportService reportService;
+    
+    /**
+     * 
+     *    CommentReports
+     * 
+     */
     
     @RequestMapping(value = "comments", method = RequestMethod.GET)
     public String getCommentReports(Model model){
@@ -53,5 +61,89 @@ public class ReportController {
         reportService.deleteCommentReport(id);
         
         return Routes.COMMENT_REPORTS_REDIRECT;
+    }
+    
+    /**
+     * 
+     *    AlbumReports
+     * 
+     */
+    
+    @RequestMapping(value = "albums", method = RequestMethod.GET)
+    public String getAlbumReports(Model model){
+        model.addAttribute("albumReports", reportService.getAlbumReports());
+        
+        return Routes.ALBUM_REPORTS_TEMPLATE;
+    }
+    
+    @RequestMapping(value = "albums/{id}", method = RequestMethod.GET)
+    public String getAlbumReport(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model){
+        AlbumReport albumReport = reportService.getAlbumReport(id);
+        
+        if(albumReport == null){
+            redirectAttributes.addFlashAttribute("error", "AlbumReport not found");
+            
+            return Routes.ALBUM_REPORTS_REDIRECT;
+        }
+        
+        model.addAttribute("albumReport", albumReport);
+        return Routes.ALBUM_REPORTS_TEMPLATE;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "albums/{id}", method = RequestMethod.POST)
+    public String postAlbumReport(@PathVariable Long id, @RequestBody AlbumReport albumReport){
+        reportService.saveAlbumReport(albumReport);
+        
+        return "saved";
+    }
+    
+    @RequestMapping(value = "albums/{id}", method = RequestMethod.DELETE)
+    public String postAlbumReport(@PathVariable Long id){
+        reportService.deleteAlbumReport(id);
+        
+        return Routes.ALBUM_REPORTS_REDIRECT;
+    }
+    
+    /**
+     * 
+     *    AnimalPictureReports
+     * 
+     */
+    
+    @RequestMapping(value = "animalpictures", method = RequestMethod.GET)
+    public String getAnimalPictureReports(Model model){
+        model.addAttribute("animalPictureReports", reportService.getAnimalPictureReports());
+        
+        return Routes.ANIMALPICTURE_REPORTS_TEMPLATE;
+    }
+    
+    @RequestMapping(value = "animalpictures/{id}", method = RequestMethod.GET)
+    public String getAnimalPictureReport(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model){
+        AnimalPictureReport animalPictureReport = reportService.getAnimalPictureReport(id);
+        
+        if(animalPictureReport == null){
+            redirectAttributes.addFlashAttribute("error", "AnimalPictureReport not found");
+            
+            return Routes.ANIMALPICTURE_REPORTS_REDIRECT;
+        }
+        
+        model.addAttribute("animalPictureReport", animalPictureReport);
+        return Routes.ANIMALPICTURE_REPORTS_TEMPLATE;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "animalpictures/{id}", method = RequestMethod.POST)
+    public String postAnimalPictureReport(@PathVariable Long id, @RequestBody AnimalPictureReport animalPictureReport){
+        reportService.saveAnimalPictureReport(animalPictureReport);
+        
+        return "saved";
+    }
+    
+    @RequestMapping(value = "animalpictures/{id}", method = RequestMethod.DELETE)
+    public String postAnimalPictureReport(@PathVariable Long id){
+        reportService.deleteAnimalPictureReport(id);
+        
+        return Routes.ANIMALPICTURE_REPORTS_REDIRECT;
     }
 }

@@ -8,6 +8,7 @@ package wepa.domain;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 public class Animal extends AbstractPersistable<Long> {
+    @Column(unique = true)
     private String name;
     private String[] synonyms;
     private Date created;
