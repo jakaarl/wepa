@@ -10,6 +10,7 @@ public class Routes {
     // Redirects
     public static final String INDEX_REDIRECT = "redirect:/";
     public static final String ANIMALPICTURES_REDIRECT = "redirect:/pictures";
+    public static final String ANIMAL_PICTURE_BY_ID_REDIRECT = "redirect:/pictures/{id}";
     public static final String ALBUMS_REDIRECT = "redirect:/albums";
     public static final String LOGIN_REDIRECT = "redirect:/login";
     public static final String REGISTER_REDIRECT = "redirect:/register";

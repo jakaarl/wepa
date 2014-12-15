@@ -4,7 +4,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.AssertTrue;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -37,32 +36,30 @@ public class AnimalPictureController {
 
     @Autowired
     private AnimalPictureService animalPictureService;
-    
+
     @Autowired
     private CommentService commentService;
-    
-    @Autowired 
+
+    @Autowired
     private AlbumService albumService;
-    
+
     @Autowired
     private CurrentUserProvider currentUserProvider;
-    
-    // Index
+
     @RequestMapping(method = RequestMethod.GET)
-    public String index(Model model) {
+    public String getLatestPictures(Model model) {
         model.addAttribute("images", animalPictureService.getLatest(5));
         return Routes.ANIMALPICTURES_TEMPLATE;
     }
-    
-    // Get AnimalPicture by id
+
     @RequestMapping(value = "/{id}/src", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getPicture(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         AnimalPicture animalPicture = animalPictureService.getById(id);
-        if (animalPicture==null){
+        if (animalPicture == null) {
             redirectAttributes.addFlashAttribute("error", "Animal picture was not found!");
             return new ResponseEntity<>(null, null, HttpStatus.BAD_REQUEST);
         }
-        
+
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(animalPicture.getContentType()));
         headers.setContentLength(animalPicture.getImage().length);
@@ -71,71 +68,72 @@ public class AnimalPictureController {
 
         return new ResponseEntity<>(animalPicture.getImage(), headers, HttpStatus.CREATED);
     }
-    
-    // Get AnimalPicture page
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getPicturePage(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
         AnimalPicture animalPicture = animalPictureService.getById(id);
-        
-        if(animalPicture == null){
+
+        if (animalPicture == null) {
             redirectAttributes.addFlashAttribute("error", "Animal picture was not found!");
             return Routes.INDEX_REDIRECT;
         }
-        
+
         model.addAttribute("picture", animalPicture);
         model.addAttribute("comments", commentService.getLatestComments(animalPicture, 5));
         return Routes.ANIMALPICTURE_TEMPLATE;
     }
-    
-    // TODO: Comment AnimalPicture
+
+    @PreAuthorize("authenticated")
     @RequestMapping(value = "/{id}/comment", method = RequestMethod.POST)
-    public String postComment(@PathVariable Long id, @RequestParam String comment, RedirectAttributes redirectAttributes){
+    public String postComment(@PathVariable Long id, @RequestParam String comment, RedirectAttributes redirectAttributes) {
         try {
             commentService.addComment(id, comment);
             redirectAttributes.addFlashAttribute("message", "Comment added!");
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/pictures/" + id;
+        redirectAttributes.addAttribute("id", id);
+        return Routes.ANIMAL_PICTURE_BY_ID_REDIRECT;
     }
-    
-    // Like a picture
+
+    @PreAuthorize("authenticated")
     @RequestMapping(value = "/{id}/like", method = RequestMethod.GET)
     @ResponseBody
     public int likeImage(@PathVariable Long id) {
-        System.out.println("\n\n\nUseo...");
         return animalPictureService.likeAnimalPicture(id);
     }
-    // Dislike a picture
+
+    @PreAuthorize("authenticated")
     @RequestMapping(value = "/{id}/dislike", method = RequestMethod.GET)
     @ResponseBody
     public int dislikeImage(@PathVariable Long id) {
         return animalPictureService.dislikeAnimalPicture(id);
     }
-    
+
     @PreAuthorize("authenticated")
     @RequestMapping(method = RequestMethod.POST)
     public String addNewAnimalPicture(@Valid @ModelAttribute AnimalPictureFile animalPictureFile,
             BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("error", bindingResult.getAllErrors().get(0).getDefaultMessage());
-             redirectAttributes.addFlashAttribute("description", animalPictureFile.description);
+            redirectAttributes.addFlashAttribute("description", animalPictureFile.description);
             redirectAttributes.addFlashAttribute("title", animalPictureFile.title);
             return "redirect:/pictures/#submitAnimalPicModal";
         }
         User user = currentUserProvider.getUser();
-        animalPictureService.add(animalPictureFile.getFile(), animalPictureFile.getTitle(), user, animalPictureFile.getDescription(), null);
+        animalPictureService.add(animalPictureFile.getFile(), animalPictureFile.getTitle(), user,
+                animalPictureFile.getDescription(), null);
         return Routes.ANIMALPICTURES_REDIRECT;
     }
+
     @ModelAttribute("animaPictureFile")
     private AnimalPictureFile getAnimalPictureFile() {
         return new AnimalPictureFile();
     }
 
-
     protected static class AnimalPictureFile {
-        
-        @NotEmpty(message="Title cannot be empty")
+
+        @NotEmpty(message = "Title cannot be empty")
         private String title;
         private String description;
         private MultipartFile file;
@@ -155,7 +153,7 @@ public class AnimalPictureController {
         public void setDescription(String description) {
             this.description = description;
         }
-        
+
         public MultipartFile getFile() {
             return file;
         }
@@ -163,22 +161,21 @@ public class AnimalPictureController {
         public void setFile(MultipartFile file) {
             this.file = file;
         }
-        
+
         @AssertFalse(message = "File cannot be empty")
         public boolean isEmpty() {
             return file.isEmpty();
         }
-        
+
         @AssertFalse(message = "File size must be less than 5MB")
         public boolean isOversized() {
-            return file.getSize() > (5*1024*1024);
+            return file.getSize() > (5 * 1024 * 1024);
         }
-        
+
         @AssertTrue(message = "Only image files allowed")
         public boolean isImageFile() {
             return file.getContentType().startsWith("image/");
         }
 
-        
     }
 }
