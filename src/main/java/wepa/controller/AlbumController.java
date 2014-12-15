@@ -43,13 +43,14 @@ public class AlbumController {
     
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
-    public String addNewAlbum(@ModelAttribute Album album,
+    public String addNewAlbum(@ModelAttribute Album album, BindingResult result,
                             RedirectAttributes redirectAttributes) throws Exception {
         try {
             albumService.save(album);
             redirectAttributes.addFlashAttribute("message", "New album has been created!");
         } catch (IllegalArgumentException e){
             redirectAttributes.addFlashAttribute("error", e.getMessage());
+            redirectAttributes.addFlashAttribute("description", album.getDescription());
             return "redirect:/albums/#submitAlbumModal";
         }
         
@@ -79,6 +80,10 @@ public class AlbumController {
             redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
+            redirectAttributes.addFlashAttribute("description", description);
+            redirectAttributes.addFlashAttribute("title", title);
+            redirectAttributes.addFlashAttribute("file", file);
+            return "redirect:/albums/" + albumId + "/#submitAnimalPicModal";
         }
         
         return "redirect:/albums/" + albumId;

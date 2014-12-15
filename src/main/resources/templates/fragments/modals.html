@@ -1,5 +1,5 @@
 <!-- SubmitAlbumModal -->
-<form method="POST" th:action="@{/albums/}" enctype="multipart/form-data" class="modal fade bs-example-modal-sm" tabindex="-1" id="submitAlbumModal">
+<form method="POST" th:action="@{/albums/}"  enctype="multipart/form-data" class="modal fade bs-example-modal-sm" tabindex="-1" id="submitAlbumModal">
         <div class="modal-dialog">
                 <div class="modal-content">
                         <div class="modal-header">
@@ -7,13 +7,16 @@
                                 <h4 class="modal-title">Add a new album</h4>
                         </div>
                         <div class="modal-body">
-                               <div class="form-group">
+                               <div id="albumName" class="form-group">
                                         <label for="name">Album name</label>
                                         <input name="name" id="albumName" type="text" placeholder="Add album name" class="form-control" />
-                                </div>
+                                </div>                     
                                 <div class="form-group">
                                         <label for="description">Description</label>
-                                        <input name="description" id="description" type="textarea" placeholder="Add description" class="form-control" />
+                                        <input th:value="${description}" name="description" id="description" type="textarea" placeholder="Add description" class="form-control" />
+                                </div>
+                                <div class="alert alert-danger" th:if="${error != null}">
+                                        <strong th:text="${error}">Error!</strong>
                                 </div>
                         </div>
                         <div class="modal-footer">
@@ -34,23 +37,26 @@
                         </div>
                         <div class="modal-body">
                    <!--      <div class="form-group" th:classappend="${#fields.hasErrors('title')} ? 'has-error'">
-                            <input type="text" th:field="*{title}" class="form-control input-sm" placeholder="Title" />
+                            <input type="text" th:field="${title}" class="form-control input-sm" placeholder="Title" />
                             <ul th:id="${#fields.hasErrors('title')}">
                                 <li th:each="err : ${#fields.errors('title')}" th:text="${err}" />
                             </ul>
                         </div>-->
                                 <div class="form-group">
                                         <label for="title">Otsikko</label>
-                                        <input name="title" id="title" type="text" placeholder="Otsikko" class="form-control" />
+                                        <input name="title" th:value="${title}" id="title" type="text" placeholder="Otsikko" class="form-control" />
                                 </div>
                                 <div class="form-group">
                                         <label for="description">Kuvaus</label>
-                                        <input name="description" id="description" type="textarea" placeholder="Kuvaus" class="form-control" />
+                                        <input name="description" th:value="${description}" id="description" type="textarea" placeholder="Kuvaus" class="form-control" />
                                 </div>
                                 <div class="form-group">
                                         <label for="file">Kuva</label>
                                         <input name="file" id="file" type="file" placeholder="Kuva" class="form-control" />
-                                </div>             
+                                </div> 
+                                <div class="alert alert-danger" th:if="${error != null}">
+                                         <strong th:text="${error}">Error!</strong>
+                                </div>
                         </div>
                         <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Peruuta</button>

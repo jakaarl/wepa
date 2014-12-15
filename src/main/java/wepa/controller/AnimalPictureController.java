@@ -5,6 +5,7 @@ import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -118,6 +119,8 @@ public class AnimalPictureController {
             BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("error", bindingResult.getAllErrors().get(0).getDefaultMessage());
+             redirectAttributes.addFlashAttribute("description", animalPictureFile.description);
+            redirectAttributes.addFlashAttribute("title", animalPictureFile.title);
             return "redirect:/pictures/#submitAnimalPicModal";
         }
         User user = currentUserProvider.getUser();
@@ -132,9 +135,8 @@ public class AnimalPictureController {
 
     protected static class AnimalPictureFile {
         
-        @NotBlank
+        @NotEmpty(message="Title cannot be empty")
         private String title;
-        @NotBlank
         private String description;
         private MultipartFile file;
 
