@@ -83,28 +83,12 @@ public class AnimalPictureServiceTest {
         return picture;
     }
     
-    @Test(expected = IllegalArgumentException.class)
-    public void addShouldDisallowNonImageTypes() throws IOException {
-        MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "not/image", new byte [10]);
-        animalPictureService.add(pictureFile, "not an image", testUser, "not an image", null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void addShouldDisallowEmptyImages() throws IOException {
-        MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [0]);
-        animalPictureService.add(pictureFile, "empty image", testUser, "empty image", null);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void addShouldDisallowBigImages() throws IOException {
-        MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [6*1024*1024]);
-        animalPictureService.add(pictureFile, "big image", testUser, "big image", null);
-    }
-    
     @Test
-    public void addShouldAllowValidImage() throws IOException {
+    public void addShouldSaveImage() throws IOException {
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [10]);
         AnimalPicture picture = animalPictureService.add(pictureFile, "valid image", testUser, "valid image", null);
+        assertNotNull(picture.getId());
+        picture = animalPictureRepository.findOne(picture.getId());
         assertNotNull(picture);
     }
 }

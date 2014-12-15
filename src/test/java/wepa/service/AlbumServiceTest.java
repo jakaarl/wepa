@@ -1,5 +1,6 @@
 package wepa.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
@@ -54,24 +55,16 @@ public class AlbumServiceTest {
     public void addShouldDisallowNonNamedAlbums() throws IOException {
         albumService.save(new Album());
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void addShouldDisallowEmptyImages() throws IOException {
-        Album a = createAlbum();
-        MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [0]);
-        albumService.addPictureToAlbum(pictureFile, "empty image", testUser, "empty image", a.getId());
-    }
-    
 
     @Test
-    public void addShouldAllowValidImage() throws IOException {
-          
-        Album a = createAlbum();
-        Long albumId = a.getId();
+    public void shouldAddPictureAlbum() throws IOException {
+        Album album = createAlbum();
         MultipartFile pictureFile = new MockMultipartFile("foo", "bar", "image/jpeg", new byte [10]);
-        AnimalPicture picture = albumService.addPictureToAlbum(pictureFile, "image", testUser, "image", albumId);
-
-        assertNotNull(picture);
+        AnimalPicture picture = albumService.addPictureToAlbum(pictureFile, "image", testUser, "image", album);
+        assertNotNull(picture.getId());
+        album = albumRepository.findOne(album.getId());
+        assertNotNull(album);
+        assertEquals(1, album.getAnimalPictures().size());
     }
     
 }

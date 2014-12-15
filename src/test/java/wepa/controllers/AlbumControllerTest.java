@@ -2,6 +2,7 @@ package wepa.controllers;
 
 import java.util.UUID;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -98,6 +99,7 @@ public class AlbumControllerTest {
                 .andReturn();
         
         Album album = albumService.getLatest(1).get(0);
+        assertNotNull(album);
         assertEquals(1, albumRepo.count());
         assertEquals(albumName, album.getName());
         assertEquals(albumDescription, album.getDescription());
@@ -107,6 +109,7 @@ public class AlbumControllerTest {
     public void addingPictureFileToAlbumSavesItCorrectly() throws Exception {
         MockHttpSession session = testUser.login();
         Album album = albumRepo.save(new Album("as"));
+        assertNotNull(album);
         String description = UUID.randomUUID().toString().substring(0, 6);
         String fileName = UUID.randomUUID().toString().substring(0, 6);
         String title = "title";
@@ -121,6 +124,7 @@ public class AlbumControllerTest {
                 .andReturn();
         
         album = albumRepo.findOne(album.getId());
+        assertNotNull(album);
         assertEquals(1, album.getAnimalPictures().size());
         AnimalPicture picture = album.getAnimalPictures().get(0);
         assertEquals(picture.getTitle(), title);
@@ -136,6 +140,7 @@ public class AlbumControllerTest {
     public void addingNonPictureFileToAlbumReturnsSamePageAndNiceErrorMessage() throws Exception {
         MockHttpSession session = testUser.login();
         Album album = albumRepo.save(new Album("as"));
+        assertNotNull(album);
         String description = UUID.randomUUID().toString().substring(0, 6);
         String fileName = "pdfdocname";
         String title = "title";
@@ -150,6 +155,7 @@ public class AlbumControllerTest {
                 .andReturn();
         
         album = albumRepo.findOne(album.getId());
+        assertNotNull(album);
         assertEquals(0, album.getAnimalPictures().size());
         
     }

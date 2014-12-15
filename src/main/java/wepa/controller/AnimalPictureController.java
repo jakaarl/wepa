@@ -124,7 +124,7 @@ public class AnimalPictureController {
         return Routes.ANIMALPICTURES_REDIRECT;
     }
 
-    @ModelAttribute("animaPictureFile")
+    @ModelAttribute("animalPictureFile")
     private AnimalPictureFile getAnimalPictureFile() {
         return new AnimalPictureFile();
     }

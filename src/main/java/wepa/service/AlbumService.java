@@ -76,8 +76,7 @@ public class AlbumService {
     }
 
     public AnimalPicture addPictureToAlbum(MultipartFile file, String title, User user, String description,
-            Long albumId) throws IllegalArgumentException, IOException {
-        Album album = albumRepository.findOne(albumId);
+            Album album) throws IllegalArgumentException, IOException {
         AnimalPicture picture = pictureService.add(file, title, user, description, album);
         picture.setAlbum(album);
         album.getAnimalPictures().add(picture);

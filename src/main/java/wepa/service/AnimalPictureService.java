@@ -126,7 +126,6 @@ public class AnimalPictureService {
     
     public AnimalPicture add(MultipartFile file, String title, User user, String description, Album album)
             throws IllegalArgumentException, IOException {
-        validate(file, title);
         AnimalPicture pic = new AnimalPicture();
         pic.setAdded(new Date());
         pic.setTitle(title);
@@ -138,16 +137,4 @@ public class AnimalPictureService {
         return pictureRepo.save(pic);
     }
     
-    private void validate(MultipartFile file, String title) throws IllegalArgumentException {
-        if (title.isEmpty()){
-            throw new IllegalArgumentException("Title cannot be empty");
-        }else if (file.isEmpty()) {
-            throw new IllegalArgumentException("File cannot be empty");
-        } else if (file.getSize() > (5*1024*1024)) {
-            throw new IllegalArgumentException("File size must be less than 5MB");
-        }
-        if (!file.getContentType().startsWith("image/")){
-            throw new IllegalArgumentException("Only image files allowed");
-        }
-    }
 }

@@ -12,6 +12,7 @@ public class Routes {
     public static final String ANIMALPICTURES_REDIRECT = "redirect:/pictures";
     public static final String ANIMAL_PICTURE_BY_ID_REDIRECT = "redirect:/pictures/{id}";
     public static final String ALBUMS_REDIRECT = "redirect:/albums";
+    public static final String ALBUM_BY_ID_REDIRECT = "redirect:/albums/{id}";
     public static final String LOGIN_REDIRECT = "redirect:/login";
     public static final String REGISTER_REDIRECT = "redirect:/register";
     public static final String COMMENT_REPORTS_REDIRECT = "redirect:/reports/comments";

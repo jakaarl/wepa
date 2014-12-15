@@ -1,11 +1,18 @@
 package wepa.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import wepa.controller.parameter.AnimalPictureFile;
 import wepa.domain.Album;
 import wepa.domain.User;
 import wepa.helpers.CurrentUserProvider;
@@ -70,23 +79,42 @@ public class AlbumController {
     }
     
     @PreAuthorize("isAuthenticated()")
-    @Transactional
     @RequestMapping(value="/{albumId}", method = RequestMethod.POST)
-    public String addNewAnimalPictureToAlbum(@RequestParam MultipartFile file, @PathVariable Long albumId, @RequestParam String title, @RequestParam String description,
-            RedirectAttributes redirectAttributes) throws Exception {
+    public String addNewAnimalPictureToAlbum(@PathVariable Long albumId,
+            @Valid @ModelAttribute AnimalPictureFile animalPictureFile, BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) throws IOException {
         User user = currentUserProvider.getUser();
-        try {
-            albumService.addPictureToAlbum(file, title, user, description, albumId);
-            redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfuly");
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            redirectAttributes.addFlashAttribute("description", description);
-            redirectAttributes.addFlashAttribute("title", title);
-            redirectAttributes.addFlashAttribute("file", file);
-            return "redirect:/albums/" + albumId + "/#submitAnimalPicModal";
+        Album album = albumService.find(albumId);
+        if (album == null || bindingResult.hasErrors()) {
+            List<String> errors = new ArrayList<>();
+            if (album == null) {
+                errors.add("No such album: " + albumId);
+            }
+            addBindingErrors(errors, bindingResult);
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("description", animalPictureFile.getDescription());
+            redirectAttributes.addFlashAttribute("title", animalPictureFile.getTitle());
+            redirectAttributes.addFlashAttribute("file", animalPictureFile.getFile());
+            redirectAttributes.addAttribute("id", albumId);
+            return Routes.ALBUM_BY_ID_REDIRECT + "/#submitAnimalPicModal";
+        } else {
+            albumService.addPictureToAlbum(
+                    animalPictureFile.getFile(), animalPictureFile.getTitle(), user,
+                    animalPictureFile.getDescription(), album);
+            redirectAttributes.addFlashAttribute("message", "Your picture has been saved successfully");
+            redirectAttributes.addAttribute("id", albumId);
+            return Routes.ALBUM_BY_ID_REDIRECT;
         }
-        
-        return "redirect:/albums/" + albumId;
-        
+    }
+    
+    @ModelAttribute("animalPictureFile")
+    private AnimalPictureFile getAnimalPictureFile() {
+        return new AnimalPictureFile();
+    }
+    
+    private void addBindingErrors(List<String> errors, BindingResult bindingResult) {
+        for (ObjectError error : bindingResult.getAllErrors()) {
+            errors.add(error.getDefaultMessage()); // TODO: i18n-resolved messages?
+        }
     }
 }
