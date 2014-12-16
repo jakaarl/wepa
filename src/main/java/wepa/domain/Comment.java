@@ -1,6 +1,7 @@
 package wepa.domain;
 
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -8,6 +9,7 @@ import javax.persistence.Temporal;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+@SuppressWarnings("serial")
 @Entity
 public class Comment extends AbstractPersistable<Long> {
     

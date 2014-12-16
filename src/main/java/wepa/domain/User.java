@@ -18,6 +18,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "registered_user")
 public class User extends AbstractPersistable<Long> implements UserDetails {
