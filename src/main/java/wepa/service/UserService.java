@@ -1,12 +1,15 @@
 package wepa.service;
 
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+
 import wepa.domain.User;
 import wepa.repository.UserRepository;
 
@@ -54,7 +57,7 @@ public class UserService {
     
     public User findUserByUsername(String username){
         List<User> users = userRepository.findByUsername(username);
-        if (users==null || users.isEmpty()){
+        if (users == null || users.isEmpty()){
             return null;
         }
         return users.get(0);

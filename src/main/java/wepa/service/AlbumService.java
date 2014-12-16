@@ -1,18 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package wepa.service;
 
 import java.io.IOException;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.interceptor.NoRollbackRuleAttribute;
 import org.springframework.web.multipart.MultipartFile;
+
 import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
 import wepa.domain.User;
@@ -20,6 +17,7 @@ import wepa.repository.AlbumRepository;
 
 @Service
 public class AlbumService {
+	
     @Autowired
     private AlbumRepository albumRepository;
     
@@ -85,6 +83,5 @@ public class AlbumService {
         albumRepository.save(album);
         return picture;
     }
-    
     
 }
