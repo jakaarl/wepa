@@ -1,26 +1,62 @@
 <!DOCTYPE html>
 <html>
   <head th:replace="fragments/head">
-    <meta charset="utf-8" />
-    <title>Cutenimals!!!</title>
-    <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+	<meta charset="utf-8" />
+	<title>Cutenimals!!!</title>
+	<link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <nav th:replace="fragments/nav"></nav>
-    <div th:replace="fragments/messages">message</div>
-    
-    <div class="container-fluid">
-        <div th:if="${commentReports != null}"> 
-            <h3>Albums created </h3>     
-            <ol>
-                <li th:each="commentReport : ${commentReports}">
-                    <a th:href="@{/reports/comments/}+ ${commentReport.id}" th:text="${commentReport.reason}"></a>
-                </li>
-            </ol>
-        </div>
-    </div>
-    
-    <div th:replace="fragments/modals">modals</div>
-    <script th:replace="fragments/scripts">scripts</script>
+	<nav th:replace="fragments/nav"></nav>
+	<div th:replace="fragments/messages">message</div>
+	
+	<div class="container-fluid">
+		<div class="row commentReports" th:if="${commentReports != null}">
+			<div class="col-sm-12" th:each="commentReport : ${commentReports}">
+				<div class="row">
+					<div class="col-sm-8">
+						<h1 th:text="${commentReport.comment.comment}"></h1>
+					</div>
+					<div class="col-sm-4">
+						<h2 th:text="${commentReport.comment.author.username}"></h2>
+					</div>
+				<div class="row">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="picture">
+							<a th:href="@{/pictures/} + ${commentReport.picture.id}"><img  th:attr="src=@{/pictures/} + ${commentReport.picture.id} + @{/src}" /></a>
+							<div class="row album-pictures animalpicture-container">
+								<div class="col-sm-4 album-thumbnail-image" th:each="image : ${albumReport.album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
+							</div>
+							<div class="album-statistics">
+								<div class="pull-right">
+									<div class="total-images"><i class="fa fa-image"></i> <span th:text="${#lists.size(albumReport.album.animalPictures)}" /></div>
+									<i class="fa fa-heart-o"></i> <span th:text="${albumReport.album.likes}" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8" th:text="${albumReport.reason}">
+						
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6" th:text="${albumReport.sentBy}">
+						
+					</div>
+					<div class="col-sm-6" th:text="${albumReport.created}">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(albumReports)}">
+			<center>
+				<h1 class="no-data">No albumreports yet(?)</h1>
+			</center>
+		</div>
+	</div>
+	
+	<div th:replace="fragments/modals">modals</div>
+	<script th:replace="fragments/scripts">scripts</script>
   </body>
 </html>
