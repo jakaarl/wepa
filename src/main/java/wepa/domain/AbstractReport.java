@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public abstract class AbstractReport extends AbstractPersistable<Long> {
 
 	private String reason;
-	protected Date created;
+	private Date created;
 	@ManyToOne
 	private User sentBy;
 
