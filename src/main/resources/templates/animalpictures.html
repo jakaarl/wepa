@@ -17,8 +17,9 @@
                     </div>
                     <a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>
                     <div class="info-box">
-                            <div class="description-box" th:text="${image.description}">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            <div class="description-box" >
+                                <span th:text="${image.description}">description</span><br/>
+                                <a href="#" class="author"  th:attr="href=@{/users/} + ${image.author.id}"><span th:text="@{by&nbsp;} + ${image.author.username}">100</span></a>
                             </div>
                             <div class="tools-box">
                                     <a href="#" class="comment-box" th:href="@{/pictures/} + ${image.id}">(<span th:text="${#lists.size(image.comments)}">100</span>) <i class="fa fa-comments"></i></a>

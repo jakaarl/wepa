@@ -16,14 +16,15 @@
                 <h1 th:text="${user.username}">HePPaF4N1</h1>
                 <h4 th:text="${user.firstName} + ' ' + ${user.lastName}">Jonniina Jurvanen</h4>
             </div>
-            <br/>
+            
             <div class="col-sm-4" th:if="${not #lists.isEmpty(latestComments)}">
                 <a th:href="@{/users/} + ${user.id} + @{/comments}" class="box-title red">Latest comments</a>
                 <ul th:each="comment : ${latestComments}">
-                  <li><span th:text="'&quot;' + ${comment.comment} + '&quot;'">&quot;Höpö höpö!&quot;</span> (<a href="#" th:href="@{/picture/} + ${comment.picture.id}" th:text="${comment.picture.title}">Joku kuva</a>)</li>
+                  <li><span th:text="'&quot;' + ${comment.comment} + '&quot;'">&quot;Höpö höpö!&quot;</span> (<a href="#" th:href="@{/pictures/} + ${comment.picture.id}" th:text="${comment.picture.title}">Joku kuva</a>)</li>
                 </ul>
             </div>
         </div>
+        <br/><br/>
         <div class="row">
             <div class="col-sm-6" th:if="${not #lists.isEmpty(latestAnimalPictures)}">
                 <a th:href="@{/users/} + ${user.id} + @{/pictures}" class="box-title red">Latest animal pictures</a>
