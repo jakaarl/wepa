@@ -1,6 +1,13 @@
 language: java
 jdk:
- - oraclejdk7
- - openjdk7
+- oraclejdk7
+- openjdk7
 after_success:
- - mvn clean cobertura:cobertura coveralls:report
+- mvn clean cobertura:cobertura coveralls:report
+deploy:
+  provider: heroku
+  api_key:
+    secure: MwdA6pvAcJAvcCl1snuFrFAstsBwZMcl7Q66QbYGRgM4odSH04kxP0Pw/05yk4n/pQKUXqD/ZWGG7wvCO+mb6RVXVOjD/GQxjDCk/u6tnepZ9Oqz+KZTUItSl3BVFt+jGRnJdU6WD6QcRhFiclwQrewhHOrMh17b6jaBP8NCwmU=
+  app: serene-ridge-9061
+  on:
+    repo: jakaarl/wepa
