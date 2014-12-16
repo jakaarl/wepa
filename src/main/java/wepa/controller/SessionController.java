@@ -3,7 +3,9 @@ package wepa.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -34,6 +36,7 @@ public class SessionController {
     
     @RequestMapping(value = "/logout")
     public String getLogout(){
+        SecurityContextHolder.clearContext();
         return Routes.INDEX_REDIRECT;
     }
     
@@ -44,18 +47,23 @@ public class SessionController {
     
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String postRegister(@Valid @ModelAttribute User user,  BindingResult bindingResult,
-    		RedirectAttributes redirectAttributes) {
-    	if (bindingResult.hasErrors()) {
+    		RedirectAttributes redirectAttributes, Model model) {
+    	if (userService.findUserByEmail(user.getEmail())!=null){
+            bindingResult.rejectValue("email", "error.user", "An account already exists for this email");
+        } else if (userService.findUserByUsername(user.getUsername())!=null){
+            bindingResult.rejectValue("username", "error.user", "An account already exists for this username");
+        }
+        if (bindingResult.hasErrors()) {
     		return Routes.REGISTER_TEMPLATE;
     	}
-        User created = userService.save(user);
-        
-        if (created == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "User was not created");
-            return Routes.REGISTER_REDIRECT; // Hmm? Should we return to the template instead?
+        try {
+            User created = userService.save(user);
+            redirectAttributes.addFlashAttribute("message", "User created: " + created.getUsername());
+            return Routes.LOGIN_REDIRECT;
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return Routes.REGISTER_TEMPLATE;      
         }
         
-        redirectAttributes.addFlashAttribute("message", "User created: " + created.getUsername());
-        return Routes.LOGIN_REDIRECT;
     }
 }

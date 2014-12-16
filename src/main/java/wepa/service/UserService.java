@@ -1,5 +1,6 @@
 package wepa.service;
 
+import java.util.List;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -49,6 +50,14 @@ public class UserService {
     
     public User findUserByEmail(String email){
         return userRepository.findByEmail(email);
+    }
+    
+    public User findUserByUsername(String username){
+        List<User> users = userRepository.findByUsername(username);
+        if (users==null || users.isEmpty()){
+            return null;
+        }
+        return users.get(0);
     }
     
     public User save(User user) {
