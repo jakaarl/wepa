@@ -156,4 +156,13 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     public void setLikedPictures(List<AnimalPicture> likedPictures) {
         this.likedPictures = likedPictures;
     }
+
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+    
 }

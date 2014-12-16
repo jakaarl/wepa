@@ -16,6 +16,7 @@
                 <h1 th:text="${user.username}">HePPaF4N1</h1>
                 <h4 th:text="${user.firstName} + ' ' + ${user.lastName}">Jonniina Jurvanen</h4>
             </div>
+            <br/>
             <div class="col-sm-4" th:if="${not #lists.isEmpty(latestComments)}">
                 <a th:href="@{/users/} + ${user.id} + @{/comments}" class="box-title red">Latest comments</a>
                 <ul th:each="comment : ${latestComments}">
@@ -27,13 +28,13 @@
             <div class="col-sm-6" th:if="${not #lists.isEmpty(latestAnimalPictures)}">
                 <a th:href="@{/users/} + ${user.id} + @{/pictures}" class="box-title red">Latest animal pictures</a>
                 <ul th:each="animalPicture : ${latestAnimalPictures}">
-                  <li><a href="#" th:href="@{/} + ${animalPicture.id}" th:text="${animalPicture.title}">Animalpicture title</a></li>
+                  <li><a href="#" th:href="@{/pictures/} + ${animalPicture.id}" th:text="${animalPicture.title}">Animalpicture title</a></li>
                 </ul>
             </div>
             <div class="col-sm-6" th:if="${not #lists.isEmpty(latestAlbums)}">
                 <a th:href="@{/users/} + ${user.id} + @{/albums}" class="box-title red">Latest albums</a>
                 <ul th:each="album : ${latestAlbums}">
-                  <li><a href="#" th:href="@{/albums/} + ${album.id}" th:text="${album.albumName}">Album title</a></li>
+                  <li><a href="#" th:href="@{/albums/} + ${album.id}" th:text="${album.name}">Album title</a></li>
                 </ul>
             </div>
         </div>

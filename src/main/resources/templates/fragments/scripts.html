@@ -26,8 +26,8 @@
             event.preventDefault();
             var clickedEl = $(this);
             var address = "/pictures/" + $(this).attr('id');
-            var like = "/like/";
-            var dislike = "/dislike/";
+            var like = "/like";
+            var dislike = "/dislike";
             
             if (clickedEl.attr('href')==(address+like)){
                 address += dislike;

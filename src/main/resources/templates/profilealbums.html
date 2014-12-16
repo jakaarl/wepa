@@ -15,18 +15,35 @@
                         <a th:href="@{/users/} + ${user.id}" class="back-to-username"><h1>&lt;&lt; Back to user <span class="the-username" th:text="${user.username}">Kettutytto</span></h1></a>
                 </div>
         </div>
-        <div class="row">
-            <h1 class="box-title red">Albums</h1>
-            <ul th:if="!${#lists.isEmpty(albums)}" th:each="album : ${albums}">
-                <li th:text="${album.albumName}">Album Title</li>
-            </ul>
+        <div class="row albums" th:if="${albums != null}">
+            <div class="col-sm-12" th:each="album : ${albums}">
+                <div class="album">
+                    <a th:href="@{/albums/} + ${album.id}"><h1 class="album-title" th:text="${album.name}">Album Name</h1></a>
+                    <a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
+                    <div class="row album-pictures animalpicture-container">
+                        <div class="col-sm-4 album-thumbnail-image" th:each="image : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
+                    </div>
+                    <div class="album-statistics">
+                        <div class="pull-right">
+                            <div class="total-images"><i class="fa fa-image"></i> <span th:text="${#lists.size(album.animalPictures)}" /></div>
+                            <a href="#" class="like-box liked"><i class="fa fa-heart-o"></i> <span th:text="${album.likes}" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(albums)}">
+            <center>
+                <h1 class="no-data">No albums found</h1>
+                <span sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAlbumModal"><i class="fa fa-plus"></i> Add a new album</a></span>
+            </center>
         </div>
     </div>
-    <div th:if="${#lists.isEmpty(images)}">
+    <!--<div th:if="${#lists.isEmpty(images)}">
         <center>
             <h1 class="no-animal-pictures">No pictures found</h1>
         </center>
-    </div>
+    </div>-->
     
     <div th:replace="fragments/modals">modals</div>
     <script th:replace="fragments/scripts">scripts</script>

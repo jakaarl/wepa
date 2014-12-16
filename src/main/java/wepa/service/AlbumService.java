@@ -66,7 +66,9 @@ public class AlbumService {
             throw new IllegalArgumentException("First you must login!");
         }
         
-        album.setAuthor(user);
+        user.getAlbums().add(album);
+        
+        album.setAuthor(userService.save(user));
         
         return albumRepository.save(album);
     }

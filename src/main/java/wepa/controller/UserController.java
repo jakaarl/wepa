@@ -63,7 +63,7 @@ public class UserController {
             throw new IllegalArgumentException("No such user, id: " + id);
         }
         model.addAttribute("user", user);
-        model.addAttribute("albums", user.getAnimalPictures());
+        model.addAttribute("albums", user.getAlbums());
         
         return Routes.PROFILE_ALBUMS_TEMPLATE;
     }
