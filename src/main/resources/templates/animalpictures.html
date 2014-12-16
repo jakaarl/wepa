@@ -10,16 +10,8 @@
     <div th:replace="fragments/messages">message</div>
     
     <div th:if="!${#lists.isEmpty(images)}" class="container-fluid">
-
         <div id="animalpicture-container">
-            <!--<h3>Last added super-adorable cutesy animal pics!!!</h3>
-            <ol>
-                <li th:each="image : ${images}" style="display: inline-block">
-                           <img th:attr="src=@{/albums/} + ${image.album.id} + @{/images/} + ${image.id}" style="width: 200px; height: 200px;"/>
-                           <p>Title: <span th:if="${image.title != null}" th:text="${image.title}">unknown</span></p>
-                </li>
-            </ol>-->
-            <div th:each="image : ${images}" class="picture border-pastel-blue">
+            <div  th:each="image : ${images}" class="picture border-pastel-blue">
                     <div class="title-box" th:text="${image.title}">
                             Title :)
                     </div>
@@ -36,6 +28,7 @@
             </div>
         </div>
     </div>
+    
     <div class="container-fluid" th:if="${#lists.isEmpty(images)}">
         <center>
             <h1 class="no-data">No pictures found</h1>
