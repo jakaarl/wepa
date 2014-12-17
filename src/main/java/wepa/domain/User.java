@@ -11,18 +11,19 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "registered_user")
 public class User extends AbstractPersistable<Long> implements UserDetails {
-    // TODO Roles and different authorities(?)
     
     @NotBlank @Length(min = 2, max = 64)
     private String firstName;
@@ -32,10 +33,12 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     private String email;
     private String salt;
     private String password;
-    @NotBlank @Length(min = 6, max = 64)
-    private transient String clearTextPassword;
     @Column(unique = true) @NotBlank @Length(min = 2, max = 32)
     private String username;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<Role> roles = new ArrayList<>();
+    @Transient
+    private List<GrantedAuthority> authorities = new ArrayList<>();
     
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
@@ -48,8 +51,6 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     
     @ManyToMany(fetch = FetchType.LAZY)
     private List<AnimalPicture> likedPictures = new ArrayList<>();
-    
-    private String role;
 
     public String getFirstName() {
         return firstName;
@@ -91,25 +92,21 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
         this.password = password;
     }
     
-    public String getClearTextPassword() {
-        return clearTextPassword;
+    public List<Role> getRoles() {
+        return roles;
     }
     
-    public void setClearTextPassword(String clearTextPassword) {
-        this.clearTextPassword = clearTextPassword;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+        this.authorities = new ArrayList<>();
+        for (Role role : roles) {
+            this.authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
     }
-
+    
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        return null;
-    }
-    
-    public String getRole() {
-        return this.role;
-    }
-    
-    public void setRole(String role) {
-        this.role = role;
+        return authorities;
     }
 
     // Return true for now

@@ -1,17 +1,14 @@
 package wepa.auth;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
+
 import wepa.domain.User;
 import wepa.service.UserService;
 
@@ -35,11 +32,8 @@ public class JpaAuthenticationProvider implements AuthenticationProvider {
         if (!BCrypt.hashpw(password, user.getSalt()).equals(user.getPassword())) {
             throw new BadCredentialsException("Invalid password provided, user: " + email);
         }
-
-        List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        grantedAuths.add(new SimpleGrantedAuthority("USER"));
         
-        return new UsernamePasswordAuthenticationToken(user, password, grantedAuths);
+        return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
     }
 
     @Override
