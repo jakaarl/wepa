@@ -37,12 +37,17 @@ public class SessionController {
     }
     
     @RequestMapping(value = "/register")
-    public String getRegister(@ModelAttribute("user") User user) {
+    public String getRegister() {
         return Routes.REGISTER_TEMPLATE;
     }
     
+    @ModelAttribute("user")
+    private Registration getRegistration() {
+        return new Registration();
+    }
+    
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String postRegister(@Valid @ModelAttribute Registration registration,  BindingResult bindingResult,
+    public String postRegister(@Valid @ModelAttribute("user") Registration registration,  BindingResult bindingResult,
     		RedirectAttributes redirectAttributes, Model model) {
     	if (userService.findUserByEmail(registration.email) != null) {
             bindingResult.rejectValue("email", "error.user", "An account already exists for this email");
@@ -74,17 +79,32 @@ public class SessionController {
         private String lastName;
         @NotBlank @Length(min = 8, max = 64)
         private String password;
+        public String getUsername() {
+            return username;
+        }
         public void setUsername(String username) {
             this.username = username;
+        }
+        public String getEmail() {
+            return email;
         }
         public void setEmail(String email) {
             this.email = email;
         }
+        public String getFirstName() {
+            return firstName;
+        }
         public void setFirstName(String firstName) {
             this.firstName = firstName;
         }
+        public String getLastName() {
+            return lastName;
+        }
         public void setLastName(String lastName) {
             this.lastName = lastName;
+        }
+        public String getPassword() {
+            return password;
         }
         public void setPassword(String password) {
             this.password = password;
