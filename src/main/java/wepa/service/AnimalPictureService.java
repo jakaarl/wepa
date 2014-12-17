@@ -122,7 +122,7 @@ public class AnimalPictureService {
     @Transactional
     public List<AnimalPicture> getLatestAnimalPictures(User user, int maxCount) {
         Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "added");
-        
+//
         return pictureRepo.findByAuthor(user, limit).getContent();
     }
     
