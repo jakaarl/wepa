@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import wepa.domain.Album;
@@ -118,8 +119,10 @@ public class AnimalPictureService {
         return pictureRepo.findAll(limit).getContent();
     }
     
+    @Transactional
     public List<AnimalPicture> getLatestAnimalPictures(User user, int maxCount) {
         Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "added");
+        
         return pictureRepo.findByAuthor(user, limit).getContent();
     }
     

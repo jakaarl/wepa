@@ -46,7 +46,7 @@ public class AnimalPictureController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getLatestPictures(Model model) {
-        model.addAttribute("images", animalPictureService.getLatest(5));
+        model.addAttribute("images", animalPictureService.getLatest(10));
         return Routes.ANIMALPICTURES_TEMPLATE;
     }
 
