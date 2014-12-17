@@ -125,11 +125,11 @@ body {
 	margin-top: 85px;
 }
 
-#animalpicture-container, .animalpicture-container {
+#animalpicture-container, .animalpicture-container  {
 	position: relative;
 }
 
-#animalpicture-container .picture, .animalpicture-container .picture {
+.picture {
 	position: relative;
 	overflow: hidden;
 	background-color: #fff;
@@ -143,7 +143,7 @@ body {
 	vertical-align: middle;
 }
 
-#animalpicture-container .picture img, .animalpicture-container .picture img {
+.picture img {
   /*max-width: 100%;*/
   max-height: 480px;
   vertical-align: middle;
@@ -152,11 +152,11 @@ body {
   text-align: center;
 }
 
-#animalpicture-container .picture.large, .animalpicture-container .picture.large {
+.picture.large {
 	width: 50%;
 }
 
-#animalpicture-container .picture .title-box, .animalpicture-container .picture .title-box {
+.picture .title-box {
 	background-color: #000;
 	display: block;
 	padding: 25px;
@@ -168,14 +168,20 @@ body {
 	overflow: hidden;
 }
 
-#animalpicture-container .picture .info-box, .animalpicture-container .picture .info-box {
+.picture {
+	&.col-sm-4 {
+		padding: 0px;
+	}
+}
+
+.picture .info-box {
 	background-color: #0333;
 	display: block;
 	height: 80px;
 	overflow: hidden;
 }
 
-#animalpicture-container .picture .info-box .description-box, .animalpicture-container .picture .info-box .description-box {
+.picture .info-box .description-box {
 	display: inline-block;
 	width: 80%;
 	height: 100%;
@@ -183,79 +189,79 @@ body {
 	padding: 8px 5px 8px 5px;
 }
 
-#animalpicture-container .picture .info-box .tools-box, .animalpicture-container .picture .info-box .tools-box {
+.picture .info-box .tools-box {
 	display: inline-block;
 	width: 15%;
 	padding-top: 13px;
 }
 
-#animalpicture-container .picture .info-box .tools-box a, .animalpicture-container .picture .info-box .tools-box a {
+.picture .info-box .tools-box a {
 	text-align: center;
 	width: 100%;
 	color: #fff;
 }
 
-#animalpicture-container .picture .info-box .tools-box a:hover, .animalpicture-container .picture .info-box .tools-box a:hover {
+.picture .info-box .tools-box a:hover {
 	text-decoration: none;
 }
 
-#animalpicture-container .picture .info-box .tools-box .comment-box, .animalpicture-container .picture .info-box .tools-box .comment-box {
+.picture .info-box .tools-box .comment-box {
 	font-size: 15pt;
 }
 
-#animalpicture-container .picture .info-box .tools-box .comment-box i:hover:before, .animalpicture-container .picture .info-box .tools-box .comment-box i:hover:before, #animalpicture-container .picture .info-box .tools-box a.comment-box:hover i:before, .animalpicture-container .picture .info-box .tools-box a.comment-box:hover i:before {
+.picture .info-box .tools-box a.comment-box:hover i:before,  .picture .info-box .tools-box a.comment-box:hover i:before {
 	content: "\f075";
 }
 
-#animalpicture-container .picture .info-box .tools-box .like-box, .animalpicture-container .picture .info-box .tools-box .like-box {
+.picture .info-box .tools-box .like-box {
 	font-size: 15pt;
 }
 
-#animalpicture-container .picture .info-box .tools-box .like-box i:hover:before, .animalpicture-container .picture .info-box .tools-box .like-box i:hover:before {
+.picture .info-box .tools-box .like-box i:hover:before {
 	content: "\f004";
 }
 
-#animalpicture-container .picture .info-box .tools-box .like-box.liked, .animalpicture-container .picture .info-box .tools-box .like-box.liked {
+.picture .info-box .tools-box .like-box.liked {
 	color: #f23460;
 }
 
-#animalpicture-container .picture .info-box .tools-box a.like-box:hover i:before, .animalpicture-container .picture .info-box .tools-box a.like-box:hover i:before, #animalpicture-container .picture .info-box .tools-box a.like-box.liked i:before, .animalpicture-container .picture .info-box .tools-box a.like-box.liked i:before {
+.picture .info-box .tools-box a.like-box.liked i:before,  .picture .info-box .tools-box a.like-box.liked i:before {
 	content: "\f004";
 }
 
-#animalpicture-container .picture .info-box .tools-box a.like-box.liked i:hover:before, .animalpicture-container .picture .info-box .tools-box a.like-box.liked i:hover:before {
+.picture .info-box .tools-box a.like-box.liked i:hover:before {
 	content: "\f08a";
 }
 
-#animalpicture-container .picture.border-pastel-green, .animalpicture-container .picture.border-pastel-green {
+ .picture.border-pastel-green,  .picture.border-pastel-green {
 	border: #BFD8AD 2px solid;
 }
 
-#animalpicture-container .picture.border-pastel-green .title-box, .animalpicture-container .picture.border-pastel-green .title-box, #animalpicture-container .picture.border-pastel-green .info-box, .animalpicture-container .picture.border-pastel-green .info-box {
+ .picture.border-pastel-green .title-box,  .picture.border-pastel-green .title-box,  .picture.border-pastel-green .info-box,  .picture.border-pastel-green .info-box {
 	background-color: #BFD8AD;
 }
 
-#animalpicture-container .picture.border-pastel-red, .animalpicture-container .picture.border-pastel-red {
+ .picture.border-pastel-red,  .picture.border-pastel-red {
 	border: #F06D61 2px solid;
 }
 
-#animalpicture-container .picture.border-pastel-red .title-box, .animalpicture-container .picture.border-pastel-red .title-box, #animalpicture-container .picture.border-pastel-red .info-box, .animalpicture-container .picture.border-pastel-red .info-box {
+ .picture.border-pastel-red .title-box,  .picture.border-pastel-red .title-box,  .picture.border-pastel-red .info-box,  .picture.border-pastel-red .info-box {
 	background-color: #F06D61;
 }
 
-#animalpicture-container .picture.border-pastel-yellow, .animalpicture-container .picture.border-pastel-yellow {
+ .picture.border-pastel-yellow,  .picture.border-pastel-yellow {
 	border: #F7AF63 2px solid;
 }
 
-#animalpicture-container .picture.border-pastel-yellow .title-box, .animalpicture-container .picture.border-pastel-yellow .title-box, #animalpicture-container .picture.border-pastel-yellow .info-box, .animalpicture-container .picture.border-pastel-yellow .info-box {
+ .picture.border-pastel-yellow .title-box,  .picture.border-pastel-yellow .title-box,  .picture.border-pastel-yellow .info-box,  .picture.border-pastel-yellow .info-box {
 	background-color: #F7AF63;
 }
 
-#animalpicture-container .picture.border-pastel-blue, .animalpicture-container .picture.border-pastel-blue {
+ .picture.border-pastel-blue,  .picture.border-pastel-blue {
 	border: #9CDDC8 2px solid;
 }
 
-#animalpicture-container .picture.border-pastel-blue .title-box, .animalpicture-container .picture.border-pastel-blue .title-box, #animalpicture-container .picture.border-pastel-blue .info-box, .animalpicture-container .picture.border-pastel-blue .info-box {
+ .picture.border-pastel-blue .title-box,  .picture.border-pastel-blue .title-box,  .picture.border-pastel-blue .info-box,  .picture.border-pastel-blue .info-box {
 	background-color: #9CDDC8;
 }
 

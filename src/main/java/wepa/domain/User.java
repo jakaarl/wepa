@@ -48,6 +48,8 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     
     @ManyToMany(fetch = FetchType.LAZY)
     private List<AnimalPicture> likedPictures = new ArrayList<>();
+    
+    private String role;
 
     public String getFirstName() {
         return firstName;
@@ -98,8 +100,16 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return null;
+    }
+    
+    public String getRole() {
+        return this.role;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
     }
 
     // Return true for now
