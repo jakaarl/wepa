@@ -168,9 +168,9 @@ body {
 	overflow: hidden;
 }
 
-.picture {
-	&.col-sm-4 {
-		padding: 0px;
+.col-sm-4 {
+	.picture {
+		width: 100%;
 	}
 }
 

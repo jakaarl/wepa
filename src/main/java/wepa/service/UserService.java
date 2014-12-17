@@ -1,11 +1,13 @@
 package wepa.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,7 @@ public class UserService {
         kristian.setLastName("Lauttamus");
         kristian.setClearTextPassword("admin123");
         kristian.setUsername("KristianLauttamus");
+        kristian.setRole("ADMIN");
         
         save(ivan);
         save(jani);

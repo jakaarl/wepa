@@ -1,115 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head th:replace="fragments/head">
-    <meta charset="utf-8" />
-    <title>Cutenimals!!!</title>
-    <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+	<meta charset="utf-8" />
+	<title>Cutenimals!!!</title>
+	<link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <nav th:replace="fragments/nav"></nav>
-    <div th:replace="fragments/messages">message</div>
-    
-    <div class="infinite-scroll container-fluid">
-	 <div class="infinite-item animalpictures-container container-fluid" th:if="!${#lists.isEmpty(firstPictures)}" >
-	 	<div th:each="image : ${firstPictures}" class="picture col-sm-4 border-pastel-blue">
-	                    <div class="title-box" th:text="${image.title}">
-	                            Title :)
-	                    </div>
-	                    <a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>
-	                    <div class="info-box">
-	                            <div class="description-box" th:text="${image.description}">
-	                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-	                            </div>
-	                            <div class="tools-box">
-	                                    <a href="#" class="comment-box" th:href="@{/pictures/} + ${image.id}">(<span th:text="${#lists.size(image.comments)}">100</span>) <i class="fa fa-comments"></i></a>
-	                                    <a href="#" class="like-box" th:id="${image.id}" th:attr="href=@{pictures/} + ${image.id} + @{/like}">(<span th:text="${#lists.size(image.likes)}">100</span>) <i class="fa fa-heart-o"></i></a>
-	                            </div>
-	                    </div>
-	            </div>
-	 	
-	 </div>
-	<div class="infinite-item row albums" th:if="${firstAlbums != null}">
-		<div class="col-sm-12" th:each="album : ${firstAlbums}">
-			<div class="album">
-				<a th:href="@{/albums/} + ${album.id}"><h1 class="album-title" th:text="${album.name}">Album Name</h1></a>
-				<a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
-				<div class="row album-pictures animalpicture-container">
-					<div class="col-sm-4 album-thumbnail-image" th:each="image : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
-				</div>
-				<div class="album-statistics">
-					<div class="pull-right">
-						<div class="total-images"><i class="fa fa-image"></i> <span th:text="${#lists.size(album.animalPictures)}" /></div>
-						<a href="#" class="like-box liked"><i class="fa fa-heart-o"></i> <span th:text="${album.likes}" /></a>
+	<nav th:replace="fragments/nav"></nav>
+	<div th:replace="fragments/messages">message</div>
+
+	<div class="infinite-scroll container-fluid">
+		<div class="infinite-item animalpictures-container container-fluid" th:if="!${#lists.isEmpty(firstPictures)}" >
+			<div th:each="image : ${firstPictures}" class="col-sm-4">
+				<div class="picture border-pastel-blue">
+					<div class="title-box" th:text="${image.title}">
+						Title :)
+					</div>
+					<a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>
+					<div class="info-box">
+						<div class="description-box" th:text="${image.description}">
+							<span th:text="${image.description}">description</span><br/>
+							<a href="#" class="author"  th:attr="href=@{/users/} + ${image.author.id}"><span th:text="@{by&nbsp;} + ${image.author.username}">100</span></a>
+						</div>
+						<div class="tools-box">
+							<a href="#" class="comment-box" th:href="@{/pictures/} + ${image.id}">(<span th:text="${#lists.size(image.comments)}">100</span>) <i class="fa fa-comments"></i></a>
+							<a href="#" class="like-box" th:id="${image.id}" th:attr="href=@{pictures/} + ${image.id} + @{/like}">(<span th:text="${#lists.size(image.likes)}">100</span>) <i class="fa fa-heart-o"></i></a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	  <div class="infinite-item animalpictures-container container-fluid" th:if="!${#lists.isEmpty(secondPictures)}" >
-	 	<div th:each="image : ${secondPictures}" class="picture col-sm-4 border-pastel-blue">
-	                    <div class="title-box" th:text="${image.title}">
-	                            Title :)
-	                    </div>
-	                    <a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>
-	                    <div class="info-box">
-	                            <div class="description-box" th:text="${image.description}">
-	                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-	                            </div>
-	                            <div class="tools-box">
-	                                    <a href="#" class="comment-box" th:href="@{/pictures/} + ${image.id}">(<span th:text="${#lists.size(image.comments)}">100</span>) <i class="fa fa-comments"></i></a>
-	                                    <a href="#" class="like-box" th:id="${image.id}" th:attr="href=@{pictures/} + ${image.id} + @{/like}">(<span th:text="${#lists.size(image.likes)}">100</span>) <i class="fa fa-heart-o"></i></a>
-	                            </div>
-	                    </div>
-	            </div>
-	 </div>
-	 <div class="infinite-item row albums" th:if="${secondAlbums != null}">
-	 	<div class="col-sm-12" th:each="album : ${secondAlbums}">
-	 		<div class="album">
-	 			<a th:href="@{/albums/} + ${album.id}"><h1 class="album-title" th:text="${album.name}">Album Name</h1></a>
-	 			<a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
-	 			<div class="row album-pictures animalpicture-container">
-	 				<div class="col-sm-4 album-thumbnail-image" th:each="image : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
-	 			</div>
-	 			<div class="album-statistics">
-	 				<div class="pull-right">
-	 					<div class="total-images"><i class="fa fa-image"></i> <span th:text="${#lists.size(album.animalPictures)}" /></div>
-	 					<a href="#" class="like-box liked"><i class="fa fa-heart-o"></i> <span th:text="${album.likes}" /></a>
-	 				</div>
-	 			</div>
-	 		</div>
-	 	</div>
-	 </div>
-	 <div th:if="${#lists.isEmpty(firstAlbums)}">
-	 	<center>
-	 		<h1 class="no-data">No albums found</h1>
-	 		<span sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAlbumModal"><i class="fa fa-plus"></i> Add a new album</a></span>
-	 	</center>
-	 </div>
-	 <div class="container-fluid" th:if="${#lists.isEmpty(firstPictures)}">
-	 	<center>
-	 		<h1 class="no-data">No pictures found</h1>
-	 		<span sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAnimalPicModal"><i class="fa fa-plus"></i> Add a new animal picture</a></span>
-	 	</center>
-	 </div>
-	 <div class="navigation" th:if="${nextPage != null}">
-	 	<a href="/2" th:ref="@{/} + ${nextPage}">Load more</a>
-	 </div>
+		<div class="infinite-item row albums" th:if="${firstAlbums != null}">
+			<div class="col-sm-12" th:each="album : ${firstAlbums}">
+				<div class="album">
+					<a th:href="@{/albums/} + ${album.id}"><h1 class="album-title" th:text="${album.name}">Album Name</h1></a>
+					<a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
+					<div class="row album-pictures animalpicture-container">
+						<div class="col-sm-4 album-thumbnail-image" th:each="image : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
+					</div>
+					<div class="album-statistics">
+						<div class="pull-right">
+							<div class="total-images"><i class="fa fa-image"></i> <span th:text="${#lists.size(album.animalPictures)}" /></div>
+							<a href="#" class="like-box liked"><i class="fa fa-heart-o"></i> <span th:text="${album.likes}" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="infinite-item animalpictures-container container-fluid" th:if="!${#lists.isEmpty(secondPictures)}" >
+			<div th:each="image : ${secondPictures}" class="col-sm-4">
+				<div class="picture border-pastel-blue">
+					<div class="title-box" th:text="${image.title}">
+						Title :)
+					</div>
+					<a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>
+					<div class="info-box">
+						<div class="description-box" th:text="${image.description}">
+							<span th:text="${image.description}">description</span><br/>
+							<a href="#" class="author"  th:attr="href=@{/users/} + ${image.author.id}"><span th:text="@{by&nbsp;} + ${image.author.username}">100</span></a>
+						</div>
+						<div class="tools-box">
+							<a href="#" class="comment-box" th:href="@{/pictures/} + ${image.id}">(<span th:text="${#lists.size(image.comments)}">100</span>) <i class="fa fa-comments"></i></a>
+							<a href="#" class="like-box" th:id="${image.id}" th:attr="href=@{pictures/} + ${image.id} + @{/like}">(<span th:text="${#lists.size(image.likes)}">100</span>) <i class="fa fa-heart-o"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="infinite-item row albums" th:if="${secondAlbums != null}">
+			<div class="col-sm-12" th:each="album : ${secondAlbums}">
+				<div class="album">
+					<a th:href="@{/albums/} + ${album.id}"><h1 class="album-title" th:text="${album.name}">Album Name</h1></a>
+					<a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
+					<div class="row album-pictures animalpicture-container">
+						<div class="col-sm-4 album-thumbnail-image" th:each="image : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
+					</div>
+					<div class="album-statistics">
+						<div class="pull-right">
+							<div class="total-images"><i class="fa fa-image"></i> <span th:text="${#lists.size(album.animalPictures)}" /></div>
+							<a href="#" class="like-box liked"><i class="fa fa-heart-o"></i> <span th:text="${album.likes}" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(firstAlbums)}">
+			<center>
+				<h1 class="no-data">No albums found</h1>
+				<span sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAlbumModal"><i class="fa fa-plus"></i> Add a new album</a></span>
+			</center>
+		</div>
+		<div class="container-fluid" th:if="${#lists.isEmpty(firstPictures)}">
+			<center>
+				<h1 class="no-data">No pictures found</h1>
+				<span sec:authorize="isAuthenticated()"><a href="#" data-toggle="modal" data-target="#submitAnimalPicModal"><i class="fa fa-plus"></i> Add a new animal picture</a></span>
+			</center>
+		</div>
+		<div class="navigation" th:if="${nextPage != null}">
+			<a href="/2" th:ref="@{/} + ${nextPage}">Load more</a>
+		</div>
 
-    </div>
-    
-    <div th:replace="fragments/modals">modals</div>
-    <script th:replace="fragments/scripts">scripts</script>
-    <script>
-    $(document).ready(function() {
-        $('.infinite-scroll').infinitescroll({
+	</div>
+
+	<div th:replace="fragments/modals">modals</div>
+	<script th:replace="fragments/scripts">scripts</script>
+	<script>
+		$(document).ready(function() {
+			$('.infinite-scroll').infinitescroll({
           // other options
           dataType: 'html',
           appendCallback: false,
           nextSelector: "div.navigation a:first",
           navSelector: "div.navigation",
           itemSelector: ".infinite-item",
-        });
-    });
-    </script>
+      });
+		});
+	</script>
 </body>
 </html>
