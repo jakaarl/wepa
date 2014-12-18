@@ -25,7 +25,6 @@ import wepa.service.UserService.UserBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-@Transactional
 public class UserSeviceTest {
 
     @Autowired
@@ -60,6 +59,7 @@ public class UserSeviceTest {
     }
     
     @Test
+    @Transactional
     public void shouldAddUserRole() {
         User user = UserBuilder
                 .newUser("montyp", "w0nd3RFULspaM")
