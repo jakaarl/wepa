@@ -33,11 +33,8 @@
            //     address += dislike;
           //  } else {
                 address += like;
-          //  }
-            
-            jQ
-            
-            uery.ajax($(this).attr('href'), {type: 'GET'})
+          //  } 
+            jQuery.ajax($(this).attr('href'), {type: 'GET'})
                     .done(function(data){
                         clickedEl.addClass("liked");
                         //clickedEl.attr('href', address)
