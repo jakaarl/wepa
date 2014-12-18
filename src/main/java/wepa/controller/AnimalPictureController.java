@@ -98,15 +98,15 @@ public class AnimalPictureController {
     @RequestMapping(value = "/{id}/like", method = RequestMethod.GET)
     @ResponseBody
     public int likeImage(@PathVariable Long id) {
-        return animalPictureService.likeAnimalPicture(id);
+        return animalPictureService.likeDislikeAnimalPicture(id);
     }
-
+/*
     @PreAuthorize("authenticated")
     @RequestMapping(value = "/{id}/dislike", method = RequestMethod.GET)
     @ResponseBody
     public int dislikeImage(@PathVariable Long id) {
         return animalPictureService.dislikeAnimalPicture(id);
-    }
+    }*/
 
     @PreAuthorize("authenticated")
     @RequestMapping(method = RequestMethod.POST)

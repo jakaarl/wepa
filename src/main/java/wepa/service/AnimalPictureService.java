@@ -32,39 +32,31 @@ public class AnimalPictureService {
         return pictureRepo.findOne(id);
     }
     
-    public int likeAnimalPicture(Long id) {
-        int size = 0;
-        
+    @Transactional
+    public int likeDislikeAnimalPicture(Long id) {
         AnimalPicture animalPicture = pictureRepo.findOne(id);
         User user = userService.getAuthenticatedPerson();
         
-        if(animalPicture != null && user != null){
-            List<User> picLikes = animalPicture.getLikes();
-            List<AnimalPicture> userLikes = user.getLikedPictures();
-            
-            if(!picLikes.contains(user)){
-                picLikes.add(user);
-            }
-            
-            if(!userLikes.contains(animalPicture)){
-                userLikes.add(animalPicture);
-            }
-            
-            animalPicture.setLikes(picLikes);
-            user.setLikedPictures(userLikes);
-            
-            // Save
-            pictureRepo.save(animalPicture);
-            userService.save(user);
-            
-            size = picLikes.size();
-        } else if(user == null){
-            size = animalPicture.getLikes().size();
+        if (animalPicture == null){
+            return 0;
+        }
+        if(user == null){
+            return animalPicture.getLikes().size();
         }
         
-        return size;
+        if(!animalPicture.getLikes().contains(user)){   // like
+                animalPicture.getLikes().add(user);
+                user.getLikedPictures().add(animalPicture);
+        } else {                                        // dislike
+                animalPicture.getLikes().remove(user);
+                user.getLikedPictures().remove(animalPicture);
+        }
+        
+        return animalPicture.getLikes().size();
+
     }
     
+    /*
     public int dislikeAnimalPicture(Long id) {
         int size = 0;
         
@@ -96,7 +88,7 @@ public class AnimalPictureService {
         }
         
         return size;
-    }
+    }*/
     
     public long countAnimalPictures(){
         return pictureRepo.count();

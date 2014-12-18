@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import wepa.domain.Album;
@@ -31,6 +32,7 @@ public class AlbumService {
         return albumRepository.findAll();
     }
     
+    @Transactional
     public List<Album> getLatestAlbums(User user, int maxCount) {
         Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "created");
         return albumRepository.findByAuthor(user, limit).getContent();

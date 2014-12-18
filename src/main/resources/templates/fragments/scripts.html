@@ -27,18 +27,18 @@
             var clickedEl = $(this);
             var address = "/pictures/" + $(this).attr('id');
             var like = "/like";
-            var dislike = "/dislike";
+           // var dislike = "/dislike";
             
-            if (clickedEl.attr('href')==(address+like)){
-                address += dislike;
-            } else {
+           // if (clickedEl.attr('href')==(address+like)){
+           //     address += dislike;
+          //  } else {
                 address += like;
-            }
+          //  }
             
             jQuery.ajax($(this).attr('href'), {type: 'GET'})
                     .done(function(data){
                         clickedEl.addClass("liked");
-                        clickedEl.attr('href', address)
+                        //clickedEl.attr('href', address)
                         clickedEl.find("span").html(data);
                     });
                     
