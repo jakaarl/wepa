@@ -76,7 +76,7 @@ public class UserController {
             throw new IllegalArgumentException("No such user, id: " + id);
         }
         model.addAttribute("user", user);
-        model.addAttribute("images", user.getAnimalPictures());
+        model.addAttribute("images", animalPictureService.getAllAnimalPicturesByUser(user));
         
         return Routes.PROFILE_ANIMALPICTURES_TEMPLATE;
     }

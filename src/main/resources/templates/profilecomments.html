@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
                 <div class="col-sm-12">
-                        <a href="/users/id/1" class="back-to-username"><h1>&lt;&lt; Back to user <span class="the-username" th:text="${user.username}">Kettutyttö</span></h1></a>
+                        <a th:href="@{/users/} + ${user.id}" class="back-to-username"><h1>&lt;&lt; Back to user <span class="the-username" th:text="${user.username}">Kettutyttö</span></h1></a>
                 </div>
         </div>
         <div class="row">

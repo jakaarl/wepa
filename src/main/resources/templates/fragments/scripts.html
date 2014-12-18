@@ -35,7 +35,9 @@
                 address += like;
           //  }
             
-            jQuery.ajax($(this).attr('href'), {type: 'GET'})
+            jQ
+            
+            uery.ajax($(this).attr('href'), {type: 'GET'})
                     .done(function(data){
                         clickedEl.addClass("liked");
                         //clickedEl.attr('href', address)
@@ -47,9 +49,14 @@
 
         $(function() {
             var currentPath = $(location).attr('href');
-            if (currentPath.indexOf("albums") >= 0){
-                //sets form action attr to currentPath
-                $("#submitAnimalPicModal").attr("action",currentPath);
+            // sets form action attr to currentPath
+            if (currentPath.indexOf("albums") !== -1){ // if currentPath containts 'album' 
+                if ((currentPath.toString().length-6) - (currentPath.indexOf("albums")) != 1)
+                        if ((currentPath.toString().length-6) - (currentPath.indexOf("albums")) != 0){ // magic condition
+                        //and if path not end with 'albums' nor 'albums/'
+                        // sets form action attr to currentPath
+                        $("#submitAnimalPicModal").attr("action",currentPath);
+                }
             }
             //shows modal
             if (window.location.hash.indexOf("submitAnimalPicModal") !== -1) {             

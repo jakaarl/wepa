@@ -1,5 +1,8 @@
 package wepa.controller;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.Length;
@@ -31,7 +34,7 @@ public class SessionController {
     }
     
     @RequestMapping(value = "/logout")
-    public String getLogout(){
+    public String getLogout(HttpSession httpSession, Model model) throws ServletException{
         SecurityContextHolder.clearContext();
         return Routes.INDEX_REDIRECT;
     }
