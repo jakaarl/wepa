@@ -22,17 +22,17 @@ public class UserService {
     static final String USER_ROLE_NAME = "USER";
     static final String ADMIN_ROLE_NAME = "ADMIN";
     static final String[] DEFAULT_ROLES = { USER_ROLE_NAME, ADMIN_ROLE_NAME };
-    private static final User IVAN = UserBuilder
+    static final User IVAN = UserBuilder
             .newUser("IvanTadic", "admin123")
             .setEmail("ivantadic014@gmail.com")
             .setName("Ivan", "Tadic")
             .build();
-    private static final User JANI = UserBuilder
+    static final User JANI = UserBuilder
             .newUser("JaniKaarela", "h3l3pp0PASSU!")
             .setEmail("jani.kaarela@gmail.com")
             .setName("Jani", "Kaarela")
             .build();
-    private static final User KRISTIAN = UserBuilder
+    static final User KRISTIAN = UserBuilder
             .newUser("KristianLauttamus", "admin123")
             .setEmail("kristian.lauttamus@gmail.com")
             .setName("Kristian", "Lauttamus")
@@ -79,6 +79,14 @@ public class UserService {
         }
     }
     
+    public Role getAdminRole() {
+        return adminRole;
+    }
+    
+    public Role getUserRole() {
+        return userRole;
+    }
+    
     public User findUserByEmail(String email){
         return userRepository.findByEmail(email);
     }
@@ -116,11 +124,11 @@ public class UserService {
        return user;
     }
     
-    private static class UserBuilder {
+    static class UserBuilder {
         
         private User user = new User();
         
-        private static UserBuilder newUser(String username, String password) {
+        static UserBuilder newUser(String username, String password) {
             UserBuilder builder = new UserBuilder();
             builder.user.setUsername(username);
             builder.user.setSalt(BCrypt.gensalt());
@@ -128,18 +136,18 @@ public class UserService {
             return builder;
         }
         
-        private UserBuilder setEmail(String email) {
+        UserBuilder setEmail(String email) {
             this.user.setEmail(email);
             return this;
         }
         
-        private UserBuilder setName(String first, String last) {
+        UserBuilder setName(String first, String last) {
             this.user.setFirstName(first);
             this.user.setLastName(last);
             return this;
         }
         
-        private User build() {
+        User build() {
             return this.user;
         }
     }

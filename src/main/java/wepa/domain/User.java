@@ -2,7 +2,10 @@ package wepa.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,13 +13,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.PostUpdate;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -38,7 +43,8 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Role> roles = new ArrayList<>();
     @Transient
-    private List<GrantedAuthority> authorities = new ArrayList<>();
+    private Set<SimpleGrantedAuthority> authorities =
+        new TreeSet<SimpleGrantedAuthority>(SimpleGrantedAuthorityComparator.INSTANCE);
     
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
@@ -98,14 +104,10 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-        this.authorities = new ArrayList<>();
-        for (Role role : roles) {
-            this.authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
     }
     
     @Override
-    public Collection<GrantedAuthority> getAuthorities() {
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
         return authorities;
     }
 
@@ -171,6 +173,24 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
 
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
+    }
+    
+    @PrePersist
+    @PostUpdate
+    @PostLoad
+    public void populateAuthorities() {
+        this.authorities = new TreeSet<>(SimpleGrantedAuthorityComparator.INSTANCE);
+        for (Role role : roles) {
+            this.authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+    }
+    
+    private static class SimpleGrantedAuthorityComparator implements Comparator<SimpleGrantedAuthority> {
+        private static final SimpleGrantedAuthorityComparator INSTANCE = new SimpleGrantedAuthorityComparator();
+        @Override
+        public int compare(SimpleGrantedAuthority auth, SimpleGrantedAuthority otherAuth) {
+            return (auth.getAuthority().equals(otherAuth.getAuthority()) ? 0 : 1);
+        }
     }
     
 }
