@@ -26,6 +26,9 @@ public class Album extends AbstractPersistable<Long> {
     private String description;
     private int likes;
     
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
+    private List<AlbumReport> albumReports = new ArrayList<>();
+    
     @ManyToOne
     private User author;
 
@@ -99,5 +102,13 @@ public class Album extends AbstractPersistable<Long> {
         } else {
             return this.getAnimalPictures();
         }
+    }
+
+    public List<AlbumReport> getAlbumReports() {
+        return albumReports;
+    }
+
+    public void setAlbumReports(List<AlbumReport> albumReports) {
+        this.albumReports = albumReports;
     }
 }

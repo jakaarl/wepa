@@ -3,10 +3,12 @@ package wepa.domain;
 import java.util.Date;
 
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @SuppressWarnings("serial")
+@MappedSuperclass
 public abstract class AbstractReport extends AbstractPersistable<Long> {
 
 	private String reason;

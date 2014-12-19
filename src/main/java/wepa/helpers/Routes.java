@@ -18,7 +18,7 @@ public class Routes {
     public static final String COMMENT_REPORTS_REDIRECT = "redirect:/reports/comments";
     public static final String ALBUM_REPORTS_REDIRECT = "redirect:/reports/albums";
     public static final String ANIMAL_REPORTS_REDIRECT = "redirect:/reports/animals";
-    public static final String ANIMALPICTURE_REPORTS_REDIRECT = "redirect:/reports/pictures";
+    public static final String ANIMALPICTURE_REPORTS_REDIRECT = "redirect:/reports/animalpictures";
     
     // Templates    
     public static final String INDEX_TEMPLATE = "index";
@@ -32,13 +32,10 @@ public class Routes {
     public static final String PROFILE_ANIMALPICTURES_TEMPLATE = "profileanimalpictures";
     public static final String PROFILE_COMMENTS_TEMPLATE = "profilecomments";
     public static final String REGISTER_TEMPLATE = "register";
-    public static final String ANIMAL_REPORT_TEMPLATE = "animalreport";
     public static final String ANIMAL_REPORTS_TEMPLATE = "animalreports";
     public static final String ANIMALPICTURE_REPORT_TEMPLATE = "animalpicturereport";
     public static final String ANIMALPICTURE_REPORTS_TEMPLATE = "animalpicturereports";
-    public static final String ALBUM_REPORT_TEMPLATE = "albumreport";
     public static final String ALBUM_REPORTS_TEMPLATE = "albumreports";
-    public static final String COMMENT_REPORT_TEMPLATE = "commentreport";
     public static final String COMMENT_REPORTS_TEMPLATE = "commentreports";
     public static final String ANIMALS_TEMPLATE = "animals";
 }

@@ -34,7 +34,7 @@
 					<td th:text="${albumReport.album.author.username}"></td>
 					<td th:text="${albumReport.album.created}"></td>
 					<td><form method="POST" th:action="@{/reports/albums/} + ${albumReport.id} + @{/act}"><button type="submit" class="btn btn-primary">Act on</button></form></td>
-					<td><form method="DELETE" th:action="@{/reports/albums/} + ${albumReport.id}"><button type="submit" class="btn btn-danger">Delete</button></form></td>
+					<td><form th:method="DELETE" th:action="@{/reports/albums/} + ${albumReport.id}"><button type="submit" class="btn btn-danger">Delete</button></form></td>
 				</tr>
 			</tbody>
 		</table>

@@ -55,6 +55,15 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<AnimalPicture> animalPictures = new ArrayList<>();
     
+    @OneToMany(mappedBy = "sentBy", fetch = FetchType.LAZY)
+    private List<AnimalPictureReport> animalPictureReports = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "sentBy", fetch = FetchType.LAZY)
+    private List<AlbumReport> albumReports = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "sentBy", fetch = FetchType.LAZY)
+    private List<CommentReport> commentReports = new ArrayList<>();
+    
     @ManyToMany(fetch = FetchType.LAZY)
     private List<AnimalPicture> likedPictures = new ArrayList<>();
 
@@ -173,6 +182,30 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
 
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
+    }
+
+    public List<AnimalPictureReport> getAnimalPictureReports() {
+        return animalPictureReports;
+    }
+
+    public void setAnimalPictureReports(List<AnimalPictureReport> animalPictureReports) {
+        this.animalPictureReports = animalPictureReports;
+    }
+
+    public List<AlbumReport> getAlbumReports() {
+        return albumReports;
+    }
+
+    public void setAlbumReports(List<AlbumReport> albumReports) {
+        this.albumReports = albumReports;
+    }
+
+    public List<CommentReport> getCommentReports() {
+        return commentReports;
+    }
+
+    public void setCommentReports(List<CommentReport> commentReports) {
+        this.commentReports = commentReports;
     }
     
     @PrePersist

@@ -41,6 +41,9 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     @ManyToMany(mappedBy = "likedPictures", fetch = FetchType.LAZY)
     private List<User> likes = new ArrayList<>();
     
+    @OneToMany(mappedBy = "animalPicture", fetch = FetchType.LAZY)
+    private List<AnimalPictureReport> animalPictureReports = new ArrayList<>();
+    
     public AnimalPicture(){
         this.added = new Date();
     }
@@ -116,6 +119,12 @@ public class AnimalPicture extends AbstractPersistable<Long> {
     public void setLikes(List<User> likes) {
         this.likes = likes;
     }
-    
-    
+
+    public List<AnimalPictureReport> getAnimalPictureReports() {
+        return animalPictureReports;
+    }
+
+    public void setAnimalPictureReports(List<AnimalPictureReport> animalPictureReports) {
+        this.animalPictureReports = animalPictureReports;
+    }
 }

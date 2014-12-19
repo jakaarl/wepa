@@ -136,11 +136,7 @@ public class AnimalPictureService {
         return pictureRepo.save(pic);
     }
     
-    public void delete(AnimalPicture animalPicture){
-        pictureRepo.delete(animalPicture);
-    }
-    
-    public void deleteAnimalPictures(List<AnimalPicture> animalPictures){
-        pictureRepo.delete(animalPictures);
+    public void delete(Long id){
+        pictureRepo.delete(id);
     }
 }

@@ -86,8 +86,7 @@ public class AlbumService {
         return picture;
     }
     
-    public void delete(Album album){
-        pictureService.deleteAnimalPictures(album.getAnimalPictures());
-        albumRepository.delete(album);
+    public void delete(Long id){
+        albumRepository.delete(id);
     }
 }

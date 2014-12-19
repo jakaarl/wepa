@@ -32,9 +32,9 @@
 					<td th:text="${animalPictureReport.reason}"></td>
 					<td th:text="${animalPictureReport.animalPicture.title}"></td>
 					<td th:text="${animalPictureReport.animalPicture.author.username}"></td>
-					<td th:text="${animalPictureReport.animalPicture.created}"></td>
+					<td th:text="${animalPictureReport.animalPicture.added}"></td>
 					<td><form method="POST" th:action="@{/reports/animalpictures/} + ${animalPictureReport.id} + @{/act}"><button type="submit" class="btn btn-primary">Act on</button></form></td>
-					<td><form method="DELETE" th:action="@{/reports/animalpictures/} + ${animalPictureReport.id}"><button type="submit" class="btn btn-danger">Delete</button></form></td>
+					<td><form th:method="DELETE" th:action="@{/reports/animalpictures/} + ${animalPictureReport.id}"><button type="submit" class="btn btn-danger">Delete</button></form></td>
 				</tr>
 			</tbody>
 		</table>

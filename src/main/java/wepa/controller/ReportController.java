@@ -65,21 +65,6 @@ public class ReportController {
         return Routes.COMMENT_REPORTS_TEMPLATE;
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "comments/{id}", method = RequestMethod.GET)
-    public String getCommentReport(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model){
-        CommentReport commentReport = reportService.getCommentReport(id);
-        
-        if(commentReport == null){
-            redirectAttributes.addFlashAttribute("error", "CommentReport not found");
-            
-            return Routes.COMMENT_REPORTS_REDIRECT;
-        }
-        
-        model.addAttribute("commentReport", commentReport);
-        return Routes.COMMENT_REPORT_TEMPLATE;
-    }
-    
     @RequestMapping(value = "comments/{id}", method = RequestMethod.POST)
     public String postCommentReport(@PathVariable Long id, @RequestParam String reason, RedirectAttributes redirectAttributes){
         Comment comment = commentService.getComment(id);
@@ -104,12 +89,8 @@ public class ReportController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "comments/{id}/act", method = RequestMethod.POST)
     public String actOnCommentReport(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        try {
-            reportService.actOnCommentReport(id);
-            redirectAttributes.addFlashAttribute("message", "Comment and the report has been successfully removed");
-        } catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("error", ex.getMessage());
-        }
+        reportService.actOnCommentReport(id);
+        redirectAttributes.addFlashAttribute("message", "Comment and the report has been successfully removed");
         
         return Routes.COMMENT_REPORTS_REDIRECT;
     }
@@ -136,21 +117,6 @@ public class ReportController {
         return Routes.ALBUM_REPORTS_TEMPLATE;
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "albums/{id}", method = RequestMethod.GET)
-    public String getAlbumReport(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model){
-        AlbumReport albumReport = reportService.getAlbumReport(id);
-        
-        if(albumReport == null){
-            redirectAttributes.addFlashAttribute("error", "AlbumReport not found");
-            
-            return Routes.ALBUM_REPORTS_REDIRECT;
-        }
-        
-        model.addAttribute("albumReport", albumReport);
-        return Routes.ALBUM_REPORTS_TEMPLATE;
-    }
-    
     @RequestMapping(value = "albums/{id}", method = RequestMethod.POST)
     public String postAlbumReport(@PathVariable Long id, @RequestParam String reason, RedirectAttributes redirectAttributes){
         Album album = albumService.find(id);
@@ -171,12 +137,8 @@ public class ReportController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "albums/{id}/act", method = RequestMethod.POST)
     public String actOnAlbumReport(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        try {
-            reportService.actOnAlbumReport(id);
-            redirectAttributes.addFlashAttribute("message", "Album and the report has been successfully removed");
-        } catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("error", ex.getMessage());
-        }
+        reportService.actOnAlbumReport(id);
+        redirectAttributes.addFlashAttribute("message", "Album and the report has been successfully removed");
         
         return Routes.ANIMALPICTURE_REPORTS_REDIRECT;
     }
@@ -203,21 +165,6 @@ public class ReportController {
         return Routes.ANIMALPICTURE_REPORTS_TEMPLATE;
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "animalpictures/{id}", method = RequestMethod.GET)
-    public String getAnimalPictureReport(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model){
-        AnimalPictureReport animalPictureReport = reportService.getAnimalPictureReport(id);
-        
-        if(animalPictureReport == null){
-            redirectAttributes.addFlashAttribute("error", "AnimalPictureReport not found");
-            
-            return Routes.ANIMALPICTURE_REPORTS_REDIRECT;
-        }
-        
-        model.addAttribute("animalPictureReport", animalPictureReport);
-        return Routes.ANIMALPICTURE_REPORTS_TEMPLATE;
-    }
-    
     @RequestMapping(value = "animalpictures/{id}", method = RequestMethod.POST)
     public String postAnimalPictureReport(@PathVariable Long id, @RequestParam String reason, RedirectAttributes redirectAttributes){
         AnimalPicture animalPicture = animalPictureService.getById(id);
@@ -238,12 +185,8 @@ public class ReportController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "animalpictures/{id}/act", method = RequestMethod.POST)
     public String actOnAnimalPictureReport(@PathVariable Long id, RedirectAttributes redirectAttributes){
-        try {
-            reportService.actOnAnimalPictureReport(id);
-            redirectAttributes.addFlashAttribute("message", "AnimalPicture and the report has been successfully removed");
-        } catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("error", ex.getMessage());
-        }
+        reportService.actOnAnimalPictureReport(id);
+        redirectAttributes.addFlashAttribute("message", "AnimalPicture and the report has been successfully removed");
         
         return Routes.ANIMALPICTURE_REPORTS_REDIRECT;
     }

@@ -54,12 +54,12 @@ public class ReportService {
         return commentReportRepository.findOne(id);
     }
     
-    public void actOnCommentReport(Long id) throws Exception {
+    public void actOnCommentReport(Long id) throws IllegalArgumentException {
         CommentReport commentReport = commentReportRepository.findOne(id);
         if(commentReport == null){
-            throw new Exception("CommentReport not found");
+            throw new IllegalArgumentException("CommentReport not found");
         } else {
-            commentService.delete(commentReport.getComment());
+            commentService.delete(commentReport.getComment().getId());
             commentReportRepository.delete(id);
         }
     }
@@ -80,12 +80,12 @@ public class ReportService {
         return albumReportRepository.findOne(id);
     }
 
-    public void actOnAlbumReport(Long id) throws Exception {
+    public void actOnAlbumReport(Long id) throws IllegalArgumentException {
         AlbumReport albumReport = albumReportRepository.findOne(id);
         if(albumReport == null){
-            throw new Exception("AlbumReport not found");
+            throw new IllegalArgumentException("AlbumReport not found");
         } else {
-            albumService.delete(albumReport.getAlbum());
+            albumService.delete(albumReport.getAlbum().getId());
             albumReportRepository.delete(id);
         }
     }
@@ -106,12 +106,12 @@ public class ReportService {
         return animalPictureReportRepository.findOne(id);
     }
     
-    public void actOnAnimalPictureReport(Long id) throws Exception {
+    public void actOnAnimalPictureReport(Long id) throws IllegalArgumentException {
         AnimalPictureReport animalPictureReport = animalPictureReportRepository.findOne(id);
         if(animalPictureReport == null){
-            throw new Exception("AnimalPictureReport not found");
+            throw new IllegalArgumentException("AnimalPictureReport not found");
         } else {
-            animalPictureService.delete(animalPictureReport.getAnimalPicture());
+            animalPictureService.delete(animalPictureReport.getAnimalPicture().getId());
             animalPictureReportRepository.delete(id);
         }
     }

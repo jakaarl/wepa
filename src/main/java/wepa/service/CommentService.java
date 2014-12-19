@@ -66,7 +66,7 @@ public class CommentService {
         return commentRepository.findOne(id);
     }
     
-    public void delete(Comment comment){
-        commentRepository.delete(comment);
+    public void delete(Long id){
+        commentRepository.delete(id);
     }
 }
