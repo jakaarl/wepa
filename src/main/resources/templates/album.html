@@ -10,12 +10,14 @@
     <div th:replace="fragments/messages">message</div>
     
     <h3 class="album-title"><span  th:if="${album.name != null}" th:text="${album.name}"></span> album page</h3>   
+    <a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/albums/} + ${album.id},data-title=${album.name}" data-type="album" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
     <div  class="container-fluid">
         
         <div th:if="!${#lists.isEmpty(album.animalPictures)}" id="animalpicture-container">
 
             <div th:each="image : ${album.animalPictures}" class="picture border-pastel-blue">
                <div class="title-box" th:if="${image.title != null}" th:text="${image.title}">
+                      <a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/pictures/} + ${picture.id},data-title=${picture.title}" data-type="picture" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
                        Title :)
                </div>
                 <a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>

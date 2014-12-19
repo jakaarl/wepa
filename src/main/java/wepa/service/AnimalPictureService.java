@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import wepa.domain.Album;
 import wepa.domain.AnimalPicture;
+import wepa.domain.Comment;
 import wepa.domain.User;
 import wepa.repository.AnimalPictureRepository;
 
@@ -135,4 +136,11 @@ public class AnimalPictureService {
         return pictureRepo.save(pic);
     }
     
+    public void delete(AnimalPicture animalPicture){
+        pictureRepo.delete(animalPicture);
+    }
+    
+    public void deleteAnimalPictures(List<AnimalPicture> animalPictures){
+        pictureRepo.delete(animalPictures);
+    }
 }

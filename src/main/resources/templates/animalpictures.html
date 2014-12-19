@@ -12,6 +12,7 @@
     <div th:if="!${#lists.isEmpty(images)}" class="container-fluid">
         <div id="animalpicture-container">
             <div  th:each="image : ${images}" class="picture border-pastel-blue">
+                    <a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/pictures/} + ${image.id},data-title=${image.title}" data-type="picture" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
                     <div class="title-box" th:text="${image.title}">
                             Title :)
                     </div>

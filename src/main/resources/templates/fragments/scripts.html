@@ -21,6 +21,20 @@
                 resizeDelay: 50
             });
         });
+
+        $('.report-button').on('click', function(event) {
+            event.preventDefault();
+            var action = $(this).data('action');
+            var form = $('#submitReportModal');
+            if($(this).data('title') !== undefined){
+            	form.find('.data-title').text($(this).data('title'));
+            }
+            if($(this).data('type') !== undefined){
+            	form.find('.data-type').text($(this).data('type'));
+            }
+            form.attr("action", action);
+            form.modal();
+        });
         
         $('.like-box').on('click', function(event) {
             event.preventDefault();
@@ -28,21 +42,21 @@
             var address = "/pictures/" + $(this).attr('id');
             var like = "/like";
            // var dislike = "/dislike";
-            
+
            // if (clickedEl.attr('href')==(address+like)){
            //     address += dislike;
           //  } else {
-                address += like;
+            address += like;
           //  } 
-            jQuery.ajax($(this).attr('href'), {type: 'GET'})
-                    .done(function(data){
-                        clickedEl.addClass("liked");
+          jQuery.ajax($(this).attr('href'), {type: 'GET'})
+          .done(function(data){
+            clickedEl.addClass("liked");
                         //clickedEl.attr('href', address)
                         clickedEl.find("span").html(data);
                     });
-                    
-            return false;
-        });
+
+          return false;
+      });
 
         $(function() {
             var currentPath = $(location).attr('href');
@@ -53,8 +67,8 @@
                         //and if path not end with 'albums' nor 'albums/'
                         // sets form action attr to currentPath
                         $("#submitAnimalPicModal").attr("action",currentPath);
+                    }
                 }
-            }
             //shows modal
             if (window.location.hash.indexOf("submitAnimalPicModal") !== -1) {             
                 $("#submitAnimalPicModal").modal();
@@ -63,6 +77,6 @@
             } 
         });
 
-        
-    });
+
+});
 </script>

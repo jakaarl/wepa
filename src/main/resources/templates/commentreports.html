@@ -10,48 +10,37 @@
 	<div th:replace="fragments/messages">message</div>
 	
 	<div class="container-fluid">
-		<div class="row commentReports" th:if="${commentReports != null}">
-			<div class="col-sm-12" th:each="commentReport : ${commentReports}">
-				<div class="row">
-					<div class="col-sm-8">
-						<h1 th:text="${commentReport.comment.comment}"></h1>
-					</div>
-					<div class="col-sm-4">
-						<h2 th:text="${commentReport.comment.author.username}"></h2>
-					</div>
-				<div class="row">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="picture">
-							<a th:href="@{/pictures/} + ${commentReport.picture.id}"><img  th:attr="src=@{/pictures/} + ${commentReport.picture.id} + @{/src}" /></a>
-							<div class="row album-pictures animalpicture-container">
-								<div class="col-sm-4 album-thumbnail-image" th:each="image : ${albumReport.album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
-							</div>
-							<div class="album-statistics">
-								<div class="pull-right">
-									<div class="total-images"><i class="fa fa-image"></i> <span th:text="${#lists.size(albumReport.album.animalPictures)}" /></div>
-									<i class="fa fa-heart-o"></i> <span th:text="${albumReport.album.likes}" />
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-8" th:text="${albumReport.reason}">
-						
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6" th:text="${albumReport.sentBy}">
-						
-					</div>
-					<div class="col-sm-6" th:text="${albumReport.created}">
-						
-					</div>
-				</div>
-			</div>
-		</div>
-		<div th:if="${#lists.isEmpty(albumReports)}">
+		<table class="table table-striped" th:if="${commentReports != null}">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Date</th>
+					<th>Sent By</th>
+					<th>Reason</th>
+					<th>Comment</th>
+					<th>Comment made by</th>
+					<th>Comment made</th>
+					<th>Act on</th>
+					<th>Delete Report</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="commentReport : ${commentReports}">
+					<td th:text="${commentReport.id}"></td>
+					<td th:text="${commentReport.created}"></td>
+					<td th:text="${commentReport.sentBy.username}"></td>
+					<td th:text="${commentReport.reason}"></td>
+					<td th:text="${commentReport.comment.comment}"></td>
+					<td th:text="${commentReport.comment.author.username}"></td>
+					<td th:text="${commentReport.comment.created}"></td>
+					<td><form method="POST" th:action="@{/reports/comments/} + ${commentReport.id} + @{/act}"><button type="submit" class="btn btn-primary">Act on</button></form></td>
+					<td><form method="DELETE" th:action="@{/reports/comments/} + ${commentReport.id}"><button type="submit" class="btn btn-danger">Delete</button></form></td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:if="${#lists.isEmpty(commentReports)}">
 			<center>
-				<h1 class="no-data">No albumreports yet(?)</h1>
+				<h1 class="no-data">No commentreports yet(?)</h1>
 			</center>
 		</div>
 	</div>

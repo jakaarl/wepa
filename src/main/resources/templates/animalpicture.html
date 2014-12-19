@@ -15,6 +15,7 @@
                 <img th:attr="src=@{/pictures/} + ${picture.id} + @{/src}" class="image" /> 
             </div>
             <div class="col-sm-5">
+                <a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/pictures/} + ${picture.id},data-title=${picture.title}" data-type="picture" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
                 <h1 class="image-title" th:text="${picture.title}">Image title</h1>
                 <a th:href="@{/users/} + ${picture.author.id}"><small th:text="${picture.author.username}">Username</small></a>
                 <p th:text="${picture.description}">Image description</p>
@@ -27,6 +28,7 @@
                     <div th:if="!${#lists.isEmpty(picture.comments)}" th:each="comment : ${comments}" class="row clearfix comment">
                         <div class="col-md-12 column">
                             <a th:href="@{/users/} + ${comment.author.id}"><h2 class="comment-title" th:text="${comment.author.username}">Username</h2></a>
+                            <a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/comments/} + ${comment.id}" data-type="comment" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
                             <p th:text="${comment.comment}"></p>
                             <p>
                                 <span class="pull-right timestamp" th:text="${comment.created}">24.4.2014</span>

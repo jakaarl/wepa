@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head th:replace="fragments/head">
+	<meta charset="utf-8" />
+	<title>Cutenimals!!!</title>
+	<link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+	<nav th:replace="fragments/nav"></nav>
+	<div th:replace="fragments/messages">message</div>
+	
+	<div class="container-fluid">
+		<table class="table table-striped" th:if="${animalPictureReports != null}">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Date</th>
+					<th>Sent By</th>
+					<th>Reason</th>
+					<th>Album title</th>
+					<th>Album made by</th>
+					<th>Album made</th>
+					<th>Act on</th>
+					<th>Delete Report</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="animalPictureReport : ${animalPictureReports}">
+					<td th:text="${animalPictureReport.id}"></td>
+					<td th:text="${animalPictureReport.created}"></td>
+					<td th:text="${animalPictureReport.sentBy.username}"></td>
+					<td th:text="${animalPictureReport.reason}"></td>
+					<td th:text="${animalPictureReport.animalPicture.title}"></td>
+					<td th:text="${animalPictureReport.animalPicture.author.username}"></td>
+					<td th:text="${animalPictureReport.animalPicture.created}"></td>
+					<td><form method="POST" th:action="@{/reports/animalpictures/} + ${animalPictureReport.id} + @{/act}"><button type="submit" class="btn btn-primary">Act on</button></form></td>
+					<td><form method="DELETE" th:action="@{/reports/animalpictures/} + ${animalPictureReport.id}"><button type="submit" class="btn btn-danger">Delete</button></form></td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:if="${#lists.isEmpty(albumReports)}">
+			<center>
+				<h1 class="no-data">No albumreports yet(?)</h1>
+			</center>
+		</div>
+	</div>
+	
+	<div th:replace="fragments/modals">modals</div>
+	<script th:replace="fragments/scripts">scripts</script>
+  </body>
+</html>

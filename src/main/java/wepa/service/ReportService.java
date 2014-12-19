@@ -3,12 +3,16 @@ package wepa.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wepa.domain.AlbumReport;
 import wepa.domain.AnimalPictureReport;
 import wepa.domain.CommentReport;
 import wepa.repository.AlbumReportRepository;
+import wepa.repository.AlbumRepository;
 import wepa.repository.AnimalPictureReportRepository;
+import wepa.repository.AnimalPictureRepository;
 import wepa.repository.AnimalReportRepository;
+import wepa.repository.AnimalRepository;
 import wepa.repository.CommentReportRepository;
 
 @Service
@@ -18,13 +22,25 @@ public class ReportService {
     AlbumReportRepository albumReportRepository;
     
     @Autowired
+    AlbumService albumService;
+    
+    @Autowired
     AnimalReportRepository animalReportRepository;
+    
+    @Autowired
+    AnimalService animalService;
     
     @Autowired
     AnimalPictureReportRepository animalPictureReportRepository;
     
     @Autowired
+    AnimalPictureService animalPictureService;
+    
+    @Autowired
     CommentReportRepository commentReportRepository;
+    
+    @Autowired
+    CommentService commentService;
     
     public List<CommentReport> getCommentReports() {
         return commentReportRepository.findAll();
@@ -37,7 +53,17 @@ public class ReportService {
     public CommentReport getCommentReport(Long id) {
         return commentReportRepository.findOne(id);
     }
-
+    
+    public void actOnCommentReport(Long id) throws Exception {
+        CommentReport commentReport = commentReportRepository.findOne(id);
+        if(commentReport == null){
+            throw new Exception("CommentReport not found");
+        } else {
+            commentService.delete(commentReport.getComment());
+            commentReportRepository.delete(id);
+        }
+    }
+    
     public void deleteCommentReport(Long id) {
         commentReportRepository.delete(id);
     }
@@ -54,6 +80,16 @@ public class ReportService {
         return albumReportRepository.findOne(id);
     }
 
+    public void actOnAlbumReport(Long id) throws Exception {
+        AlbumReport albumReport = albumReportRepository.findOne(id);
+        if(albumReport == null){
+            throw new Exception("AlbumReport not found");
+        } else {
+            albumService.delete(albumReport.getAlbum());
+            albumReportRepository.delete(id);
+        }
+    }
+    
     public void deleteAlbumReport(Long id) {
         albumReportRepository.delete(id);
     }
@@ -69,9 +105,18 @@ public class ReportService {
     public AnimalPictureReport getAnimalPictureReport(Long id) {
         return animalPictureReportRepository.findOne(id);
     }
-
+    
+    public void actOnAnimalPictureReport(Long id) throws Exception {
+        AnimalPictureReport animalPictureReport = animalPictureReportRepository.findOne(id);
+        if(animalPictureReport == null){
+            throw new Exception("AnimalPictureReport not found");
+        } else {
+            animalPictureService.delete(animalPictureReport.getAnimalPicture());
+            animalPictureReportRepository.delete(id);
+        }
+    }
+    
     public void deleteAnimalPictureReport(Long id) {
         animalPictureReportRepository.delete(id);
     }
-    
 }

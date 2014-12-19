@@ -20,20 +20,20 @@
                                 </div>
                         </div>
                         <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Peruuta</button>
-                                <button type="submit" class="btn btn-primary">Lisää</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">CancelAdd</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
                         </div>
                 </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
 </form><!-- /.modal -->
 
 <!-- SubmitAnimalPicModal -->
-<form method="POST" th:action="@{/pictures/}" enctype="multipart/form-data" class="modal fade bs-example-modal-sm" tabindex="-1" id="submitAnimalPicModal">
+<form sec:authorize="isAuthenticated()" method="POST" th:action="@{/pictures/}" enctype="multipart/form-data" class="modal fade bs-example-modal-sm" tabindex="-1" id="submitAnimalPicModal">
         <div class="modal-dialog">
                 <div class="modal-content">
                         <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Sulje</span></button>
-                                <h4 class="modal-title">Lisää eläinkuva</h4>
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">Add a new Animal Picture</h4>
                         </div>
                         <div class="modal-body">
                    <!--      <div class="form-group" th:classappend="${#fields.hasErrors('title')} ? 'has-error'">
@@ -43,17 +43,48 @@
                             </ul>
                         </div>-->
                                 <div class="form-group">
-                                        <label for="title">Otsikko</label>
+                                        <label for="title">Title</label>
                                         <input name="title" th:value="${title}" id="title" type="text" placeholder="Otsikko" class="form-control" />
                                 </div>
                                 <div class="form-group">
-                                        <label for="description">Kuvaus</label>
+                                        <label for="description">Description</label>
                                         <input name="description" th:value="${description}" id="description" type="textarea" placeholder="Kuvaus" class="form-control" />
                                 </div>
                                 <div class="form-group">
-                                        <label for="file">Kuva</label>
+                                        <label for="file">Picture</label>
                                         <input name="file" id="file" type="file" placeholder="Kuva" class="form-control" />
                                 </div> 
+                                <div class="alert alert-danger" th:if="${error != null}">
+                                         <strong th:text="${error}">Error!</strong>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+</form><!-- /.modal -->
+
+<!-- SubmitReportModal -->
+<form sec:authorize="isAuthenticated()" method="POST" enctype="multipart/form-data" class="modal fade bs-example-modal-sm" tabindex="-1" id="submitReportModal">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">Report <span class="data-title"></span> <span class="data-type"></span></h4>
+                        </div>
+                        <div class="modal-body">
+                   <!--      <div class="form-group" th:classappend="${#fields.hasErrors('title')} ? 'has-error'">
+                            <input type="text" th:field="${title}" class="form-control input-sm" placeholder="Title" />
+                            <ul th:id="${#fields.hasErrors('title')}">
+                                <li th:each="err : ${#fields.errors('title')}" th:text="${err}" />
+                            </ul>
+                        </div>-->
+                                <div class="form-group">
+                                        <label for="reason">Reason</label>
+                                        <input name="reason" th:value="${reason}" id="reason" type="textarea" placeholder="Enter the reason why you think, this content shouldn't be on the site..." class="form-control" />
+                                </div>
                                 <div class="alert alert-danger" th:if="${error != null}">
                                          <strong th:text="${error}">Error!</strong>
                                 </div>

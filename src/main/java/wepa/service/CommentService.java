@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import wepa.domain.AnimalPicture;
 import wepa.domain.Comment;
 import wepa.domain.User;
-import wepa.repository.AnimalPictureRepository;
 import wepa.repository.CommentRepository;
 
 @Service
@@ -25,7 +24,7 @@ public class CommentService {
     private UserService userService;
     
     @Autowired
-    private AnimalPictureRepository animalPictureRepository;
+    private AnimalPictureService animalPictureService;
     
     public List<Comment> getLatestComments(AnimalPicture picture, int maxCount) {
         Pageable limit = new PageRequest(0, maxCount, Sort.Direction.DESC, "created");
@@ -46,7 +45,7 @@ public class CommentService {
             throw new IllegalArgumentException("Comment can not be empty!");   
         }
         
-        AnimalPicture animalPicture = animalPictureRepository.findOne(pictureId);
+        AnimalPicture animalPicture = animalPictureService.getById(pictureId);
         if(animalPicture == null){
             throw new IllegalArgumentException("Animal picture was not found!");
         }
@@ -60,11 +59,14 @@ public class CommentService {
         comment.setPicture(animalPicture);
         comment.setAuthor(user);
         comment = commentRepository.save(comment);
-        animalPicture.getComments().add(comment);
-        animalPictureRepository.save(animalPicture);
-        user.getComments().add(comment);
-        userService.save(user);
         return comment;
     }
+
+    public Comment getComment(Long id) {
+        return commentRepository.findOne(id);
+    }
     
+    public void delete(Comment comment){
+        commentRepository.delete(comment);
+    }
 }
