@@ -17,7 +17,7 @@
 
             <div th:each="image : ${album.animalPictures}" class="picture border-pastel-blue">
                <div class="title-box" th:if="${image.title != null}" th:text="${image.title}">
-                      <a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/pictures/} + ${picture.id},data-title=${picture.title}" data-type="picture" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
+                      <a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/animalpictures/} + ${picture.id},data-title=${picture.title}" data-type="picture" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
                        Title :)
                </div>
                 <a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>

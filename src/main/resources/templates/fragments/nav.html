@@ -28,6 +28,9 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span sec:authentication="principal.username">Username</span> <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#" th:href="@{/reports/albums}" sec:authorize="hasRole('ADMIN')">Album Reports</a></li>
+                                            <li><a href="#" th:href="@{/reports/animalpictures}" sec:authorize="hasRole('ADMIN')">Animal Picture Reports</a></li>
+                                            <li><a href="#" th:href="@{/reports/comments}" sec:authorize="hasRole('ADMIN')">Comment Reports</a></li>
                                             <li><a href="#" th:href="@{/users/} + ${@currentUserProvider.getUserId()}">Your profile</a></li>
                                             <li><a href="#" th:href="@{/users/} + ${@currentUserProvider.getUserId()} + '/pictures'">View your pictures</a></li>
                                             <li class="divider"></li>

@@ -14,6 +14,7 @@
 			<div th:each="image : ${firstPictures}" class="col-sm-4">
 				<div class="picture border-pastel-blue">
 					<div class="title-box" th:text="${image.title}">
+						<a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/animalpictures/} + ${image.id},data-title=${image.title}" data-type="picture" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
 						Title :)
 					</div>
 					<a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>
@@ -34,7 +35,7 @@
 			<div class="col-sm-12" th:each="album : ${firstAlbums}">
 				<div class="album">
 					<a th:href="@{/albums/} + ${album.id}"><h1 class="album-title" th:text="${album.name}">Album Name</h1></a>
-					<a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
+					<a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/albums/} + ${album.id},data-title=${album.name}" data-type="album" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
 					<div class="row album-pictures animalpicture-container">
 						<div class="col-sm-4 album-thumbnail-image" th:each="image : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
 					</div>
@@ -51,6 +52,7 @@
 			<div th:each="image : ${secondPictures}" class="col-sm-4">
 				<div class="picture border-pastel-blue">
 					<div class="title-box" th:text="${image.title}">
+						<a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/animalpictures/} + ${image.id},data-title=${image.title}" data-type="picture" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
 						Title :)
 					</div>
 					<a th:href="@{/pictures/} + ${image.id}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></a>
@@ -71,7 +73,7 @@
 			<div class="col-sm-12" th:each="album : ${secondAlbums}">
 				<div class="album">
 					<a th:href="@{/albums/} + ${album.id}"><h1 class="album-title" th:text="${album.name}">Album Name</h1></a>
-					<a class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
+					<a sec:authorize="isAuthenticated()" th:attr="data-action=@{/reports/albums/} + ${album.id},data-title=${album.name}" data-type="album" class="report-button"><i class="fa fa-exclamation-triangle"></i></a>
 					<div class="row album-pictures animalpicture-container">
 						<div class="col-sm-4 album-thumbnail-image" th:each="image : ${album.getMax3AnimalPictures()}"><img th:attr="src=@{/pictures/} + ${image.id} + @{/src}" /></div>
 					</div>

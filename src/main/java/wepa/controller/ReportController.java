@@ -90,12 +90,12 @@ public class ReportController {
             commentReport.setSentBy(userService.getAuthenticatedPerson());
             reportService.saveCommentReport(commentReport);
             if(comment.getComment().length() > 50){
-                redirectAttributes.addAttribute("message", "Comment \"" + comment.getComment().substring(0, 50) + "...\" reported");
+                redirectAttributes.addFlashAttribute("message", "Comment \"" + comment.getComment().substring(0, 50) + "...\" reported");
             } else {
-                redirectAttributes.addAttribute("message", "Comment \"" + comment.getComment() + "\" reported");
+                redirectAttributes.addFlashAttribute("message", "Comment \"" + comment.getComment() + "\" reported");
             }
         } else {
-            redirectAttributes.addAttribute("error", "Comment not found, so it has not been reported");
+            redirectAttributes.addFlashAttribute("error", "Comment not found, so it has not been reported");
         }
         
         return Routes.INDEX_REDIRECT;
@@ -106,9 +106,9 @@ public class ReportController {
     public String actOnCommentReport(@PathVariable Long id, RedirectAttributes redirectAttributes){
         try {
             reportService.actOnCommentReport(id);
-            redirectAttributes.addAttribute("message", "Comment and the report has been successfully removed");
+            redirectAttributes.addFlashAttribute("message", "Comment and the report has been successfully removed");
         } catch (Exception ex) {
-            redirectAttributes.addAttribute("error", ex.getMessage());
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
         
         return Routes.COMMENT_REPORTS_REDIRECT;
@@ -160,9 +160,9 @@ public class ReportController {
             albumReport.setAlbum(album);
             albumReport.setSentBy(userService.getAuthenticatedPerson());
             reportService.saveAlbumReport(albumReport);
-            redirectAttributes.addAttribute("message", "Album \"" + album.getName() + "\" reported");
+            redirectAttributes.addFlashAttribute("message", "Album \"" + album.getName() + "\" reported");
         } else {
-            redirectAttributes.addAttribute("error", "Album not found, so it has not been reported");
+            redirectAttributes.addFlashAttribute("error", "Album not found, so it has not been reported");
         }
         
         return Routes.INDEX_REDIRECT;
@@ -173,9 +173,9 @@ public class ReportController {
     public String actOnAlbumReport(@PathVariable Long id, RedirectAttributes redirectAttributes){
         try {
             reportService.actOnAlbumReport(id);
-            redirectAttributes.addAttribute("message", "Album and the report has been successfully removed");
+            redirectAttributes.addFlashAttribute("message", "Album and the report has been successfully removed");
         } catch (Exception ex) {
-            redirectAttributes.addAttribute("error", ex.getMessage());
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
         
         return Routes.ANIMALPICTURE_REPORTS_REDIRECT;
@@ -227,9 +227,9 @@ public class ReportController {
             animalPictureReport.setAnimalPicture(animalPicture);
             animalPictureReport.setSentBy(userService.getAuthenticatedPerson());
             reportService.saveAnimalPictureReport(animalPictureReport);
-            redirectAttributes.addAttribute("message", "Animal Picture \"" + animalPicture.getTitle() + "\" reported");
+            redirectAttributes.addFlashAttribute("message", "Animal Picture \"" + animalPicture.getTitle() + "\" reported");
         } else {
-            redirectAttributes.addAttribute("error", "Animal Picture not found, so it has not been reported");
+            redirectAttributes.addFlashAttribute("error", "Animal Picture not found, so it has not been reported");
         }
         
         return Routes.INDEX_REDIRECT;
@@ -240,9 +240,9 @@ public class ReportController {
     public String actOnAnimalPictureReport(@PathVariable Long id, RedirectAttributes redirectAttributes){
         try {
             reportService.actOnAnimalPictureReport(id);
-            redirectAttributes.addAttribute("message", "AnimalPicture and the report has been successfully removed");
+            redirectAttributes.addFlashAttribute("message", "AnimalPicture and the report has been successfully removed");
         } catch (Exception ex) {
-            redirectAttributes.addAttribute("error", ex.getMessage());
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
         
         return Routes.ANIMALPICTURE_REPORTS_REDIRECT;
